@@ -105,6 +105,101 @@ def _anthropic_tools_to_openai(tools: list) -> list:
 
 
 # ═══════════════════════════════════════════════════════════
+# Message translation: Anthropic content blocks -> OpenAI format
+# ═══════════════════════════════════════════════════════════
+
+def _anthropic_messages_to_openai(messages: list) -> list:
+    """Convert Anthropic-format messages to OpenAI-compatible format.
+
+    Anthropic uses content blocks in messages:
+        {"role": "assistant", "content": [{"type": "text", "text": "..."},
+                                           {"type": "tool_use", "id": "..", "name": "..", "input": {..}}]}
+        {"role": "user", "content": [{"type": "tool_result", "tool_use_id": "..", "content": ".."}]}
+
+    OpenAI uses:
+        {"role": "assistant", "content": "text", "tool_calls": [{"id": "..", "type": "function", "function": {...}}]}
+        {"role": "tool", "tool_call_id": "..", "content": ".."}
+    """
+    result = []
+    for msg in messages:
+        role = msg.get("role", "")
+        content = msg.get("content", "")
+
+        # Simple string content — pass through
+        if isinstance(content, str):
+            result.append({"role": role, "content": content})
+            continue
+
+        # Content is a list of blocks — translate
+        if isinstance(content, list):
+            text_parts = []
+            tool_calls = []
+            tool_results = []
+
+            for block in content:
+                if not isinstance(block, dict):
+                    # SDK object — extract dict
+                    if hasattr(block, "type"):
+                        block = {"type": block.type, "text": getattr(block, "text", ""),
+                                 "name": getattr(block, "name", ""), "input": getattr(block, "input", {}),
+                                 "id": getattr(block, "id", ""),
+                                 "tool_use_id": getattr(block, "tool_use_id", ""),
+                                 "content": getattr(block, "content", "")}
+                    else:
+                        continue
+
+                btype = block.get("type", "")
+
+                if btype == "text":
+                    text_parts.append(str(block.get("text", "")))
+
+                elif btype == "tool_use":
+                    tool_calls.append({
+                        "id": block.get("id", ""),
+                        "type": "function",
+                        "function": {
+                            "name": block.get("name", ""),
+                            "arguments": json.dumps(block.get("input", {}), ensure_ascii=False),
+                        },
+                    })
+
+                elif btype == "tool_result":
+                    tool_results.append({
+                        "role": "tool",
+                        "tool_call_id": block.get("tool_use_id", ""),
+                        "content": str(block.get("content", "")),
+                    })
+
+            # Build OpenAI-format messages
+            if role == "assistant":
+                out = {"role": "assistant"}
+                if text_parts:
+                    out["content"] = "\n".join(text_parts)
+                else:
+                    out["content"] = None
+                if tool_calls:
+                    out["tool_calls"] = tool_calls
+                result.append(out)
+
+            elif role == "user":
+                if tool_results:
+                    # In OpenAI format, each tool_result is a separate "tool" role message
+                    result.extend(tool_results)
+                if text_parts:
+                    result.append({"role": "user", "content": "\n".join(text_parts)})
+                elif not tool_results:
+                    result.append({"role": "user", "content": ""})
+
+            else:
+                result.append({"role": role, "content": "\n".join(text_parts) if text_parts else ""})
+
+        else:
+            result.append({"role": role, "content": str(content)})
+
+    return result
+
+
+# ═══════════════════════════════════════════════════════════
 # Response normalization: OpenAI -> Anthropic-like
 # ═══════════════════════════════════════════════════════════
 
@@ -235,7 +330,8 @@ class MessagesAPI:
 
         else:
             # — OpenAI-compatible path (deepseek, openai, openai_compat, qwen, glm, etc.) —
-            openai_messages = list(messages)
+            # Translate messages from Anthropic content-block format to OpenAI format
+            openai_messages = _anthropic_messages_to_openai(messages)
 
             # System prompt: OpenAI uses a system message, not a keyword
             if system:
