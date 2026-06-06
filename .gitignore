@@ -12,3 +12,4 @@ node_modules/
 .pytest_cache/
 dist/
 *.tsbuildinfo
+next-env.d.ts
