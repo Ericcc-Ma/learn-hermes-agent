@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 480" style="background:#f8f9fa;font-family:system-ui,sans-serif">
+  <defs>
+    <marker id="arrowBlue" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#1976D2"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#388E3C"/>
+    </marker>
+    <marker id="arrowOrange" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#F57C00"/>
+    </marker>
+    <marker id="arrowGray" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#78909C"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="425" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1565C0">Agent Loop with Memory (Agent 循环与记忆)</text>
+
+  <!-- User Input -->
+  <rect x="30" y="60" width="140" height="50" rx="8" fill="#E3F2FD" stroke="#1976D2" stroke-width="2"/>
+  <text x="100" y="90" text-anchor="middle" font-size="14" font-weight="bold" fill="#1565C0">User Input (用户输入)</text>
+
+  <!-- Messages Array -->
+  <rect x="240" y="55" width="170" height="60" rx="8" fill="#E8F5E9" stroke="#388E3C" stroke-width="2"/>
+  <text x="325" y="78" text-anchor="middle" font-size="13" font-weight="bold" fill="#2E7D32">messages[]</text>
+  <text x="325" y="98" text-anchor="middle" font-size="11" fill="#388E3C">系统提示 + 对话历史 + 记忆</text>
+
+  <!-- LLM Call -->
+  <rect x="480" y="55" width="150" height="60" rx="8" fill="#E3F2FD" stroke="#1976D2" stroke-width="2"/>
+  <text x="555" y="78" text-anchor="middle" font-size="14" font-weight="bold" fill="#1565C0">LLM 调用</text>
+  <text x="555" y="98" text-anchor="middle" font-size="11" fill="#1976D2">模型推理</text>
+
+  <!-- Response -->
+  <rect x="700" y="55" width="120" height="60" rx="8" fill="#E3F2FD" stroke="#1976D2" stroke-width="2"/>
+  <text x="760" y="78" text-anchor="middle" font-size="14" font-weight="bold" fill="#1565C0">Response</text>
+  <text x="760" y="98" text-anchor="middle" font-size="11" fill="#1976D2">响应输出</text>
+
+  <!-- Stop Reason Check -->
+  <rect x="605" y="155" width="150" height="55" rx="8" fill="#FFF3E0" stroke="#F57C00" stroke-width="2"/>
+  <text x="680" y="178" text-anchor="middle" font-size="13" font-weight="bold" fill="#E65100">stop_reason 检查</text>
+  <text x="680" y="196" text-anchor="middle" font-size="11" fill="#F57C00">end_turn / tool_use</text>
+
+  <!-- Tool Execution -->
+  <rect x="445" y="250" width="160" height="55" rx="8" fill="#FFF3E0" stroke="#F57C00" stroke-width="2"/>
+  <text x="525" y="273" text-anchor="middle" font-size="13" font-weight="bold" fill="#E65100">Tool Execution (工具执行)</text>
+  <text x="525" y="293" text-anchor="middle" font-size="11" fill="#F57C00">执行工具并收集结果</text>
+
+  <!-- Memory System (side) -->
+  <rect x="30" y="155" width="175" height="230" rx="8" fill="#E8F5E9" stroke="#388E3C" stroke-width="2" stroke-dasharray="6,3"/>
+  <text x="117" y="180" text-anchor="middle" font-size="14" font-weight="bold" fill="#2E7D32">Memory System</text>
+  <text x="117" y="198" text-anchor="middle" font-size="13" fill="#2E7D32">(记忆系统)</text>
+
+  <!-- Memory Injection -->
+  <rect x="50" y="215" width="135" height="45" rx="6" fill="#C8E6C9" stroke="#388E3C" stroke-width="1.5"/>
+  <text x="117" y="235" text-anchor="middle" font-size="12" fill="#1B5E20">Memory Injection</text>
+  <text x="117" y="252" text-anchor="middle" font-size="10" fill="#2E7D32">记忆注入到消息列表</text>
+
+  <!-- Memory Extraction -->
+  <rect x="50" y="280" width="135" height="45" rx="6" fill="#C8E6C9" stroke="#388E3C" stroke-width="1.5"/>
+  <text x="117" y="300" text-anchor="middle" font-size="12" fill="#1B5E20">Memory Extraction</text>
+  <text x="117" y="317" text-anchor="middle" font-size="10" fill="#2E7D32">从对话中提取记忆</text>
+
+  <!-- Memory Store -->
+  <rect x="50" y="340" width="135" height="35" rx="6" fill="#A5D6A7" stroke="#388E3C" stroke-width="1.5"/>
+  <text x="117" y="361" text-anchor="middle" font-size="11" fill="#1B5E20">记忆持久化存储</text>
+
+  <!-- Done -->
+  <rect x="700" y="155" width="110" height="40" rx="8" fill="#E8F5E9" stroke="#388E3C" stroke-width="2"/>
+  <text x="755" y="180" text-anchor="middle" font-size="13" font-weight="bold" fill="#2E7D32">Done (结束)</text>
+
+  <!-- Arrows -->
+  <line x1="170" y1="85" x2="235" y2="85" stroke="#1976D2" stroke-width="2" marker-end="url(#arrowBlue)"/>
+  <line x1="410" y1="85" x2="475" y2="85" stroke="#1976D2" stroke-width="2" marker-end="url(#arrowBlue)"/>
+  <line x1="630" y1="85" x2="695" y2="85" stroke="#1976D2" stroke-width="2" marker-end="url(#arrowBlue)"/>
+
+  <!-- Response to stop_reason -->
+  <line x1="760" y1="115" x2="680" y2="152" stroke="#F57C00" stroke-width="2" marker-end="url(#arrowOrange)"/>
+
+  <!-- stop_reason: tool_use -> Tool Execution -->
+  <line x1="680" y1="210" x2="525" y2="247" stroke="#F57C00" stroke-width="2" marker-end="url(#arrowOrange)"/>
+  <text x="640" y="232" text-anchor="middle" font-size="11" fill="#F57C00">tool_use</text>
+
+  <!-- Tool result back to messages -->
+  <path d="M445,278 L250,278 L250,115 L245,115" stroke="#F57C00" stroke-width="2" fill="none" marker-end="url(#arrowOrange)"/>
+  <text x="310" y="268" text-anchor="middle" font-size="10" fill="#F57C00">tool_result 追加</text>
+
+  <!-- end_turn -> Done -->
+  <line x1="755" y1="155" x2="755" y2="130" stroke="#388E3C" stroke-width="2"/>
+  <text x="795" y="145" font-size="10" fill="#388E3C">end_turn</text>
+
+  <!-- Memory Injection arrow -->
+  <line x1="185" y1="237" x2="235" y2="80" stroke="#388E3C" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrowGreen)"/>
+  <text x="215" y="155" text-anchor="middle" font-size="10" fill="#388E3C">注入</text>
+
+  <!-- Memory Extraction arrow -->
+  <path d="M235,110 L200,110 L200,297 L190,297" stroke="#388E3C" stroke-width="1.5" stroke-dasharray="4,3" fill="none" marker-end="url(#arrowGreen)"/>
+  <text x="210" y="205" text-anchor="middle" font-size="10" fill="#388E3C">提取</text>
+
+  <!-- Legend -->
+  <rect x="30" y="415" width="790" height="50" rx="6" fill="#ECEFF1" opacity="0.7"/>
+  <text x="50" y="435" font-size="11" fill="#546E7A">Legend:</text>
+  <rect x="120" y="424" width="14" height="14" rx="3" fill="#E3F2FD" stroke="#1976D2" stroke-width="1.5"/>
+  <text x="138" y="436" font-size="11" fill="#37474F">LLM / Control</text>
+  <rect x="240" y="424" width="14" height="14" rx="3" fill="#E8F5E9" stroke="#388E3C" stroke-width="1.5"/>
+  <text x="258" y="436" font-size="11" fill="#37474F">Memory / Done</text>
+  <rect x="370" y="424" width="14" height="14" rx="3" fill="#FFF3E0" stroke="#F57C00" stroke-width="1.5"/>
+  <text x="388" y="436" font-size="11" fill="#37474F">Decision / Tool</text>
+  <line x1="500" y1="431" x2="540" y2="431" stroke="#1976D2" stroke-width="2" marker-end="url(#arrowBlue)"/>
+  <text x="548" y="436" font-size="11" fill="#37474F">Flow</text>
+  <line x1="600" y1="431" x2="630" y2="431" stroke="#388E3C" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="638" y="436" font-size="11" fill="#37474F">Memory I/O</text>
+</svg>

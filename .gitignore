@@ -1,0 +1,14 @@
+.env
+.env.local
+.memory/
+.skills/
+.hermes/
+__pycache__/
+*.pyc
+.venv/
+.idea/
+node_modules/
+.next/
+.pytest_cache/
+dist/
+*.tsbuildinfo

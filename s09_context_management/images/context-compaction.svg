@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 560" style="background:#f8f9fa;font-family:system-ui,sans-serif">
+  <defs>
+    <marker id="arrowBlue" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#1976D2"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#388E3C"/>
+    </marker>
+    <marker id="arrowOrange" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#F57C00"/>
+    </marker>
+    <marker id="arrowGray" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#78909C"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="425" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1565C0">Context Compaction with Memory Prefetch (上下文压缩与记忆预取)</text>
+
+  <!-- Original messages[] -->
+  <rect x="30" y="55" width="790" height="160" rx="8" fill="white" stroke="#1976D2" stroke-width="2"/>
+  <text x="425" y="80" text-anchor="middle" font-size="14" font-weight="bold" fill="#1565C0">messages[] 原始消息列表</text>
+
+  <!-- Head Protection -->
+  <rect x="50" y="95" width="230" height="55" rx="6" fill="#E8F5E9" stroke="#388E3C" stroke-width="2"/>
+  <text x="165" y="118" text-anchor="middle" font-size="13" font-weight="bold" fill="#2E7D32">Head Protection (前 3 条)</text>
+  <text x="165" y="138" text-anchor="middle" font-size="11" fill="#388E3C">系统提示 + 初始指令</text>
+
+  <!-- Middle Compression -->
+  <rect x="300" y="95" width="250" height="55" rx="6" fill="#FFF3E0" stroke="#F57C00" stroke-width="2"/>
+  <text x="425" y="118" text-anchor="middle" font-size="13" font-weight="bold" fill="#E65100">Middle Compression</text>
+  <text x="425" y="138" text-anchor="middle" font-size="11" fill="#F57C00">消息 #4 ... #n-7 -> 压缩为摘要</text>
+
+  <!-- Tail Protection -->
+  <rect x="570" y="95" width="230" height="55" rx="6" fill="#E8F5E9" stroke="#388E3C" stroke-width="2"/>
+  <text x="685" y="118" text-anchor="middle" font-size="13" font-weight="bold" fill="#2E7D32">Tail Protection (最后 6 条)</text>
+  <text x="685" y="138" text-anchor="middle" font-size="11" fill="#388E3C">最近上下文与指令</text>
+
+  <!-- Aux Model Callout -->
+  <rect x="280" y="170" width="290" height="30" rx="6" fill="#ECEFF1" stroke="#78909C" stroke-width="1.5"/>
+  <text x="425" y="190" text-anchor="middle" font-size="11" fill="#546E7A">Aux Model: Claude Haiku / GPT-4o-mini 低成本摘要</text>
+
+  <!-- Arrow to on_pre_compress -->
+  <line x1="425" y1="215" x2="425" y2="245" stroke="#1976D2" stroke-width="2" marker-end="url(#arrowBlue)"/>
+
+  <!-- on_pre_compress Hook -->
+  <rect x="200" y="250" width="450" height="70" rx="8" fill="#E3F2FD" stroke="#1565C0" stroke-width="2"/>
+  <text x="425" y="275" text-anchor="middle" font-size="14" font-weight="bold" fill="#1565C0">on_pre_compress() Memory Prefetch Hook</text>
+  <text x="425" y="296" text-anchor="middle" font-size="12" fill="#1976D2">在压缩前调用记忆系统, 提取与会话相关的记忆条目</text>
+  <text x="425" y="313" text-anchor="middle" font-size="11" fill="#1565C0">将记忆融入压缩摘要, 确保关键信息不因压缩而丢失</text>
+
+  <!-- Arrow to Summary Template -->
+  <line x1="425" y1="320" x2="425" y2="355" stroke="#1976D2" stroke-width="2" marker-end="url(#arrowBlue)"/>
+
+  <!-- Structured Summary Template -->
+  <rect x="60" y="360" width="730" height="180" rx="8" fill="#E8F5E9" stroke="#388E3C" stroke-width="2"/>
+  <text x="425" y="388" text-anchor="middle" font-size="14" font-weight="bold" fill="#2E7D32">Structured Summary Template (结构化摘要模板)</text>
+
+  <!-- Completed Items -->
+  <rect x="80" y="405" width="330" height="55" rx="6" fill="#C8E6C9" stroke="#388E3C" stroke-width="1.5"/>
+  <text x="245" y="426" text-anchor="middle" font-size="12" font-weight="bold" fill="#1B5E20">Completed Items (已完成)</text>
+  <text x="245" y="446" text-anchor="middle" font-size="10" fill="#2E7D32">已解决问题 / 已完成工具调用 / 已达成目标</text>
+
+  <!-- Pending Items -->
+  <rect x="440" y="405" width="330" height="55" rx="6" fill="#C8E6C9" stroke="#388E3C" stroke-width="1.5"/>
+  <text x="605" y="426" text-anchor="middle" font-size="12" font-weight="bold" fill="#1B5E20">Pending Items (待处理)</text>
+  <text x="605" y="446" text-anchor="middle" font-size="10" fill="#2E7D32">未解决问题 / 进行中任务 / 待跟进事项</text>
+
+  <!-- Key Context -->
+  <rect x="80" y="470" width="690" height="55" rx="6" fill="#C8E6C9" stroke="#388E3C" stroke-width="1.5"/>
+  <text x="425" y="492" text-anchor="middle" font-size="12" font-weight="bold" fill="#1B5E20">Key Context &amp; Decision Points (关键上下文与决策点)</text>
+  <text x="425" y="512" text-anchor="middle" font-size="10" fill="#2E7D32">重要决策理由 / 分支选择依据 / 内存中的相关记忆引用</text>
+
+  <!-- Compressed Output -->
+  <text x="425" y="555" text-anchor="middle" font-size="11" fill="#1565C0">Head(1-3) + Summary(completed + pending + key_context) + Tail(n-6..n) + Injected Memories</text>
+</svg>

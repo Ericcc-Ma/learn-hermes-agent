@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 540" style="background:#f8f9fa;font-family:system-ui,sans-serif">
+  <defs>
+    <marker id="arrowBlue" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#1976D2"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#388E3C"/>
+    </marker>
+    <marker id="arrowOrange" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#F57C00"/>
+    </marker>
+    <marker id="arrowGray" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#78909C"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="425" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1565C0">Curator Phase 1: Auto State Transitions (策展阶段一: 自动状态迁移)</text>
+
+  <!-- Idle Trigger -->
+  <rect x="310" y="55" width="230" height="55" rx="8" fill="#E3F2FD" stroke="#1976D2" stroke-width="2"/>
+  <text x="425" y="78" text-anchor="middle" font-size="14" font-weight="bold" fill="#1565C0">Idle Trigger (空闲触发器)</text>
+  <text x="425" y="98" text-anchor="middle" font-size="11" fill="#1976D2">系统空闲时定时轮询 · 无需 LLM 参与</text>
+
+  <!-- Zero LLM Cost Badge -->
+  <rect x="660" y="55" width="160" height="55" rx="8" fill="#E8F5E9" stroke="#388E3C" stroke-width="2"/>
+  <text x="740" y="78" text-anchor="middle" font-size="13" font-weight="bold" fill="#2E7D32">Zero LLM Cost</text>
+  <text x="740" y="98" text-anchor="middle" font-size="11" fill="#388E3C">纯规则引擎, 零 API 开销</text>
+
+  <!-- Arrow: Trigger -> Rule Engine -->
+  <line x1="425" y1="110" x2="425" y2="140" stroke="#1976D2" stroke-width="2" marker-end="url(#arrowBlue)"/>
+
+  <!-- Rule Engine -->
+  <rect x="200" y="145" width="450" height="85" rx="8" fill="#FFF3E0" stroke="#F57C00" stroke-width="2"/>
+  <text x="425" y="172" text-anchor="middle" font-size="14" font-weight="bold" fill="#E65100">Rule Engine (规则引擎)</text>
+  <text x="425" y="194" text-anchor="middle" font-size="12" fill="#F57C00">逐条检查所有技能的 last_activity_at 时间戳字段</text>
+  <text x="425" y="214" text-anchor="middle" font-size="12" fill="#E65100">判断依据: 是否 pinned?  距上次活跃天数?  总技能数量?</text>
+
+  <!-- Pinned Check Branch -->
+  <path d="M 650,170 L 690,170 L 690,245" stroke="#1976D2" stroke-width="2" fill="none" marker-end="url(#arrowBlue)"/>
+  <text x="678" y="210" text-anchor="middle" font-size="10" fill="#1976D2">pinned == true</text>
+
+  <!-- Pinned Exemption -->
+  <rect x="630" y="250" width="200" height="80" rx="8" fill="#E3F2FD" stroke="#1565C0" stroke-width="2"/>
+  <text x="730" y="278" text-anchor="middle" font-size="13" font-weight="bold" fill="#1565C0">Pinned Exemption</text>
+  <text x="730" y="298" text-anchor="middle" font-size="11" fill="#1976D2">钉选豁免 · 永久保持 Active</text>
+  <text x="730" y="316" text-anchor="middle" font-size="10" fill="#1565C0">手动钉选 / 核心系统技能 / 高频使用</text>
+
+  <!-- Arrow from Rule Engine down -->
+  <line x1="425" y1="230" x2="425" y2="265" stroke="#F57C00" stroke-width="2" marker-end="url(#arrowOrange)"/>
+  <text x="460" y="252" text-anchor="middle" font-size="10" fill="#F57C00">非 pinned</text>
+
+  <!-- Three State Boxes -->
+  <!-- Active -->
+  <rect x="40" y="280" width="200" height="120" rx="10" fill="#E8F5E9" stroke="#388E3C" stroke-width="3"/>
+  <text x="140" y="310" text-anchor="middle" font-size="15" font-weight="bold" fill="#2E7D32">Active (活跃)</text>
+  <text x="140" y="335" text-anchor="middle" font-size="12" fill="#388E3C">技能正常可用状态</text>
+  <text x="140" y="355" text-anchor="middle" font-size="12" fill="#388E3C">last_activity_at &lt; 30 天</text>
+  <text x="140" y="375" text-anchor="middle" font-size="11" fill="#1B5E20">注入上下文窗口</text>
+  <text x="140" y="390" text-anchor="middle" font-size="10" fill="#2E7D32">LLM 可直接调用</text>
+
+  <!-- Stale -->
+  <rect x="325" y="280" width="200" height="120" rx="10" fill="#FFF3E0" stroke="#F57C00" stroke-width="3"/>
+  <text x="425" y="310" text-anchor="middle" font-size="15" font-weight="bold" fill="#E65100">Stale (陈旧)</text>
+  <text x="425" y="335" text-anchor="middle" font-size="12" fill="#F57C00">30 天 &lt;= 未使用 &lt; 90 天</text>
+  <text x="425" y="355" text-anchor="middle" font-size="12" fill="#F57C00">仍在上下文窗口中</text>
+  <text x="425" y="375" text-anchor="middle" font-size="11" fill="#E65100">标记为待清理</text>
+  <text x="425" y="390" text-anchor="middle" font-size="10" fill="#F57C00">等待 Curator Phase 2 审查</text>
+
+  <!-- Archived -->
+  <rect x="610" y="280" width="200" height="120" rx="10" fill="#ECEFF1" stroke="#78909C" stroke-width="3"/>
+  <text x="710" y="310" text-anchor="middle" font-size="15" font-weight="bold" fill="#546E7A">Archived (归档)</text>
+  <text x="710" y="335" text-anchor="middle" font-size="12" fill="#78909C">last_activity_at &gt;= 90 天</text>
+  <text x="710" y="355" text-anchor="middle" font-size="12" fill="#78909C">从上下文窗口移除</text>
+  <text x="710" y="375" text-anchor="middle" font-size="11" fill="#546E7A">保留元数据于数据库</text>
+  <text x="710" y="390" text-anchor="middle" font-size="10" fill="#78909C">可通过搜索/提及重新激活</text>
+
+  <!-- Transition Arrows -->
+  <!-- Active -> Stale -->
+  <path d="M 240,340 L 320,340" stroke="#F57C00" stroke-width="2.5" marker-end="url(#arrowOrange)" fill="none"/>
+  <text x="280" y="328" text-anchor="middle" font-size="12" fill="#E65100" font-weight="bold">超过 30 天</text>
+
+  <!-- Stale -> Archived -->
+  <path d="M 525,340 L 605,340" stroke="#78909C" stroke-width="2.5" marker-end="url(#arrowGray)" fill="none"/>
+  <text x="565" y="328" text-anchor="middle" font-size="12" fill="#546E7A" font-weight="bold">超过 90 天</text>
+
+  <!-- Stale -> Active (reused) -->
+  <path d="M 325,400 L 325,440 L 140,440 L 140,405" stroke="#388E3C" stroke-width="2.5" stroke-dasharray="8,4" fill="none" marker-end="url(#arrowGreen)"/>
+  <text x="232" y="458" text-anchor="middle" font-size="12" fill="#2E7D32" font-weight="bold">Reactivation (重新使用)</text>
+
+  <!-- Transition Rules Summary -->
+  <rect x="40" y="475" width="770" height="50" rx="6" fill="#ECEFF1" opacity="0.8"/>
+  <text x="425" y="496" text-anchor="middle" font-size="12" fill="#37474F">Transition Rules: active --[last_activity &gt;= 30d]--&gt; stale --[last_activity &gt;= 90d]--&gt; archived --[reused/mentioned]--&gt; active</text>
+  <text x="425" y="516" text-anchor="middle" font-size="10" fill="#78909C">所有转换均在本地完成, 零 LLM token 消耗</text>
+</svg>

@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 560" style="background:#f8f9fa;font-family:system-ui,sans-serif">
+  <defs>
+    <marker id="arrowBlue" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#1976D2"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#388E3C"/>
+    </marker>
+    <marker id="arrowOrange" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#F57C00"/>
+    </marker>
+    <marker id="arrowRed" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#D32F2F"/>
+    </marker>
+    <marker id="arrowGray" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#78909C"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="425" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1565C0">Error Recovery System (错误恢复系统)</text>
+
+  <!-- Error Source -->
+  <rect x="30" y="55" width="160" height="55" rx="8" fill="#FFEBEE" stroke="#D32F2F" stroke-width="2"/>
+  <text x="110" y="78" text-anchor="middle" font-size="13" font-weight="bold" fill="#C62828">Error Source</text>
+  <text x="110" y="97" text-anchor="middle" font-size="11" fill="#D32F2F">LLM / Network / Tool</text>
+
+  <!-- Arrow to Classifier -->
+  <line x1="190" y1="82" x2="245" y2="82" stroke="#D32F2F" stroke-width="2" marker-end="url(#arrowRed)"/>
+
+  <!-- Error Classifier -->
+  <rect x="250" y="55" width="230" height="55" rx="8" fill="#FFF3E0" stroke="#F57C00" stroke-width="2"/>
+  <text x="365" y="78" text-anchor="middle" font-size="13" font-weight="bold" fill="#E65100">Error Classifier (错误分类器)</text>
+  <text x="365" y="97" text-anchor="middle" font-size="11" fill="#F57C00">自动识别错误类型</text>
+
+  <!-- Classification Outputs -->
+  <rect x="520" y="48" width="145" height="28" rx="5" fill="#FFCDD2" stroke="#D32F2F" stroke-width="1"/>
+  <text x="592" y="67" text-anchor="middle" font-size="10" fill="#C62828">Overloaded (过载)</text>
+
+  <rect x="520" y="80" width="145" height="28" rx="5" fill="#FFCDD2" stroke="#D32F2F" stroke-width="1"/>
+  <text x="592" y="99" text-anchor="middle" font-size="10" fill="#C62828">Timeout (超时)</text>
+
+  <rect x="675" y="48" width="145" height="28" rx="5" fill="#FFCDD2" stroke="#D32F2F" stroke-width="1"/>
+  <text x="747" y="67" text-anchor="middle" font-size="10" fill="#C62828">Token Limit (超限)</text>
+
+  <rect x="675" y="80" width="145" height="28" rx="5" fill="#FFCDD2" stroke="#D32F2F" stroke-width="1"/>
+  <text x="747" y="99" text-anchor="middle" font-size="10" fill="#C62828">Permission (权限)</text>
+
+  <!-- Arrow to 3-Layer -->
+  <line x1="365" y1="110" x2="365" y2="145" stroke="#F57C00" stroke-width="2" marker-end="url(#arrowOrange)"/>
+
+  <!-- 3-Layer Recovery Strategy -->
+  <rect x="30" y="150" width="790" height="210" rx="8" fill="#E8F5E9" stroke="#388E3C" stroke-width="2"/>
+  <text x="425" y="178" text-anchor="middle" font-size="14" font-weight="bold" fill="#2E7D32">3-Layer Recovery Strategy (三层恢复策略)</text>
+
+  <!-- Layer 1 -->
+  <rect x="55" y="200" width="230" height="75" rx="8" fill="#C8E6C9" stroke="#388E3C" stroke-width="2"/>
+  <text x="170" y="225" text-anchor="middle" font-size="13" font-weight="bold" fill="#1B5E20">Layer 1: Retry (重试)</text>
+  <text x="170" y="245" text-anchor="middle" font-size="10" fill="#2E7D32">指数退避: 1s / 2s / 4s</text>
+  <text x="170" y="260" text-anchor="middle" font-size="10" fill="#2E7D32">最多重试 3 次</text>
+  <text x="170" y="273" text-anchor="middle" font-size="9" fill="#388E3C">适用: Overloaded / Timeout</text>
+
+  <!-- Layer 2 -->
+  <rect x="315" y="200" width="230" height="75" rx="8" fill="#FFF3E0" stroke="#F57C00" stroke-width="2"/>
+  <text x="430" y="225" text-anchor="middle" font-size="13" font-weight="bold" fill="#E65100">Layer 2: Compact (压缩)</text>
+  <text x="430" y="245" text-anchor="middle" font-size="10" fill="#F57C00">触发上下文压缩</text>
+  <text x="430" y="260" text-anchor="middle" font-size="10" fill="#F57C00">清理后重新发送请求</text>
+  <text x="430" y="273" text-anchor="middle" font-size="9" fill="#E65100">适用: Token Limit / Context Overflow</text>
+
+  <!-- Layer 3 -->
+  <rect x="575" y="200" width="230" height="75" rx="8" fill="#FFEBEE" stroke="#D32F2F" stroke-width="2"/>
+  <text x="690" y="225" text-anchor="middle" font-size="13" font-weight="bold" fill="#C62828">Layer 3: Fallback (降级)</text>
+  <text x="690" y="245" text-anchor="middle" font-size="10" fill="#D32F2F">切换至备用模型</text>
+  <text x="690" y="260" text-anchor="middle" font-size="10" fill="#D32F2F">通知用户并请求指导</text>
+  <text x="690" y="273" text-anchor="middle" font-size="9" fill="#C62828">适用: Permission / Repeated Failure</text>
+
+  <!-- Flow between layers -->
+  <line x1="285" y1="237" x2="310" y2="237" stroke="#F57C00" stroke-width="1.5" marker-end="url(#arrowOrange)"/>
+  <text x="297" y="227" text-anchor="middle" font-size="9" fill="#E65100">失败</text>
+  <line x1="545" y1="237" x2="570" y2="237" stroke="#D32F2F" stroke-width="1.5" marker-end="url(#arrowRed)"/>
+  <text x="557" y="227" text-anchor="middle" font-size="9" fill="#C62828">失败</text>
+
+  <!-- Success Return -->
+  <path d="M 170,275 L 170,335 L 365,335 L 365,315" stroke="#388E3C" stroke-width="1.5" stroke-dasharray="4,3" fill="none" marker-end="url(#arrowGreen)"/>
+  <text x="265" y="348" text-anchor="middle" font-size="10" fill="#2E7D32">成功则返回正常流程</text>
+
+  <!-- Arrow to Learning Path -->
+  <line x1="425" y1="360" x2="425" y2="400" stroke="#1565C0" stroke-width="2" marker-end="url(#arrowBlue)"/>
+
+  <!-- Error -> Skill Learning Path -->
+  <rect x="130" y="405" width="590" height="135" rx="8" fill="#E3F2FD" stroke="#1976D2" stroke-width="2"/>
+  <text x="425" y="432" text-anchor="middle" font-size="14" font-weight="bold" fill="#1565C0">Error -> Skill Learning Path (错误 -> 技能 学习路径)</text>
+
+  <!-- Learning Steps -->
+  <rect x="155" y="450" width="130" height="40" rx="6" fill="#BBDEFB" stroke="#1976D2" stroke-width="1.5"/>
+  <text x="220" y="466" text-anchor="middle" font-size="11" fill="#1565C0">写入 Recovery Log</text>
+  <text x="220" y="482" text-anchor="middle" font-size="9" fill="#1976D2">记录错误模式与上下文</text>
+
+  <rect x="305" y="450" width="130" height="40" rx="6" fill="#BBDEFB" stroke="#1976D2" stroke-width="1.5"/>
+  <text x="370" y="466" text-anchor="middle" font-size="11" fill="#1565C0">分析错误原因</text>
+  <text x="370" y="482" text-anchor="middle" font-size="9" fill="#1976D2">识别可改进点</text>
+
+  <rect x="455" y="450" width="130" height="40" rx="6" fill="#E8F5E9" stroke="#388E3C" stroke-width="1.5"/>
+  <text x="520" y="466" text-anchor="middle" font-size="11" fill="#2E7D32">Skills 知识更新</text>
+  <text x="520" y="482" text-anchor="middle" font-size="9" fill="#388E3C">创建/修正/补充</text>
+
+  <rect x="605" y="450" width="95" height="40" rx="6" fill="#E8F5E9" stroke="#388E3C" stroke-width="1.5"/>
+  <text x="652" y="466" text-anchor="middle" font-size="11" fill="#2E7D32">Success</text>
+  <text x="652" y="482" text-anchor="middle" font-size="9" fill="#388E3C">后续不再重现</text>
+
+  <!-- Learning flow arrows -->
+  <line x1="285" y1="470" x2="300" y2="470" stroke="#1976D2" stroke-width="1.5" marker-end="url(#arrowBlue)"/>
+  <line x1="435" y1="470" x2="450" y2="470" stroke="#1976D2" stroke-width="1.5" marker-end="url(#arrowBlue)"/>
+  <line x1="585" y1="470" x2="600" y2="470" stroke="#388E3C" stroke-width="1.5" marker-end="url(#arrowGreen)"/>
+
+  <text x="425" y="525" text-anchor="middle" font-size="10" fill="#1565C0">Recovery Log 定期分析后触发 Background Skill Review 的 correction 信号</text>
+</svg>

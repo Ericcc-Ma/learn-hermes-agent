@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 520" style="background:#f8f9fa;font-family:system-ui,sans-serif">
+  <defs>
+    <marker id="arrowGreen" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#388E3C"/>
+    </marker>
+    <marker id="arrowRed" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#D32F2F"/>
+    </marker>
+    <marker id="arrowBlue" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#1976D2"/>
+    </marker>
+    <marker id="arrowOrange" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#F57C00"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="425" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1565C0">Skill Creation Safety (技能创建安全机制)</text>
+
+  <!-- Signal Priority Tower (left) -->
+  <rect x="30" y="55" width="280" height="320" rx="8" fill="#E3F2FD" stroke="#1976D2" stroke-width="2"/>
+  <text x="170" y="80" text-anchor="middle" font-size="14" font-weight="bold" fill="#1565C0">Signal Priority Tower（信号优先级塔）</text>
+
+  <!-- P1 -->
+  <rect x="55" y="100" width="230" height="45" rx="6" fill="#FFCDD2" stroke="#D32F2F" stroke-width="1.5"/>
+  <text x="170" y="120" text-anchor="middle" font-size="12" font-weight="bold" fill="#C62828">P1: Correction（纠正）</text>
+  <text x="170" y="136" text-anchor="middle" font-size="10" fill="#D32F2F">用户直接纠错 -- 最高优先级</text>
+
+  <!-- P2 -->
+  <rect x="55" y="155" width="230" height="45" rx="6" fill="#FFF3E0" stroke="#F57C00" stroke-width="1.5"/>
+  <text x="170" y="175" text-anchor="middle" font-size="12" font-weight="bold" fill="#E65100">P2: Technique（技巧）</text>
+  <text x="170" y="191" text-anchor="middle" font-size="10" fill="#F57C00">LLM 观察到的有效模式</text>
+
+  <!-- P3 -->
+  <rect x="55" y="210" width="230" height="45" rx="6" fill="#E8F5E9" stroke="#388E3C" stroke-width="1.5"/>
+  <text x="170" y="230" text-anchor="middle" font-size="12" font-weight="bold" fill="#2E7D32">P3: Outdated（过时）</text>
+  <text x="170" y="246" text-anchor="middle" font-size="10" fill="#388E3C">工具/信息标记为过期</text>
+
+  <!-- P4 -->
+  <rect x="55" y="265" width="230" height="45" rx="6" fill="#ECEFF1" stroke="#78909C" stroke-width="1.5"/>
+  <text x="170" y="285" text-anchor="middle" font-size="12" font-weight="bold" fill="#546E7A">P4: Repeated（重复）</text>
+  <text x="170" y="301" text-anchor="middle" font-size="10" fill="#78909C">同一模式反复出现</text>
+
+  <text x="170" y="340" text-anchor="middle" font-size="11" fill="#1565C0">优先级: P1 > P2 > P3 > P4</text>
+
+  <!-- Forbidden Capture Gate -->
+  <rect x="370" y="55" width="450" height="80" rx="8" fill="#FFEBEE" stroke="#D32F2F" stroke-width="2.5"/>
+  <text x="595" y="80" text-anchor="middle" font-size="14" font-weight="bold" fill="#C62828">Forbidden Capture Gate（禁止捕获门）</text>
+  <text x="595" y="100" text-anchor="middle" font-size="12" fill="#D32F2F">检查技能标签: [manual] 或 [dangerous]</text>
+  <text x="595" y="120" text-anchor="middle" font-size="11" fill="#D32F2F">命中则拒绝自动修改，输出警告日志</text>
+
+  <!-- Action Priority Flowchart -->
+  <rect x="370" y="160" width="450" height="215" rx="8" fill="#E8F5E9" stroke="#388E3C" stroke-width="2"/>
+  <text x="595" y="185" text-anchor="middle" font-size="14" font-weight="bold" fill="#2E7D32">Action Priority Flowchart（动作优先级流程）</text>
+
+  <!-- Flow nodes -->
+  <rect x="425" y="208" width="150" height="35" rx="6" fill="#C8E6C9" stroke="#388E3C" stroke-width="1.5"/>
+  <text x="500" y="230" text-anchor="middle" font-size="12" fill="#1B5E20">信号检测</text>
+
+  <rect x="425" y="258" width="150" height="35" rx="6" fill="#C8E6C9" stroke="#388E3C" stroke-width="1.5"/>
+  <text x="500" y="280" text-anchor="middle" font-size="12" fill="#1B5E20">技能存在?</text>
+
+  <rect x="605" y="300" width="130" height="35" rx="6" fill="#FFF3E0" stroke="#F57C00" stroke-width="1.5"/>
+  <text x="670" y="322" text-anchor="middle" font-size="11" fill="#E65100">Create (创建)</text>
+
+  <rect x="425" y="308" width="130" height="35" rx="6" fill="#E3F2FD" stroke="#1976D2" stroke-width="1.5"/>
+  <text x="490" y="330" text-anchor="middle" font-size="11" fill="#1565C0">Update (更新)</text>
+
+  <!-- Flow arrows -->
+  <line x1="500" y1="243" x2="500" y2="255" stroke="#388E3C" stroke-width="1.5" marker-end="url(#arrowGreen)"/>
+  <line x1="500" y1="293" x2="495" y2="305" stroke="#388E3C" stroke-width="1.5" marker-end="url(#arrowGreen)"/>
+  <line x1="575" y1="275" x2="640" y2="297" stroke="#F57C00" stroke-width="1.5" marker-end="url(#arrowOrange)"/>
+  <text x="600" y="280" font-size="9" fill="#F57C00">否</text>
+  <text x="530" y="305" font-size="9" fill="#388E3C">是</text>
+
+  <!-- Safety Summary -->
+  <rect x="50" y="400" width="750" height="55" rx="8" fill="#E3F2FD" stroke="#1565C0" stroke-width="2"/>
+  <text x="425" y="423" text-anchor="middle" font-size="13" font-weight="bold" fill="#1565C0">Safety Guarantee（安全保证）</text>
+  <text x="425" y="443" text-anchor="middle" font-size="11" fill="#1976D2">所有信号须通过 Capture Gate 过滤后方可进入 Flowchart -- Correction 信号始终优先处理 -- 有冲突时以用户纠正为准</text>
+
+  <!-- left-right connections -->
+  <line x1="310" y1="260" x2="366" y2="150" stroke="#D32F2F" stroke-width="1.5" marker-end="url(#arrowRed)"/>
+  <line x1="310" y1="260" x2="366" y2="210" stroke="#1976D2" stroke-width="1.5" marker-end="url(#arrowBlue)"/>
+</svg>

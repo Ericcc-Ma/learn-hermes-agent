@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 560" style="background:#f8f9fa;font-family:system-ui,sans-serif">
+  <defs>
+    <marker id="arrowBlue" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#1976D2"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#388E3C"/>
+    </marker>
+    <marker id="arrowOrange" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#F57C00"/>
+    </marker>
+    <marker id="arrowGray" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#78909C"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="425" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1565C0">Curator Phase 2: LLM Review &amp; Umbrella Merge (策展阶段二: LLM 审查与伞式合并)</text>
+
+  <!-- Phase 1 Link -->
+  <rect x="600" y="45" width="220" height="20" rx="4" fill="#ECEFF1"/>
+  <text x="710" y="59" text-anchor="middle" font-size="10" fill="#78909C">From Phase 1: Stale / Overflow Skills</text>
+
+  <!-- Prefix Clustering -->
+  <rect x="30" y="60" width="400" height="160" rx="8" fill="#E3F2FD" stroke="#1976D2" stroke-width="2"/>
+  <text x="230" y="88" text-anchor="middle" font-size="14" font-weight="bold" fill="#1565C0">Prefix Clustering (前缀聚类)</text>
+  <text x="230" y="112" text-anchor="middle" font-size="11" fill="#1976D2">按技能名称前缀自动分组</text>
+
+  <rect x="50" y="128" width="110" height="40" rx="6" fill="#BBDEFB" stroke="#1976D2" stroke-width="1.5"/>
+  <text x="105" y="152" text-anchor="middle" font-size="11" fill="#1565C0">/swift/*</text>
+  <text x="105" y="164" text-anchor="middle" font-size="9" fill="#1976D2">Swift 相关</text>
+
+  <rect x="175" y="128" width="110" height="40" rx="6" fill="#BBDEFB" stroke="#1976D2" stroke-width="1.5"/>
+  <text x="230" y="152" text-anchor="middle" font-size="11" fill="#1565C0">/python/*</text>
+  <text x="230" y="164" text-anchor="middle" font-size="9" fill="#1976D2">Python 相关</text>
+
+  <rect x="300" y="128" width="110" height="40" rx="6" fill="#BBDEFB" stroke="#1976D2" stroke-width="1.5"/>
+  <text x="355" y="152" text-anchor="middle" font-size="11" fill="#1565C0">/git/*</text>
+  <text x="355" y="164" text-anchor="middle" font-size="9" fill="#1976D2">Git 相关</text>
+
+  <text x="230" y="195" text-anchor="middle" font-size="10" fill="#1565C0">每组最多 5 个技能送入 LLM 审查</text>
+
+  <!-- Arrow: Clustering -> LLM Review -->
+  <line x1="430" y1="140" x2="480" y2="140" stroke="#1976D2" stroke-width="2" marker-end="url(#arrowBlue)"/>
+  <text x="455" y="130" text-anchor="middle" font-size="10" fill="#1976D2">分批</text>
+
+  <!-- LLM Review Agent -->
+  <rect x="485" y="60" width="335" height="160" rx="8" fill="#FFF3E0" stroke="#F57C00" stroke-width="2"/>
+  <text x="652" y="88" text-anchor="middle" font-size="14" font-weight="bold" fill="#E65100">LLM Review Agent (LLM 审查代理)</text>
+  <text x="652" y="110" text-anchor="middle" font-size="11" fill="#F57C00">对每组技能进行语义分析</text>
+
+  <rect x="505" y="125" width="140" height="40" rx="6" fill="#FFE0B2" stroke="#F57C00" stroke-width="1.5"/>
+  <text x="575" y="148" text-anchor="middle" font-size="11" fill="#E65100">评估重叠度</text>
+  <text x="575" y="162" text-anchor="middle" font-size="9" fill="#F57C00">语义相似性分析</text>
+
+  <rect x="660" y="125" width="140" height="40" rx="6" fill="#FFE0B2" stroke="#F57C00" stroke-width="1.5"/>
+  <text x="730" y="148" text-anchor="middle" font-size="11" fill="#E65100">判断合并类型</text>
+  <text x="730" y="162" text-anchor="middle" font-size="9" fill="#F57C00">选择最佳合并策略</text>
+
+  <text x="652" y="195" text-anchor="middle" font-size="10" fill="#E65100">使用深度思考模型 (long-reasoning)</text>
+
+  <!-- Three Merge Strategy Boxes -->
+  <rect x="30" y="250" width="790" height="140" rx="8" fill="#E8F5E9" stroke="#388E3C" stroke-width="2"/>
+  <text x="425" y="278" text-anchor="middle" font-size="14" font-weight="bold" fill="#2E7D32">Three Merge Strategies (三种合并策略)</text>
+
+  <!-- Strategy 1: merge_to_existing -->
+  <rect x="45" y="295" width="240" height="82" rx="6" fill="#C8E6C9" stroke="#388E3C" stroke-width="1.5"/>
+  <text x="165" y="318" text-anchor="middle" font-size="12" font-weight="bold" fill="#1B5E20">merge_to_existing</text>
+  <text x="165" y="338" text-anchor="middle" font-size="11" fill="#2E7D32">合并到已有技能</text>
+  <text x="165" y="355" text-anchor="middle" font-size="10" fill="#2E7D32">将小技能内容并入更广泛的</text>
+  <text x="165" y="369" text-anchor="middle" font-size="10" fill="#2E7D32">已有技能, 删除被合并项</text>
+
+  <!-- Strategy 2: create_umbrella -->
+  <rect x="305" y="295" width="240" height="82" rx="6" fill="#C8E6C9" stroke="#388E3C" stroke-width="1.5"/>
+  <text x="425" y="318" text-anchor="middle" font-size="12" font-weight="bold" fill="#1B5E20">create_umbrella</text>
+  <text x="425" y="338" text-anchor="middle" font-size="11" fill="#2E7D32">创建伞式技能</text>
+  <text x="425" y="355" text-anchor="middle" font-size="10" fill="#2E7D32">新建一个更高级别摘要技能</text>
+  <text x="425" y="369" text-anchor="middle" font-size="10" fill="#2E7D32">原有技能降级为 reference</text>
+
+  <!-- Strategy 3: demote_to_reference -->
+  <rect x="565" y="295" width="240" height="82" rx="6" fill="#C8E6C9" stroke="#388E3C" stroke-width="1.5"/>
+  <text x="685" y="318" text-anchor="middle" font-size="12" font-weight="bold" fill="#1B5E20">demote_to_reference</text>
+  <text x="685" y="338" text-anchor="middle" font-size="11" fill="#2E7D32">降级为参考</text>
+  <text x="685" y="355" text-anchor="middle" font-size="10" fill="#2E7D32">技能内容不常用但需保留</text>
+  <text x="685" y="369" text-anchor="middle" font-size="10" fill="#2E7D32">标记为 reference, 按需加载</text>
+
+  <!-- Report Generation -->
+  <rect x="150" y="415" width="550" height="130" rx="8" fill="#E3F2FD" stroke="#1565C0" stroke-width="2"/>
+  <text x="425" y="442" text-anchor="middle" font-size="14" font-weight="bold" fill="#1565C0">Report Generation + Output Files (报告生成与输出文件)</text>
+
+  <rect x="170" y="458" width="160" height="35" rx="6" fill="#BBDEFB" stroke="#1976D2" stroke-width="1.5"/>
+  <text x="250" y="480" text-anchor="middle" font-size="11" fill="#1565C0">curator_report.md</text>
+
+  <rect x="345" y="458" width="160" height="35" rx="6" fill="#BBDEFB" stroke="#1976D2" stroke-width="1.5"/>
+  <text x="425" y="480" text-anchor="middle" font-size="11" fill="#1565C0">merge_plan.json</text>
+
+  <rect x="520" y="458" width="160" height="35" rx="6" fill="#BBDEFB" stroke="#1976D2" stroke-width="1.5"/>
+  <text x="600" y="480" text-anchor="middle" font-size="11" fill="#1565C0">change_summary.txt</text>
+
+  <text x="425" y="518" text-anchor="middle" font-size="11" fill="#1976D2">报告触发: 用户确认后执行合并 / 用户取消则丢弃建议</text>
+  <text x="425" y="536" text-anchor="middle" font-size="10" fill="#1565C0">Human-in-the-Loop: 所有合并操作需用户审批</text>
+
+  <!-- Arrows -->
+  <line x1="230" y1="220" x2="230" y2="292" stroke="#1976D2" stroke-width="1.5"/>
+  <line x1="355" y1="220" x2="355" y2="292" stroke="#1976D2" stroke-width="1.5"/>
+
+  <line x1="165" y1="377" x2="300" y2="412" stroke="#1976D2" stroke-width="1.5"/>
+  <line x1="425" y1="377" x2="425" y2="412" stroke="#1976D2" stroke-width="1.5"/>
+  <line x1="685" y1="377" x2="550" y2="412" stroke="#1976D2" stroke-width="1.5"/>
+
+  <line x1="652" y1="220" x2="425" y2="247" stroke="#F57C00" stroke-width="1.5"/>
+</svg>

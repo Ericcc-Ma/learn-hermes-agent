@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 540" style="background:#f8f9fa;font-family:system-ui,sans-serif">
+  <defs>
+    <marker id="arrowBlue" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#1976D2"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#388E3C"/>
+    </marker>
+    <marker id="arrowOrange" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#F57C00"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="425" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1565C0">Insights Engine (洞察分析引擎)</text>
+
+  <!-- SQLite DB -->
+  <rect x="50" y="55" width="180" height="85" rx="10" fill="#E3F2FD" stroke="#1565C0" stroke-width="3"/>
+  <text x="140" y="82" text-anchor="middle" font-size="14" font-weight="bold" fill="#0D47A1">SQLite Database</text>
+  <text x="140" y="105" text-anchor="middle" font-size="11" fill="#1565C0">会话与事件存储</text>
+  <text x="140" y="123" text-anchor="middle" font-size="10" fill="#1976D2">sessions + events + tokens</text>
+  <text x="140" y="137" text-anchor="middle" font-size="9" fill="#1976D2">skill_usage + errors</text>
+
+  <!-- Data Pipeline -->
+  <rect x="300" y="55" width="200" height="85" rx="10" fill="#FFF3E0" stroke="#F57C00" stroke-width="2"/>
+  <text x="400" y="82" text-anchor="middle" font-size="14" font-weight="bold" fill="#E65100">Data Pipeline</text>
+  <text x="400" y="105" text-anchor="middle" font-size="11" fill="#F57C00">数据聚合与预处理</text>
+  <text x="400" y="123" text-anchor="middle" font-size="10" fill="#E65100">SQL 查询 / 时间窗口 / 聚合</text>
+  <text x="400" y="137" text-anchor="middle" font-size="9" fill="#F57C00">daily/weekly/monthly</text>
+
+  <!-- Multi-Model Pricing -->
+  <rect x="570" y="55" width="240" height="85" rx="10" fill="#E8F5E9" stroke="#388E3C" stroke-width="2"/>
+  <text x="690" y="78" text-anchor="middle" font-size="13" font-weight="bold" fill="#2E7D32">Multi-Model Pricing</text>
+  <text x="690" y="98" text-anchor="middle" font-size="11" fill="#388E3C">200+ 模型定价数据库</text>
+  <text x="690" y="115" text-anchor="middle" font-size="10" fill="#2E7D32">Claude / GPT / Gemini / Llama</text>
+  <text x="690" y="130" text-anchor="middle" font-size="10" fill="#2E7D32">输入/输出/缓存 分层计价</text>
+
+  <!-- Flow arrows -->
+  <line x1="230" y1="97" x2="295" y2="97" stroke="#1976D2" stroke-width="2" marker-end="url(#arrowBlue)"/>
+  <line x1="500" y1="97" x2="565" y2="97" stroke="#1976D2" stroke-width="2" marker-end="url(#arrowBlue)"/>
+
+  <!-- Analytics Engine -->
+  <rect x="220" y="170" width="410" height="55" rx="10" fill="#E3F2FD" stroke="#1976D2" stroke-width="2"/>
+  <text x="425" y="194" text-anchor="middle" font-size="14" font-weight="bold" fill="#1565C0">Analytics Engine (分析引擎核心)</text>
+  <text x="425" y="214" text-anchor="middle" font-size="11" fill="#1976D2">多维聚合 · 时间序列 · 排名 · 趋势 · 成本计算</text>
+
+  <!-- Arrow down -->
+  <line x1="425" y1="225" x2="425" y2="255" stroke="#1976D2" stroke-width="2" marker-end="url(#arrowBlue)"/>
+
+  <!-- Five Output Dimensions -->
+  <rect x="30" y="260" width="790" height="210" rx="8" fill="white" stroke="#1976D2" stroke-width="2"/>
+  <text x="425" y="290" text-anchor="middle" font-size="14" font-weight="bold" fill="#1565C0">Output Dimensions (输出维度)</text>
+
+  <!-- Token Breakdown -->
+  <rect x="48" y="308" width="148" height="95" rx="6" fill="#E3F2FD" stroke="#1976D2" stroke-width="1.5"/>
+  <text x="122" y="332" text-anchor="middle" font-size="12" font-weight="bold" fill="#1565C0">Token 分析</text>
+  <text x="122" y="352" text-anchor="middle" font-size="10" fill="#1976D2">输入/输出 tokens</text>
+  <text x="122" y="368" text-anchor="middle" font-size="10" fill="#1976D2">每会话消耗</text>
+  <text x="122" y="384" text-anchor="middle" font-size="10" fill="#1976D2">缓存命中率</text>
+  <text x="122" y="398" text-anchor="middle" font-size="10" fill="#1976D2">峰值/均值分布</text>
+
+  <!-- Cost Estimation -->
+  <rect x="210" y="308" width="148" height="95" rx="6" fill="#E8F5E9" stroke="#388E3C" stroke-width="1.5"/>
+  <text x="284" y="332" text-anchor="middle" font-size="12" font-weight="bold" fill="#2E7D32">成本估算</text>
+  <text x="284" y="352" text-anchor="middle" font-size="10" fill="#388E3C">费用估算 ($)</text>
+  <text x="284" y="368" text-anchor="middle" font-size="10" fill="#388E3C">按模型/按会话/按天</text>
+  <text x="284" y="384" text-anchor="middle" font-size="10" fill="#388E3C">成本趋势</text>
+  <text x="284" y="398" text-anchor="middle" font-size="10" fill="#388E3C">200+ 模型监控</text>
+
+  <!-- Tool Usage -->
+  <rect x="372" y="308" width="148" height="95" rx="6" fill="#FFF3E0" stroke="#F57C00" stroke-width="1.5"/>
+  <text x="446" y="332" text-anchor="middle" font-size="12" font-weight="bold" fill="#E65100">工具使用</text>
+  <text x="446" y="352" text-anchor="middle" font-size="10" fill="#F57C00">调用频率排名</text>
+  <text x="446" y="368" text-anchor="middle" font-size="10" fill="#F57C00">成功率/失败率</text>
+  <text x="446" y="384" text-anchor="middle" font-size="10" fill="#F57C00">平均耗时</text>
+  <text x="446" y="398" text-anchor="middle" font-size="10" fill="#F57C00">Top N 排行榜</text>
+
+  <!-- Session Metrics -->
+  <rect x="534" y="308" width="138" height="95" rx="6" fill="#ECEFF1" stroke="#78909C" stroke-width="1.5"/>
+  <text x="603" y="332" text-anchor="middle" font-size="12" font-weight="bold" fill="#546E7A">会话指标</text>
+  <text x="603" y="352" text-anchor="middle" font-size="10" fill="#78909C">会话总数</text>
+  <text x="603" y="368" text-anchor="middle" font-size="10" fill="#78909C">平均轮次/会话</text>
+  <text x="603" y="384" text-anchor="middle" font-size="10" fill="#78909C">平均时长</text>
+  <text x="603" y="398" text-anchor="middle" font-size="10" fill="#78909C">成功率统计</text>
+
+  <!-- Activity Trends -->
+  <rect x="686" y="308" width="115" height="95" rx="6" fill="#E3F2FD" stroke="#1976D2" stroke-width="1.5"/>
+  <text x="743" y="332" text-anchor="middle" font-size="12" font-weight="bold" fill="#1565C0">活跃趋势</text>
+  <text x="743" y="352" text-anchor="middle" font-size="10" fill="#1976D2">日/周/月趋势</text>
+  <text x="743" y="368" text-anchor="middle" font-size="10" fill="#1976D2">活跃度曲线</text>
+  <text x="743" y="384" text-anchor="middle" font-size="10" fill="#1976D2">增长/下降率</text>
+  <text x="743" y="398" text-anchor="middle" font-size="10" fill="#1976D2">使用模式</text>
+
+  <!-- Report Output -->
+  <rect x="120" y="485" width="610" height="40" rx="8" fill="#E8F5E9" stroke="#388E3C" stroke-width="2"/>
+  <text x="425" y="510" text-anchor="middle" font-size="13" font-weight="bold" fill="#2E7D32">Report Output: CSV / JSON / CLI Table / Trend Dashboard (报告输出)</text>
+</svg>

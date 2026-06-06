@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 850 500" style="background:#f8f9fa;font-family:system-ui,sans-serif">
+  <defs>
+    <marker id="arrowBlue" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#1976D2"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#388E3C"/>
+    </marker>
+    <marker id="arrowOrange" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#F57C00"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="425" y="32" text-anchor="middle" font-size="18" font-weight="bold" fill="#1565C0">Background Review Nudge System (后台回顾提醒系统)</text>
+
+  <!-- Main Conversation Flow (left side) -->
+  <rect x="30" y="55" width="320" height="280" rx="8" fill="white" stroke="#1976D2" stroke-width="2"/>
+  <text x="190" y="78" text-anchor="middle" font-size="14" font-weight="bold" fill="#1565C0">Main Conversation Flow（主对话流程）</text>
+
+  <!-- Turn boxes -->
+  <rect x="55" y="95" width="100" height="40" rx="6" fill="#E3F2FD" stroke="#1976D2" stroke-width="1.5"/>
+  <text x="105" y="119" text-anchor="middle" font-size="12" fill="#1565C0">Turn 1</text>
+
+  <rect x="175" y="95" width="100" height="40" rx="6" fill="#E3F2FD" stroke="#1976D2" stroke-width="1.5"/>
+  <text x="225" y="119" text-anchor="middle" font-size="12" fill="#1565C0">Turn 2</text>
+
+  <rect x="55" y="150" width="100" height="40" rx="6" fill="#E3F2FD" stroke="#1976D2" stroke-width="1.5"/>
+  <text x="105" y="174" text-anchor="middle" font-size="12" fill="#1565C0">Turn 3</text>
+
+  <rect x="175" y="150" width="100" height="40" rx="6" fill="#FFF3E0" stroke="#F57C00" stroke-width="2"/>
+  <text x="225" y="174" text-anchor="middle" font-size="12" font-weight="bold" fill="#E65100">Turn N (触发)</text>
+
+  <rect x="55" y="205" width="100" height="40" rx="6" fill="#E3F2FD" stroke="#1976D2" stroke-width="1.5"/>
+  <text x="105" y="229" text-anchor="middle" font-size="12" fill="#1565C0">Turn N+1</text>
+
+  <rect x="175" y="205" width="100" height="40" rx="6" fill="#E3F2FD" stroke="#1976D2" stroke-width="1.5"/>
+  <text x="225" y="229" text-anchor="middle" font-size="12" fill="#1565C0">Turn N+2</text>
+
+  <!-- Turn counter -->
+  <rect x="55" y="260" width="220" height="35" rx="6" fill="#ECEFF1" stroke="#78909C" stroke-width="1.5"/>
+  <text x="165" y="282" text-anchor="middle" font-size="12" fill="#546E7A">Turn Counter: current = N</text>
+
+  <!-- Nudge Trigger -->
+  <rect x="390" y="95" width="160" height="50" rx="8" fill="#FFF3E0" stroke="#F57C00" stroke-width="2"/>
+  <text x="470" y="118" text-anchor="middle" font-size="13" font-weight="bold" fill="#E65100">Nudge Trigger (触发)</text>
+  <text x="470" y="136" text-anchor="middle" font-size="11" fill="#F57C00">counter % N == 0</text>
+
+  <!-- Forked Review Agent -->
+  <rect x="390" y="180" width="300" height="120" rx="8" fill="#E8F5E9" stroke="#388E3C" stroke-width="2"/>
+  <text x="540" y="205" text-anchor="middle" font-size="14" font-weight="bold" fill="#2E7D32">Forked Review Agent（分叉审查代理）</text>
+
+  <rect x="410" y="218" width="120" height="35" rx="6" fill="#C8E6C9" stroke="#388E3C" stroke-width="1.5"/>
+  <text x="470" y="240" text-anchor="middle" font-size="11" fill="#1B5E20">审查对话历史</text>
+
+  <rect x="550" y="218" width="120" height="35" rx="6" fill="#C8E6C9" stroke="#388E3C" stroke-width="1.5"/>
+  <text x="610" y="240" text-anchor="middle" font-size="11" fill="#1B5E20">生成记忆候选</text>
+
+  <rect x="410" y="260" width="260" height="30" rx="6" fill="#A5D6A7" stroke="#388E3C" stroke-width="1.5"/>
+  <text x="540" y="280" text-anchor="middle" font-size="11" fill="#1B5E20">Review Report: (创建/更新/丢弃)</text>
+
+  <!-- Memory Write Path -->
+  <rect x="390" y="340" width="300" height="75" rx="8" fill="#E3F2FD" stroke="#1565C0" stroke-width="2"/>
+  <text x="540" y="363" text-anchor="middle" font-size="13" font-weight="bold" fill="#1565C0">Memory Write Path（记忆写入路径）</text>
+
+  <rect x="410" y="375" width="80" height="30" rx="6" fill="#E3F2FD" stroke="#1976D2" stroke-width="1.5"/>
+  <text x="450" y="394" text-anchor="middle" font-size="11" fill="#1565C0">创建</text>
+
+  <rect x="500" y="375" width="80" height="30" rx="6" fill="#E3F2FD" stroke="#1976D2" stroke-width="1.5"/>
+  <text x="540" y="394" text-anchor="middle" font-size="11" fill="#1565C0">更新</text>
+
+  <rect x="590" y="375" width="80" height="30" rx="6" fill="#E3F2FD" stroke="#1976D2" stroke-width="1.5"/>
+  <text x="630" y="394" text-anchor="middle" font-size="11" fill="#1565C0">合并</text>
+
+  <!-- Memory Store -->
+  <rect x="55" y="340" width="220" height="75" rx="8" fill="#E8F5E9" stroke="#388E3C" stroke-width="2"/>
+  <text x="165" y="363" text-anchor="middle" font-size="14" font-weight="bold" fill="#2E7D32">Memory Store</text>
+  <text x="165" y="382" text-anchor="middle" font-size="12" fill="#2E7D32">(记忆持久存储)</text>
+  <text x="165" y="400" text-anchor="middle" font-size="10" fill="#388E3C">SQLite + FTS5 全文索引</text>
+
+  <!-- Arrows -->
+  <line x1="155" y1="135" x2="172" y2="135" stroke="#1976D2" stroke-width="2" marker-end="url(#arrowBlue)"/>
+  <line x1="155" y1="170" x2="172" y2="170" stroke="#1976D2" stroke-width="2" marker-end="url(#arrowBlue)"/>
+  <line x1="155" y1="225" x2="172" y2="225" stroke="#1976D2" stroke-width="2" marker-end="url(#arrowBlue)"/>
+
+  <!-- Base flows between rows -->
+  <line x1="225" y1="135" x2="130" y2="147" stroke="#1976D2" stroke-width="1.5" marker-end="url(#arrowBlue)"/>
+  <line x1="225" y1="170" x2="130" y2="202" stroke="#1976D2" stroke-width="1.5" marker-end="url(#arrowBlue)"/>
+
+  <!-- Turn counter to Nudge Trigger -->
+  <line x1="275" y1="277" x2="386" y2="128" stroke="#F57C00" stroke-width="2" marker-end="url(#arrowOrange)"/>
+
+  <!-- Nudge Trigger to Forked Review -->
+  <line x1="470" y1="145" x2="470" y2="177" stroke="#F57C00" stroke-width="2" marker-end="url(#arrowOrange)"/>
+
+  <!-- Forked Review to Memory Write -->
+  <line x1="540" y1="300" x2="540" y2="337" stroke="#1565C0" stroke-width="2" marker-end="url(#arrowBlue)"/>
+
+  <!-- Memory Write to Memory Store -->
+  <line x1="390" y1="378" x2="280" y2="378" stroke="#1976D2" stroke-width="2" marker-end="url(#arrowBlue)"/>
+
+  <!-- Memory Store read back to main flow -->
+  <path d="M 55,360 L 40,360 L 40,130 L 52,130" stroke="#388E3C" stroke-width="1.5" stroke-dasharray="4,3" fill="none" marker-end="url(#arrowGreen)"/>
+
+  <!-- Nudge back to main flow -->
+  <line x1="390" y1="120" x2="355" y2="120" stroke="#F57C00" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrowOrange)"/>
+
+  <!-- Legend -->
+  <rect x="30" y="440" width="790" height="45" rx="6" fill="#ECEFF1" opacity="0.7"/>
+  <text x="50" y="460" font-size="11" fill="#546E7A">Legend:</text>
+  <rect x="120" y="450" width="14" height="14" rx="3" fill="#E3F2FD" stroke="#1976D2" stroke-width="1.5"/>
+  <text x="138" y="462" font-size="11" fill="#37474F">Main Flow</text>
+  <rect x="230" y="450" width="14" height="14" rx="3" fill="#FFF3E0" stroke="#F57C00" stroke-width="1.5"/>
+  <text x="248" y="462" font-size="11" fill="#37474F">Nudge / Trigger</text>
+  <rect x="350" y="450" width="14" height="14" rx="3" fill="#E8F5E9" stroke="#388E3C" stroke-width="1.5"/>
+  <text x="368" y="462" font-size="11" fill="#37474F">Review / Memory</text>
+  <line x1="480" y1="457" x2="520" y2="457" stroke="#F57C00" stroke-width="2"/>
+  <text x="528" y="462" font-size="11" fill="#37474F">Trigger</text>
+  <line x1="590" y1="457" x2="620" y2="457" stroke="#388E3C" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="628" y="462" font-size="11" fill="#37474F">Read / Inject</text>
+</svg>
