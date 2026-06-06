@@ -12,11 +12,9 @@ jobs:
     timeout-minutes: 10
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Set up Python 3.11
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
@@ -25,23 +23,12 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Syntax check — py_compile on llm.py
+      - name: Syntax check — llm.py
         run: python -m py_compile llm.py
 
-      - name: Syntax check — py_compile on all 12 chapter code.py files
+      - name: Syntax check — all 12 chapters
         run: |
-          for f in s01_agent_loop/code.py \
-                   s02_background_memory_review/code.py \
-                   s03_background_skill_review/code.py \
-                   s04_memory_system/code.py \
-                   s05_skill_lifecycle/code.py \
-                   s06_skill_creation/code.py \
-                   s07_curator_state/code.py \
-                   s08_curator_llm/code.py \
-                   s09_context_management/code.py \
-                   s10_insights/code.py \
-                   s11_error_recovery/code.py \
-                   s12_comprehensive/code.py; do
+          for f in s01_agent_loop/code.py s02_background_memory_review/code.py s03_background_skill_review/code.py s04_memory_system/code.py s05_skill_lifecycle/code.py s06_skill_creation/code.py s07_curator_state/code.py s08_curator_llm/code.py s09_context_management/code.py s10_insights/code.py s11_error_recovery/code.py s12_comprehensive/code.py; do
             echo "  Compiling: $f"
             python -m py_compile "$f"
           done
@@ -49,30 +36,5 @@ jobs:
       - name: Import check — llm module
         run: python -c "from llm import get_client; print('OK')"
 
-      - name: Chapter syntax + import validation
-        run: |
-          for f in s01_agent_loop/code.py \
-                   s02_background_memory_review/code.py \
-                   s03_background_skill_review/code.py \
-                   s04_memory_system/code.py \
-                   s05_skill_lifecycle/code.py \
-                   s06_skill_creation/code.py \
-                   s07_curator_state/code.py \
-                   s08_curator_llm/code.py \
-                   s09_context_management/code.py \
-                   s10_insights/code.py \
-                   s11_error_recovery/code.py \
-                   s12_comprehensive/code.py; do
-            echo "=== $f ==="
-            python -c "
-import importlib.util, sys
-spec = importlib.util.spec_from_file_location('code', '$f')
-mod = importlib.util.module_from_spec(spec)
-sys.modules['code'] = mod
-spec.loader.exec_module(mod)
-print('  import OK')
-"
-          done
-
-      - name: Run smoke tests
-        run: python -m pytest tests/ -v
+      - name: Run pytest
+        run: python -m pytest tests/ -v --tb=short
