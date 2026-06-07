@@ -20,6 +20,24 @@
 
 `learn-claude-code` 教了你如何造载具——让 agent 能动手的环境。本仓库教你造**会自己进化的载具**——让 agent 在运行中自动积累知识、创建技能、整理技能库、最终越用越聪明。
 
+> 从零复刻 Hermes Agent 的自学习系统：让 Agent 记住你、学习你、越用越聪明。
+
+## 30 秒 Demo
+
+建议先跑最终章，直接观察完整闭环：
+
+```sh
+python s12_comprehensive/code.py
+```
+
+试这条输入：
+
+```text
+Stop using camelCase in Python files — I always use snake_case.
+```
+
+然后继续交互几轮，运行 `/insights` 和 `/curator`。你会看到纠正被沉淀为记忆/技能，后续上下文会自动注入相关知识，Curator 会对技能库做整理预览。
+
 ---
 
 ## 什么是自进化 Agent
@@ -132,6 +150,17 @@ def agent_loop(messages):
 | [s10](./s10_insights/) | Insights 引擎 | Token 统计 / 成本分析 / 工具模式 / 趋势 |
 | [s11](./s11_error_recovery/) | 错误恢复 | 重试策略 / fallback 模型 / 自愈流程 |
 | [s12](./s12_comprehensive/) | 完整自进化 Agent | 六层架构完整集成 |
+
+---
+
+## Hermes 源码地图
+
+如果你想从教学代码读回生产源码，看这份导航：
+
+- [Hermes 源码地图](docs/hermes-source-map.md) — 12 章教程与 `NousResearch/hermes-agent` 核心文件的对应关系
+- [FAQ](docs/faq.md) — 项目定位、学习顺序、API Key、教学版简化原因
+
+最短路径：先跑 `s12_comprehensive/code.py` 看完整效果，再按源码地图读 `run_agent.py`、`agent/background_review.py`、`agent/curator.py`、`agent/memory_manager.py`。
 
 ---
 

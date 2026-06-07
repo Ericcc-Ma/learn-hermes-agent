@@ -20,6 +20,24 @@ An agent that perceives, reasons, and acts — that comes from model training. B
 
 `learn-claude-code` taught you how to build the vehicle — the environment where an agent can act. This repository teaches you to build **a vehicle that evolves itself** — an agent that automatically accumulates knowledge during operation, creates skills, organizes its skill library, and gets smarter with every use.
 
+> Rebuild the self-learning system behind Hermes Agent: make an agent remember you, learn from you, and improve with use.
+
+## 30-Second Demo
+
+Start with the final chapter to see the full loop:
+
+```sh
+python s12_comprehensive/code.py
+```
+
+Try this input:
+
+```text
+Stop using camelCase in Python files — I always use snake_case.
+```
+
+Continue for a few turns, then run `/insights` and `/curator`. You should see the correction distilled into memory/skills, relevant knowledge injected into later context, and the Curator previewing skill-library cleanup.
+
 ---
 
 ## What is a Self-Evolving Agent?
@@ -158,6 +176,17 @@ The loop never changes. Self-evolution mechanisms hang on before and after the l
 | [s10](./s10_insights/) | Insights Engine | token stats / cost analysis / patterns |
 | [s11](./s11_error_recovery/) | Error Recovery | retry / fallback / self-healing |
 | [s12](./s12_comprehensive/) | Complete Self-Evolving Agent | all six layers integrated |
+
+---
+
+## Hermes Source Map
+
+If you want to read from the teaching code back into production Hermes, start here:
+
+- [Hermes Source Map](docs/hermes-source-map.md) — how the 12 lessons map to the core files in `NousResearch/hermes-agent`
+- [FAQ](docs/faq.md) — positioning, reading order, API keys, and why the teaching version simplifies production mechanisms
+
+Shortest path: run `s12_comprehensive/code.py` first, then use the source map to read `run_agent.py`, `agent/background_review.py`, `agent/curator.py`, and `agent/memory_manager.py`.
 
 ---
 

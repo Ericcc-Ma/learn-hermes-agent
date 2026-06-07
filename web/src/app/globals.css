@@ -23,6 +23,7 @@ pre {
   border: 1px solid #21262d;
   border-radius: 8px;
   padding: 16px;
+  max-width: 100%;
   overflow-x: auto;
   font-size: 13px;
   line-height: 1.6;
@@ -30,6 +31,13 @@ pre {
 
 code {
   font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+}
+
+@media (max-width: 640px) {
+  pre {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
 }
 
 /* Gradient text */
