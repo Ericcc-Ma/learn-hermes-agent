@@ -39,6 +39,12 @@ CHAPTER_FILES = [
     "s16_agent_teams/code.py",
     "s17_mcp_plugin/code.py",
     "s18_full_hermes/code.py",
+    "s19_permission/code.py",
+    "s20_hooks/code.py",
+    "s21_worktree/code.py",
+    "s22_planning/code.py",
+    "s23_autonomous/code.py",
+    "s24_system_prompt/code.py",
 ]
 
 
