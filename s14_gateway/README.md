@@ -100,4 +100,26 @@ Gateway 连接了多平台。但不同用户可能需要不同的配置——不
 
 s15 Profiles → 多 profile 隔离 + 独立 gateway 实例 + 配置继承。
 
+<details>
+<summary>深入 Hermes 源码</summary>
+
+生产版 gateway 位于以下源文件:
+
+| 文件 | 职责 |
+|------|------|
+| `gateway/run.py` | Gateway 主运行器、平台注册、cron ticker 启动 |
+| `gateway/session.py` | 跨平台 session 管理、重置策略 |
+| `gateway/delivery.py` | DeliveryRouter — 结果投递回正确平台/频道 |
+| `gateway/platforms/` | 20+ 平台适配器 (Telegram/Discord/Slack/微信/飞书...) |
+| `hermes_cli/gateway.py` | 安装/启动/停止 CLI、systemd/launchd 集成 |
+| `hermes_cli/gateway_windows.py` | Windows schtasks + Startup 文件夹 fallback |
+
+教学版简化了什么:
+- 生产版有 20+ 平台适配器，教学版只演示 CLI + Cron + Telegram
+- 生产版的 E2EE 加密通道 (Signal/Matrix) 需要 live adapter 实例
+- 生产版 session 管理支持 daily / per_message 等多种重置策略
+- 生产版 delivery 路由根据 job 的输出 channel 配置精准投递
+
+</details>
+
 <!-- translation-sync: zh@v1 -->

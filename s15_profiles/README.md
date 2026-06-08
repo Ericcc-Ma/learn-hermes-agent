@@ -101,4 +101,24 @@ python s15_profiles/code.py
 
 s16 Agent Teams → 子 agent 派生 + 团队协作 + 任务板自组织。
 
+<details>
+<summary>深入 Hermes 源码</summary>
+
+生产版 profile 系统位于以下源文件:
+
+| 文件 | 职责 |
+|------|------|
+| `hermes_cli/profiles.py` | Profile 创建/切换/删除、继承链解析 |
+| `hermes_cli/config.py` | 全局配置加载、env var 展开 |
+| `hermes_cli/service_manager.py` | 服务管理器接口: s6/systemd/launchd/windows |
+| `cron/scheduler.py` | Cron 任务绑定特定 profile 执行 |
+
+教学版简化了什么:
+- 生产版支持 `hermes --profile work` 命令行切换
+- 生产版每个 profile 可以启动独立的 gateway 实例监听不同平台
+- 生产版 s6 backend 支持运行时注册/注销 profile gateway
+- 生产版 cron 任务可以指定 `profile` 字段用特定配置执行
+
+</details>
+
 <!-- translation-sync: zh@v1 -->

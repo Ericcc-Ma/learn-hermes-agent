@@ -40,4 +40,22 @@ hermes/worktrees/
 python s21_worktree/code.py
 ```
 
+<details>
+<summary>深入 Hermes 源码</summary>
+
+生产版 worktree 系统位于以下源文件:
+
+| 文件 | 职责 |
+|------|------|
+| `agent/conversation_loop.py` | EnterWorktree/ExitWorktree 工具实现 |
+| `agent/agent_runtime_helpers.py` | worktree 生命周期管理 |
+
+教学版简化了什么:
+- 生产版 worktree 基于 git worktree add 创建隔离分支
+- 生产版支持 worktree.baseRef 配置 (fresh=从远程拉, head=从本地)
+- 生产版 agent 可以在 worktree 中自由切换，通过 EnterWorktree 工具
+- 生产版 worktree 清理支持 keep/remove 两种模式
+
+</details>
+
 <!-- translation-sync: zh@v1 -->

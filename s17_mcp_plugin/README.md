@@ -95,4 +95,23 @@ python s17_mcp_plugin/code.py
 
 s18 Full Hermes → Agent Loop + Memory + Background Review + Skill Lifecycle + Curator + Context + Insights + Error Recovery + Cron + Gateway + Profiles + Teams + MCP。
 
+<details>
+<summary>深入 Hermes 源码</summary>
+
+生产版 MCP 系统位于以下源文件:
+
+| 文件 | 职责 |
+|------|------|
+| `tools/mcp_tool.py` | MCP 工具发现、工具池组装、JSON-RPC 调用 |
+| `tools/mcp_oauth_manager.py` | MCP 服务器的 OAuth 认证管理 |
+| `gateway/run.py` | gateway 启动时的异步 MCP 工具发现 |
+
+教学版简化了什么:
+- 生产版支持三种传输: stdio (子进程)、SSE (长连接)、Streamable HTTP
+- 生产版 MCP 工具发现是异步的，不阻塞 gateway 启动
+- 生产版支持 OAuth 认证流程的 MCP 服务器
+- 生产版 MCP 工具和内置工具在同一个 tools 数组里对 LLM 完全透明
+
+</details>
+
 <!-- translation-sync: zh@v1 -->

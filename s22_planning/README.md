@@ -39,4 +39,22 @@ t5: 部署 staging        [⬜] ← 依赖 t4
 python s22_planning/code.py
 ```
 
+<details>
+<summary>深入 Hermes 源码</summary>
+
+生产版任务规划系统位于以下源文件:
+
+| 文件 | 职责 |
+|------|------|
+| `agent/task_manager.py` | TaskRecord 定义、blockedBy 依赖图、文件持久化 |
+| `tools/task_tools.py` | TaskCreate/TaskUpdate/TaskList 工具实现 |
+
+教学版简化了什么:
+- 生产版 TaskRecord 包含 blockedBy/blocks 双向依赖和自动状态传播
+- 生产版任务文件落盘为 JSON，支持跨 session 和跨 agent 共享
+- 生产版 task agent 可以独立运行: 从任务板认领、执行、报告结果
+- 生产版 activeForm 字段让进行中的任务显示当前正在做什么
+
+</details>
+
 <!-- translation-sync: zh@v1 -->

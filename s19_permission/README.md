@@ -72,4 +72,25 @@ python s19_permission/code.py
 
 观察不同命令的权限检查结果。
 
+<details>
+<summary>深入 Hermes 源码</summary>
+
+生产版权限系统位于以下源文件:
+
+| 文件 | 职责 |
+|------|------|
+| `tools/approval.py` | 审批管线、YOLO 模式分类器 |
+| `tools/path_security.py` | 文件路径安全检查、沙箱边界 |
+| `tools/skills_guard.py` | 技能级别的权限控制 |
+| `agent/file_safety.py` | 文件操作安全层、跨 profile 防护 |
+| `agent/tool_guardrails.py` | 工具调用前的通用护栏检查 |
+
+教学版简化了什么:
+- 生产版有完整的 YOLO 分类器自动判断操作风险等级
+- 生产版权限规则支持 glob 模式匹配文件路径
+- 生产版 sandbox 模式可以限制网络访问、文件系统范围
+- 生产版支持 hardline_blocklist: 即使在 YOLO 模式下也不能绕过的规则
+
+</details>
+
 <!-- translation-sync: zh@v1 -->

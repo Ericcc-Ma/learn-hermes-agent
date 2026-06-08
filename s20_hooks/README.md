@@ -48,4 +48,23 @@ python s20_hooks/code.py
 
 观察安全命令通过、危险命令被 hook 拦截、session 统计日志。
 
+<details>
+<summary>深入 Hermes 源码</summary>
+
+生产版 hook 系统位于以下源文件:
+
+| 文件 | 职责 |
+|------|------|
+| `agent/conversation_loop.py` | hook 触发点 (PreToolUse/PostToolUse/Stop/...) |
+| `agent/background_review.py` | stop hook 触发后台审查 |
+| `gateway/run.py` | gateway 生命周期 hook (SessionStart/End) |
+
+教学版简化了什么:
+- 生产版 hook event 包含完整的 session context 和 metadata
+- 生产版 Stop hook 可以阻塞 agent 停止 (blocking=True)
+- 生产版支持 conditional hooks: 按文件路径 glob 条件激活
+- 生产版 hook 系统与 skill 系统联动 (skill 可以注册自己的 hook)
+
+</details>
+
 <!-- translation-sync: zh@v1 -->

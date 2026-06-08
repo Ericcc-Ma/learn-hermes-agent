@@ -142,4 +142,25 @@ python s18_full_hermes/code.py
 
 **Agency 来自模型。自进化来自 Harness。Build the harness that learns.**
 
+<details>
+<summary>深入 Hermes 源码</summary>
+
+完整 Hermes 系统核心文件索引:
+
+| 层级 | 核心文件 |
+|------|---------|
+| 入口 | `cli.py`, `hermes_cli/main.py` |
+| Gateway | `gateway/run.py`, `gateway/session.py` |
+| Agent Loop | `run_agent.py`, `agent/conversation_loop.py` |
+| 记忆系统 | `agent/memory_manager.py`, `agent/memory_provider.py` |
+| 技能系统 | `tools/skill_usage.py`, `tools/skill_manage.py` |
+| Curator | `agent/curator.py` (scheduling + Phase 1 + Phase 2) |
+| Cron | `cron/scheduler.py`, `cron/jobs.py` |
+| MCP | `tools/mcp_tool.py`, `tools/mcp_oauth_manager.py` |
+| Profiles | `hermes_cli/profiles.py`, `hermes_cli/config.py` |
+| 上下文 | `agent/conversation_compression.py`, `agent/context_compressor.py` |
+| 错误恢复 | `agent/conversation_loop.py` (recovery paths) |
+
+</details>
+
 <!-- translation-sync: zh@v1 -->

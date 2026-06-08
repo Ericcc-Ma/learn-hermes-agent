@@ -129,4 +129,24 @@ Cron 让 agent 能定时醒来。但结果怎么推送出去？需要 gateway—
 
 s14 Gateway → 多平台消息路由 + delivery 分发 + session 管理。
 
+<details>
+<summary>深入 Hermes 源码</summary>
+
+生产版 cron 系统位于以下源文件:
+
+| 文件 | 职责 |
+|------|------|
+| `cron/scheduler.py` | tick() 调度器、run_job() 执行器、文件锁防并发 |
+| `cron/jobs.py` | jobs.json 读写、任务 CRUD、原子替换 |
+| `gateway/run.py`(:19756) | gateway 启动时自动拉起 cron ticker 线程 |
+| `hermes_cli/cron.py` | CLI 命令: list/create/edit/pause/run/remove/status/tick |
+
+教学版简化了什么:
+- 生产版 gateway ticker 是 daemon 线程每 60s 触发，教学版用 threading.Event 模拟
+- 生产版用 fcntl/msvcrt 文件锁防并发 tick，教学版省略
+- 生产版支持 no_agent 模式 (纯脚本定时执行，不走 LLM)
+- 生产版的 delivery 路由支持 E2EE 加密适配器
+
+</details>
+
 <!-- translation-sync: zh@v1 -->
