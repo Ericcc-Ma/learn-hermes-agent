@@ -115,7 +115,7 @@ Hermes 是 Claude Code 的自进化子系统。它的架构分为六个层次：
 >
 > **s15** &nbsp; *"一套 Hermes，多个人设"* — 独立 profile 隔离模型、技能、平台，支持继承
 >
-> **s16** &nbsp; *"一个搞不定，组队来"* — 子 agent 派生 + JSONL 邮箱 + 任务板自组织
+> **s16** &nbsp; *"一个搞不定，delegate 出去"* — LLM 自主调用 delegate_task spawn 子 agent，leaf/orchestrator 角色系统
 >
 > **s17** &nbsp; *"能力不够？接上 MCP"* — 多传输 + 工具池统一 + JSON-RPC
 >
@@ -129,7 +129,7 @@ Hermes 是 Claude Code 的自进化子系统。它的架构分为六个层次：
 >
 > **s22** &nbsp; *"没计划的 agent 走哪算哪"* — 先列计划再执行，任务依赖 DAG + 状态追踪
 >
-> **s23** &nbsp; *"队友自己看板，有活就认领"* — 空闲循环 + 技能匹配 + 自主认领
+> **s23** &nbsp; *"不是 worker 自己扫板，是 Dispatcher 中心分配"* — Kanban Dispatcher + claim TTL + 失败保护
 >
 > **s24** &nbsp; *"prompt 是拼出来的，不是写死的"* — 分段定义 + 条件注入 + 运行时组装
 
@@ -183,14 +183,14 @@ def agent_loop(messages):
 | [s13](./s13_cron_scheduler/) | Cron Scheduler | 定时任务 + gateway ticker + 持久化 |
 | [s14](./s14_gateway/) | Gateway | 多平台消息路由 + delivery 分发 |
 | [s15](./s15_profiles/) | Multi-Profile | 配置隔离 + 继承链 + 独立 gateway |
-| [s16](./s16_agent_teams/) | Agent Teams | 子 agent 派生 + JSONL 邮箱 + 任务板 |
+| [s16](./s16_agent_teams/) | Agent Teams | delegate_task 工具 + leaf/orchestrator 角色 |
 | [s17](./s17_mcp_plugin/) | MCP Plugin | 多传输 + 工具池组装 + JSON-RPC |
 | [s18](./s18_full_hermes/) | Full Hermes | 全部特性集成 |
 | [s19](./s19_permission/) | Permission System | 四层审批管线 |
 | [s20](./s20_hooks/) | Hook System | 8 个扩展点 |
 | [s21](./s21_worktree/) | Worktree Isolation | git worktree 并行隔离 |
 | [s22](./s22_planning/) | Planning System | TodoWrite + 依赖 DAG |
-| [s23](./s23_autonomous/) | Autonomous Agents | 空闲循环 + 自主认领 |
+| [s23](./s23_autonomous/) | Kanban Dispatcher | 中心调度 + claim TTL + 失败保护 |
 | [s24](./s24_system_prompt/) | System Prompt | 分段 + 条件拼接 |
 
 ---

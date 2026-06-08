@@ -135,7 +135,7 @@ Any OpenAI-compatible endpoint works via `LLM_PROVIDER=openai_compat` + custom `
 >
 > **s15** &nbsp; *"One Hermes, many personas"* — Profile isolation + inheritance + per-profile gateway
 >
-> **s16** &nbsp; *"Too big for one? Team up"* — Sub-agent spawn + JSONL mailbox + TaskBoard
+> **s16** &nbsp; *"Too big? Delegate it"* — LLM-driven delegate_task + leaf/orchestrator role system
 >
 > **s17** &nbsp; *"Need more power? Plug in MCP"* — Multi-transport + unified tool pool + JSON-RPC
 >
@@ -149,7 +149,7 @@ Any OpenAI-compatible endpoint works via `LLM_PROVIDER=openai_compat` + custom `
 >
 > **s22** &nbsp; *"An agent without a plan drifts"* — Plan first, execute step by step, DAG dependencies
 >
-> **s23** &nbsp; *"Teammates check the board, claim work themselves"* — Idle loop + skill matching + auto-claim
+> **s23** &nbsp; *"Dispatcher assigns, workers execute"* — Kanban Dispatcher + claim TTL + failure protection
 >
 > **s24** &nbsp; *"Prompts are assembled, not hardcoded"* — Section-based composition + conditional injection
 

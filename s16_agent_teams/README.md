@@ -1,117 +1,88 @@
-# s16: Agent Teams — 一个搞不定，组队来
+# s16: Agent Teams — delegate_task + 角色系统
 
 [中文](README.md) · [English](README.en.md)
 
-s01 → ... → s15 → `s16` → [s17](../s17_mcp_plugin/) → s18
-> *"大任务拆小，每个子 agent 独立上下文"* — 子 agent 派生 + 异步邮箱通信 + 任务板自组织。
+![Agent Teams](images/agent-teams.svg)
+
+s01 → ... → s15 → `s16` → [s17](../s17_mcp_plugin/) → ... → s24
+> *"一个搞不定，delegate 出去"* — LLM 自主调用 delegate_task 工具 spawn 子 agent，支持 leaf/orchestrator 角色。
 >
-> **Hermes 特性**: Agent Teams — 多 agent 协作，上下文隔离。
+> **Hermes 特性**: Agent Teams — 由 LLM 驱动的即时任务委托。
 
 ---
 
 ## 问题
 
-单个 agent 处理大型任务时有两个瓶颈：
-1. **上下文窗口** — 所有子任务挤在一个消息列表里，token 很快耗尽
-2. **注意力分散** — 一个 agent 同时思考多个子问题，质量下降
-
-**需要多 agent 协作——每个 agent 专注一件事，独立上下文，异步协调。**
+单个 agent 处理复杂任务时上下文膨胀。需要能把子任务分派出去，每个子 agent 有独立上下文。
 
 ---
 
 ## 解决方案
 
-![Agent Teams](images/agent-teams.svg)
+**delegate_task 工具** — LLM 像调用其他 tool 一样调用它，自主决定何时、如何 spawn 子 agent。
 
-三个核心机制：子 agent 派生 + JSONL 邮箱 + 任务板自组织。
+### 两种模式
 
-### 1. 子 Agent 派生 (Fresh Context)
+| 模式 | 参数 | 行为 |
+|------|------|------|
+| **Single** | `goal` + `context` + `role` | 启动 1 个子 agent |
+| **Batch** | `tasks: [{goal, context, role}, ...]` | 并发启动 N 个（受 `max_concurrent_children` 限制） |
 
-```python
-# 主 agent spawn 一个专注 review 的子 agent
-reviewer = TeamMember("reviewer", "worker", ["code_review"])
-# reviewer 有自己独立的 messages 列表——上下文完全隔离
-result = reviewer.think("Review this PR for security issues")
-```
-
-### 2. JSONL Mailbox 协议
-
-每个 agent 有一个 inbox.jsonl，通信格式固定：
-
-```jsonl
-{"msg_id": "a1b2", "from_agent": "leader", "to_agent": "coder",
- "msg_type": "request", "subject": "Implement /users",
- "body": "Please implement CRUD...", "timestamp": "..."}
-```
-
-### 3. 任务板 (Task Board)
+### 角色系统
 
 ```
-[⬜] task_1 Research API options
-[⬜] task_2 Implement endpoint  (blocked_by: task_1)
-[⬜] task_3 Review code         (blocked_by: task_2)
-
-→ Worker 看到 task_1 没阻塞 → 自动认领
-→ task_2 被 task_1 阻塞 → 等待
-→ task_1 完成 → task_2 解锁 → 下一个 worker 认领
+        Parent (depth=0)
+              │ delegate_task()
+     ┌────────┼────────┐
+     ▼        ▼        ▼
+  leaf    leaf    orchestrator (depth=1)
+ (默认)              │ delegate_task()
+                     ▼
+                   leaf (depth=2, max)
 ```
 
-### 团队拓扑
+- **leaf**（默认）: 纯 worker，被剥夺 delegate_task、clarify、memory 等工具
+- **orchestrator**: 保留 delegate_task，可继续 spawn。受 `max_spawn_depth`（默认 1）限制
 
-```
-              ┌──────────┐
-              │  Leader  │ ← 分解任务、汇总结果
-              └────┬─────┘
-                   │
-      ┌────────────┼────────────┐
-      │            │            │
-      ▼            ▼            ▼
-┌──────────┐ ┌──────────┐ ┌──────────┐
-│Researcher│ │  Coder   │ │ Reviewer │
-│(独立ctx) │ │(独立ctx) │ │(独立ctx) │
-└──────────┘ └──────────┘ └──────────┘
-      │            │            │
-      └────────────┼────────────┘
-                   │
-           ┌───────▼───────┐
-           │   TaskBoard   │ ← 共享任务状态
-           └───────────────┘
-```
+### 关键配置
+
+| 配置 | 默认 | 说明 |
+|------|------|------|
+| `max_concurrent_children` | 3 | 单次最多并行数 |
+| `max_spawn_depth` | 1 | 最大嵌套深度 |
+| `max_iterations` | 90 | 子 agent 最大迭代数 |
+
+### 同步模型
+
+delegate_task 是**同步**的——父 agent 等待所有子 agent 完成，拿到 summary 后继续。不持久，不跨 turn 存活。
 
 ---
 
 ## 试一下
 
 ```sh
-python s16_agent_teams/code.py
+python s16_agent_teams/agent_teams.py
 ```
 
-观察：Leader 分解任务 → Worker 认领 → 完成 → 依赖解锁 → 下一 worker 接手。
-
 ---
-
-## 接下来
-
-Agent 的能力受限于内置工具。怎么接入外部能力？MCP 协议——把外部工具接进同一个工具池。
-
-s17 MCP Plugin → 多传输 + 通道路由 + 工具池组装。
 
 <details>
 <summary>深入 Hermes 源码</summary>
 
-生产版 agent 团队系统位于以下源文件:
+生产版 delegate_task 系统位于以下源文件:
 
 | 文件 | 职责 |
 |------|------|
-| `agent/background_review.py` | 子 agent fork + 受限权限执行 |
-| `run_agent.py` | AIAgent 主类、spawn_subagent 方法 |
-| `tools/delegate_tool.py` | delegate 工具 — 把任务委派给子 agent |
+| `tools/delegate_tool.py` | delegate_task 工具定义、参数校验 |
+| `run_agent.py`(~4793) | `_dispatch_delegate_task()` — 分发子 agent |
+| `agent/conversation_loop.py` | assistant message 中的 tool_call 检测 |
+| `agent/agent_init.py`(~929) | worker 初始化、kanban guidance 注入 |
 
 教学版简化了什么:
-- 生产版子 agent 通过 forkSubagent 创建，拥有独立的 maxTurns 和工具权限
-- 生产版的 JSONL mailbox 是生产级实现，支持跨进程通信
-- 生产版 TaskBoard 支持 blockedBy 依赖关系和自动解锁
-- 生产版支持 agent 团队的权限冒泡 (permission bubbling)
+- 生产版 delegate_task 是真实 fork 子进程，教学版用函数调用模拟
+- 生产版 role 系统会动态剥夺 worker 的特定工具集
+- 生产版 `max_spawn_depth` 有硬限制防止无限嵌套
+- 生产版子 agent 的 summary 会注入父 agent 的对话上下文
 
 </details>
 

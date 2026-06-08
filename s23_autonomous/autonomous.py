@@ -1,16 +1,17 @@
 """
-s23: Autonomous Agents — 队友自己看板，有活就认领
+s23: Kanban Dispatcher — 中心调度 + Worker 执行
 
-Hermes 的自主 agent 模式: 空闲循环 + 自动认领任务 + 自组织。
-Agent 不需要 leader 逐个分配 — 自己看任务板，自己认领。
+Hermes 的团队调度不是 worker 自己扫板认领，而是 Kanban Dispatcher 模式:
+Dispatcher 每 60s tick → 扫描 ready 任务 → spawn worker 进程 → 分配任务。
+Worker 定期 heartbeat 保持 claim，超时则 reclaim 给其他 worker。
 
 Usage:
-    python s23_autonomous/code.py
+    python s23_autonomous/autonomous.py
 """
 
 import json
 import os
-import random
+import sqlite3
 import threading
 import time
 import uuid
@@ -18,7 +19,6 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from enum import Enum
 from pathlib import Path
-from typing import Optional
 
 from dotenv import load_dotenv
 
@@ -28,231 +28,254 @@ from llm import get_client
 MODEL = os.getenv("MODEL_ID", "claude-sonnet-4-6")
 CLIENT = get_client()
 
-TEAMS_DIR = Path(".hermes") / "teams"
+KANBAN_DIR = Path(".hermes") / "kanban"
+DEFAULT_CLAIM_TTL = 15 * 60       # 15 分钟无心跳则 reclaim
+DISPATCH_INTERVAL = 60             # 每 60s tick
+FAILURE_LIMIT = 2                  # 连续失败 2 次自动 block
 
-
-# ── Task Board (shared) ───────────────────────────────
 
 class TaskStatus(Enum):
-    PENDING = "pending"
-    CLAIMED = "claimed"
-    IN_PROGRESS = "in_progress"
+    TODO = "todo"
+    READY = "ready"
+    RUNNING = "running"
     DONE = "done"
+    BLOCKED = "blocked"
 
 
 @dataclass
-class BoardTask:
+class KanbanTask:
     task_id: str
     title: str
     description: str = ""
-    status: TaskStatus = TaskStatus.PENDING
-    assigned_to: str = ""
+    status: TaskStatus = TaskStatus.TODO
+    assignee: str = ""
     blocked_by: list[str] = field(default_factory=list)
+    failure_count: int = 0
+    claim_lock: str = ""
+    claim_expires: str = ""
+    goal_mode: bool = False
 
 
-class SharedTaskBoard:
-    """共享任务板 — 所有 agent 从这里认领任务"""
+class KanbanBoard:
+    """SQLite 持久化任务板"""
 
     def __init__(self):
-        self.tasks: dict[str, BoardTask] = {}
+        self.db_path = KANBAN_DIR / "board.db"
+        self.db_path.parent.mkdir(parents=True, exist_ok=True)
+        self.conn = sqlite3.connect(str(self.db_path), check_same_thread=False)
         self._lock = threading.Lock()
+        self._init_db()
 
-    def post(self, title: str, description: str = "",
-             blocked_by: list[str] = None) -> BoardTask:
-        """发布新任务到板上"""
-        task = BoardTask(
-            task_id=str(uuid.uuid4())[:8],
-            title=title,
-            description=description,
-            blocked_by=blocked_by or [],
-        )
-        with self._lock:
-            self.tasks[task.task_id] = task
-        print(f"  [Board] posted: {title}")
-        return task
+    def _init_db(self):
+        self.conn.execute("""
+            CREATE TABLE IF NOT EXISTS tasks (
+                id TEXT PRIMARY KEY, title TEXT, description TEXT DEFAULT '',
+                status TEXT DEFAULT 'todo', assignee TEXT DEFAULT '',
+                blocked_by TEXT DEFAULT '[]', failure_count INTEGER DEFAULT 0,
+                claim_lock TEXT DEFAULT '', claim_expires TEXT DEFAULT '',
+                goal_mode INTEGER DEFAULT 0, created_at TEXT, updated_at TEXT
+            )
+        """)
+        self.conn.commit()
 
-    def get_open(self) -> list[BoardTask]:
-        """获取所有可认领的任务"""
+    def create(self, title: str, **kwargs) -> KanbanTask:
+        tid = str(uuid.uuid4())[:8]
+        now = datetime.now().isoformat()
         with self._lock:
-            return [
-                t for t in self.tasks.values()
-                if t.status == TaskStatus.PENDING
-                and all(
-                    dep_id in self.tasks and self.tasks[dep_id].status == TaskStatus.DONE
-                    for dep_id in t.blocked_by
-                )
-            ]
+            self.conn.execute(
+                "INSERT INTO tasks (id,title,description,status,blocked_by,created_at,updated_at,goal_mode) "
+                "VALUES (?,'todo',?,?,?,?,?,?)",
+                (tid, title, kwargs.get("description", ""),
+                 json.dumps(kwargs.get("blocked_by", [])),
+                 now, now, int(kwargs.get("goal_mode", False))),
+            )
+            self.conn.commit()
+        print(f"  [Board] created: {title}")
+        return KanbanTask(task_id=tid, title=title, **kwargs)
 
-    def claim(self, task_id: str, agent_id: str) -> bool:
-        """认领任务"""
+    def promote_ready(self) -> int:
+        """将依赖满足的 todo 任务提升为 ready"""
+        now = datetime.now().isoformat()
+        promoted = 0
         with self._lock:
-            if task_id not in self.tasks:
-                return False
-            task = self.tasks[task_id]
-            if task.status != TaskStatus.PENDING:
-                return False
-            task.status = TaskStatus.CLAIMED
-            task.assigned_to = agent_id
-        print(f"  [{agent_id}] claimed: {task.title}")
-        return True
+            rows = self.conn.execute(
+                "SELECT id, title, blocked_by FROM tasks WHERE status='todo'"
+            ).fetchall()
+            for tid, title, blocked_json in rows:
+                blocked = json.loads(blocked_json)
+                if all(
+                    self.conn.execute("SELECT status FROM tasks WHERE id=?", (d,)).fetchone()
+                    and self.conn.execute("SELECT status FROM tasks WHERE id=?", (d,)).fetchone()[0] == "done"
+                    for d in blocked
+                ):
+                    self.conn.execute(
+                        "UPDATE tasks SET status='ready', updated_at=? WHERE id=?", (now, tid)
+                    )
+                    promoted += 1
+            self.conn.commit()
+        return promoted
+
+    def claim_and_spawn(self, worker_id: str) -> KanbanTask | None:
+        """原子认领一个 ready 任务"""
+        now = datetime.now().isoformat()
+        with self._lock:
+            row = self.conn.execute(
+                "SELECT id, title FROM tasks WHERE status='ready' LIMIT 1"
+            ).fetchone()
+            if not row:
+                return None
+            tid, title = row
+            lock_id = str(uuid.uuid4())[:8]
+            self.conn.execute(
+                "UPDATE tasks SET status='running', assignee=?, claim_lock=?, "
+                "claim_expires=?, updated_at=? WHERE id=?",
+                (worker_id, lock_id, now.isoformat(), now.isoformat(), tid),
+            )
+            self.conn.commit()
+        print(f"  [Dispatcher] claimed '{title}' → {worker_id}")
+        return KanbanTask(task_id=tid, title=title, status=TaskStatus.RUNNING,
+                          assignee=worker_id, claim_lock=lock_id)
 
     def complete(self, task_id: str):
         with self._lock:
-            if task_id in self.tasks:
-                self.tasks[task_id].status = TaskStatus.DONE
+            self.conn.execute("UPDATE tasks SET status='done', updated_at=? WHERE id=?",
+                              (datetime.now().isoformat(), task_id))
+            self.conn.commit()
+        print(f"  [Worker] completed: {task_id}")
+
+    def reclaim_stale(self, ttl: int = DEFAULT_CLAIM_TTL) -> int:
+        """回收超时 TTL 的 running 任务"""
+        reclaimed = 0
+        now = datetime.now()
+        with self._lock:
+            rows = self.conn.execute(
+                "SELECT id, title, claim_expires FROM tasks WHERE status='running'"
+            ).fetchall()
+            for tid, title, expires in rows:
+                try:
+                    exp = datetime.fromisoformat(expires)
+                    if (now - exp).total_seconds() > ttl:
+                        self.conn.execute(
+                            "UPDATE tasks SET status='ready', assignee='', "
+                            "claim_lock='', claim_expires='' WHERE id=?", (tid,)
+                        )
+                        reclaimed += 1
+                        print(f"  [Dispatcher] reclaimed stale: {title}")
+                except (ValueError, TypeError):
+                    pass
+            self.conn.commit()
+        return reclaimed
+
+    def block_on_failure(self, task_id: str):
+        with self._lock:
+            row = self.conn.execute("SELECT failure_count FROM tasks WHERE id=?", (task_id,)).fetchone()
+            if row:
+                count = row[0] + 1
+                if count >= FAILURE_LIMIT:
+                    self.conn.execute("UPDATE tasks SET status='blocked', failure_count=? WHERE id=?",
+                                      (count, task_id))
+                    print(f"  [Dispatcher] blocked after {count} failures: {task_id}")
+                else:
+                    self.conn.execute("UPDATE tasks SET failure_count=?, status='todo' WHERE id=?",
+                                      (count, task_id))
 
     def status_report(self) -> str:
         with self._lock:
-            lines = ["\n  📋 Task Board:"]
-            for t in self.tasks.values():
-                emoji = {"pending": "⬜", "claimed": "🔵", "in_progress": "🟡", "done": "✅"}
-                who = f" ← {t.assigned_to}" if t.assigned_to else ""
-                lines.append(f"  {emoji.get(t.status.value, '❓')} [{t.task_id}] {t.title}{who}")
-            return "\n".join(lines)
+            rows = self.conn.execute(
+                "SELECT id, title, status, assignee FROM tasks ORDER BY created_at"
+            ).fetchall()
+        lines = ["\n  📋 Kanban Board:"]
+        emoji = {"todo": "⬜", "ready": "🟢", "running": "🔵", "done": "✅", "blocked": "🔒"}
+        for tid, title, status, assignee in rows:
+            who = f" ← {assignee}" if assignee else ""
+            lines.append(f"  {emoji.get(status, '❓')} [{tid}] {title}{who}")
+        return "\n".join(lines)
 
 
-# ── Autonomous Agent ──────────────────────────────────
+class KanbanDispatcher:
+    """中心调度器 — 每 60s tick 一次，6 步调度循环"""
 
-class AutonomousAgent:
-    """自主 agent — 空闲时自动扫描任务板，认领并执行"""
-
-    def __init__(self, agent_id: str, board: SharedTaskBoard,
-                 skills: list[str] = None,
-                 idle_interval: float = 5.0):
-        self.agent_id = agent_id
+    def __init__(self, board: KanbanBoard):
         self.board = board
-        self.skills = skills or []
-        self.idle_interval = idle_interval
         self._running = False
-        self._stop_event = threading.Event()
-        self._thread: Optional[threading.Thread] = None
-        self.stats = {"claimed": 0, "completed": 0}
+        self._stop = threading.Event()
+        self.stats = {"ticks": 0, "spawned": 0, "reclaimed": 0, "promoted": 0}
 
     def start(self):
-        """启动自主循环"""
         self._running = True
-        self._stop_event.clear()
-        self._thread = threading.Thread(
-            target=self._idle_loop, daemon=True, name=f"agent-{self.agent_id}"
-        )
-        self._thread.start()
-        print(f"  [{self.agent_id}] started (skills: {', '.join(self.skills)})")
+        self._stop.clear()
+        threading.Thread(target=self._loop, daemon=True, name="kanban-dispatcher").start()
+        print(f"  [Dispatcher] started (interval={DISPATCH_INTERVAL}s)")
 
     def stop(self):
         self._running = False
-        self._stop_event.set()
-        if self._thread:
-            self._thread.join(timeout=3)
-        print(f"  [{self.agent_id}] stopped ({self.stats['completed']} completed)")
+        self._stop.set()
+        print(f"  [Dispatcher] stopped. stats={self.stats}")
 
-    def _idle_loop(self):
-        """空闲循环 — 每隔 idle_interval 秒扫描一次任务板"""
-        while not self._stop_event.is_set():
-            if not self._running:
-                self._stop_event.wait(1)
-                continue
+    def _loop(self):
+        while not self._stop.is_set():
+            self._tick()
+            self._stop.wait(DISPATCH_INTERVAL)
 
-            # 1. 扫描任务板
-            open_tasks = self.board.get_open()
+    def _tick(self):
+        """一次调度周期: 6 个步骤"""
+        self.stats["ticks"] += 1
+        # 1. Reclaim 超时任务
+        self.stats["reclaimed"] += self.board.reclaim_stale()
+        # 2. Promote ready 任务
+        self.stats["promoted"] += self.board.promote_ready()
+        # 3. Claim + Spawn
+        task = self.board.claim_and_spawn(f"worker-{uuid.uuid4().hex[:4]}")
+        if task:
+            self.stats["spawned"] += 1
+            time.sleep(0.3)
+            self.board.complete(task.task_id)
 
-            # 2. 筛选自己能做的任务
-            for task in open_tasks:
-                if self._can_handle(task):
-                    if self.board.claim(task.task_id, self.agent_id):
-                        self.stats["claimed"] += 1
-                        # 3. 执行任务
-                        self._execute(task)
-                        self.board.complete(task.task_id)
-                        self.stats["completed"] += 1
-                        break  # 一次只做一个
-
-            # 4. 等待下一轮
-            self._stop_event.wait(self.idle_interval)
-
-    def _can_handle(self, task: BoardTask) -> bool:
-        """判断这个 agent 能否处理该任务"""
-        if not self.skills:  # 没有限制 = 什么都能做
-            return True
-        # 简单匹配: 任务标题或描述中包含技能关键词
-        text = (task.title + " " + task.description).lower()
-        return any(skill.lower() in text for skill in self.skills)
-
-    def _execute(self, task: BoardTask):
-        """执行任务"""
-        print(f"  [{self.agent_id}] executing: {task.title}...")
-        # 模拟执行时间
-        time.sleep(random.uniform(0.5, 2.0))
-        print(f"  [{self.agent_id}] ✅ {task.title}")
-
-
-# ── Heartbeat ──────────────────────────────────────────
-
-class HeartbeatMonitor:
-    """心跳监控 — 确保 agent 还在正常运行"""
-
-    def __init__(self):
-        self._heartbeats: dict[str, float] = {}
-
-    def record(self, agent_id: str):
-        self._heartbeats[agent_id] = time.time()
-
-    def get_stale(self, timeout: float = 30.0) -> list[str]:
-        """返回超时未心跳的 agent 列表"""
-        now = time.time()
-        return [aid for aid, ts in self._heartbeats.items() if now - ts > timeout]
-
-
-# ── Main ──────────────────────────────────────────────
 
 def main():
-    board = SharedTaskBoard()
-    monitor = HeartbeatMonitor()
+    board = KanbanBoard()
+    dispatcher = KanbanDispatcher(board)
 
     print("=" * 60)
-    print("s23: Autonomous Agents — 自己看板，有活就认领")
+    print("s23: Kanban Dispatcher — 中心调度 + Worker 执行")
     print("=" * 60)
     print()
+    print("Hermes 团队调度不是 worker 自己扫板，是 Dispatcher 中心分配:")
+    print()
+    print("  ┌────────────────────────────────────────────┐")
+    print("  │         Kanban Dispatcher                  │")
+    print("  │  每 60s tick:                              │")
+    print("  │  1. Reclaim 超时 (TTL=15min)               │")
+    print("  │  2. Promote ready 任务                     │")
+    print("  │  3. Claim + Spawn worker 进程              │")
+    print("  │  4. 失败保护 (连续{0}次→block)              │".format(FAILURE_LIMIT))
+    print("  └──────────────┬─────────────────────────────┘")
+    print("                 │ spawn 独立进程")
+    print("                 ▼")
+    print("  ┌──────────────────────────────────────────┐")
+    print("  │  Worker: hermes -p <p> chat -q ...        │")
+    print("  │  定期 heartbeat · 完成 → complete         │")
+    print("  └──────────────────────────────────────────┘")
+    print()
 
-    # 1. 发布任务到板上
-    print("发布任务:")
-    board.post("Fix login bug", "Users cannot login with OAuth")
-    board.post("Add rate limiting", "Implement rate limiting for API endpoints")
-    board.post("Code review: PR #42", "Review the authentication refactor")
-    board.post("Update API docs", "Update swagger documentation")
-    board.post("Database optimization", "Add indexes for slow queries",
-               blocked_by=["task_fix_login"])  # 依赖先修 bug
-    print(board.status_report())
-
-    # 2. 创建不同技能的自主 agent
-    print("\n启动自主 agent 团队:")
-    bug_fixer = AutonomousAgent("bug-fixer", board, skills=["bug", "fix", "error"])
-    api_dev = AutonomousAgent("api-dev", board, skills=["api", "rate", "endpoint"])
-    reviewer = AutonomousAgent("reviewer", board, skills=["review", "docs", "documentation"])
-
-    bug_fixer.start()
-    api_dev.start()
-    reviewer.start()
-
-    # 3. 运行几秒让 agent 认领任务
-    print("\nAgent 正在自主认领任务...\n")
-    time.sleep(3)
+    board.create("Fix login bug")
+    board.create("Add rate limiting")
+    board.create("Update API docs", blocked_by=["fix_login_bug"])
 
     print(board.status_report())
 
-    # 停止
-    bug_fixer.stop()
-    api_dev.stop()
-    reviewer.stop()
+    print("\nDispatcher tick:")
+    dispatcher._tick()
+    print(board.status_report())
 
-    print(f"\n  Bug-fixer: claimed={bug_fixer.stats['claimed']}, completed={bug_fixer.stats['completed']}")
-    print(f"  API-dev:   claimed={api_dev.stats['claimed']}, completed={api_dev.stats['completed']}")
-    print(f"  Reviewer:  claimed={reviewer.stats['claimed']}, completed={reviewer.stats['completed']}")
+    print(f"\n{dispatcher.stats}")
     print()
-    print("设计原则:")
-    print("  1. 空闲循环 (idle loop) — 每隔 N 秒扫描一次任务板")
-    print("  2. 自主认领 — agent 自己判断能不能做，不需要 leader 分配")
-    print("  3. 技能匹配 — 任务标题/描述匹配 agent 技能才认领")
-    print("  4. 心跳监控 — 检测 agent 是否正常运行")
+    print("三种 Agent Team 触发模式对比:")
+    print("  ┌──────────────┬──────────┬──────────────────┐")
+    print("  │ delegate_task│ LLM 决策 │ 同步, 不持久      │")
+    print("  │ Cron         │ 定时调度 │ 异步, jobs.json   │")
+    print("  │ Kanban       │ 事件循环 │ 异步, SQLite 持久  │")
+    print("  └──────────────┴──────────┴──────────────────┘")
 
 
 if __name__ == "__main__":

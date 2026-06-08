@@ -1,75 +1,101 @@
-# s23: Autonomous Agents — 自己看板，有活就认领
+# s23: Kanban Dispatcher — 中心调度 + Worker 执行
 
 [中文](README.md) · [English](README.en.md)
 
+![Kanban Dispatcher](images/autonomous-agents.svg)
+
 s01 → ... → s22 → `s23` → [s24](../s24_system_prompt/)
-> *"队友自己看板，有活就认领"* — 空闲循环 + 技能匹配 + 自主认领，无需 leader 逐个分配。
+> *"不是 worker 自己扫板，是 Dispatcher 中心分配"* — 每 60s tick + claim TTL + 失败保护。
 >
-> **Harness 基础**: Autonomous Agents — 自组织的多 agent 系统。
+> **Hermes 特性**: Kanban Dispatcher — 持久化的多 agent 工作队列。
 
 ---
 
 ## 问题
 
-s16 的 Agent Teams 是 leader 分配任务给 worker。但 leader 本身成为瓶颈——需要知道每个 worker 的能力，还要追踪谁在忙谁空闲。
-
-**能否让 agent 自己认领任务？像蜂群一样自组织。**
+s16 的 delegate_task 是同步的、不持久的——父 agent 关了，子 agent 也没了。需要一种**异步、持久化**的多 agent 协作方式。
 
 ---
 
 ## 解决方案
 
-![Autonomous Agents](images/autonomous-agents.svg)
+**Kanban Dispatcher** — 事件循环驱动的工作队列：
 
-三个核心机制：
-
-### 1. 空闲循环 (Idle Loop)
-
-每个 agent 每隔 N 秒扫描一次共享任务板：
-
-```python
-while not stopped:
-    tasks = board.get_open()     # 扫板
-    for task in tasks:
-        if can_handle(task):     # 我能做吗？
-            claim(task)           # 认领
-            execute(task)         # 执行
-            break
-    sleep(idle_interval)         # 等下一轮
+```
+         Kanban Board (SQLite)
+        ┌──────────────────────┐
+        │  todo → ready → running → done
+        │              ↓
+        │          blocked (failure_limit)
+        └──────────────────────┘
+                ▲       │
+        reclaim │       │ claim + spawn
+                │       ▼
+        ┌──────────────────────────────┐
+        │  Dispatcher (dispatch_once)   │
+        │  - 每 60 秒一次 tick            │
+        │  - 回收 stale/crashed 任务      │
+        │  - promote ready 任务           │
+        │  - claim + spawn worker        │
+        └──────────┬───────────────────┘
+                   │ _default_spawn()
+                   ▼
+        ┌──────────────────────────┐
+        │  Worker Process           │
+        │  hermes -p <profile>      │
+        │  chat -q "work kanban    │
+        │  task <id>"              │
+        └──────────────────────────┘
 ```
 
-### 2. 技能匹配
+### 6 步调度循环
 
-Agent 根据任务标题/描述判断自己能不能做——不是所有任务都认领。
+每个 tick (60s) 执行:
 
-### 3. 心跳监控
+1. **Reclaim** — 回收超时 TTL 的 running 任务
+2. **Stale 检测** — 回收无心跳的 running 任务
+3. **Crash 检测** — 检测 host-local PID 已死亡的 worker
+4. **Promote** — 满足依赖的 todo → ready
+5. **Claim + Spawn** — 原子认领 ready 任务, fork 子进程
+6. **失败保护** — 连续 `failure_limit`（默认 2）次失败后自动 block
 
-定期记录心跳，检测失联 agent——失联超时自动释放其任务。
+### 三种模式对比
+
+| | delegate_task (s16) | Cron (s13) | Kanban (s23) |
+|---|---|---|---|
+| 谁触发 | LLM 自主决策 | 定时调度 | Dispatcher 事件循环 |
+| 生命周期 | 同步，跟随父 turn | 异步持久化 job | 异步持久化 task |
+| 持久性 | 不持久 | jobs.json | SQLite board |
+| 嵌套 | max_spawn_depth | 禁用 delegate_task | kanban_create 子任务 |
 
 ---
 
 ## 试一下
 
 ```sh
-python s23_autonomous/code.py
+python s23_autonomous/autonomous.py
 ```
+
+---
 
 <details>
 <summary>深入 Hermes 源码</summary>
 
-生产版自主 agent 系统位于以下源文件:
+生产版 Kanban 系统位于以下源文件:
 
 | 文件 | 职责 |
 |------|------|
-| `agent/background_review.py` | idle loop 实现、任务认领逻辑 |
-| `cron/scheduler.py` | cron ticker 的自主调度 |
-| `gateway/run.py` | gateway 心跳 + 空闲检测 |
+| `hermes_cli/kanban_db.py` | Board CRUD、dispatch_once、claim/reclaim 逻辑 |
+| `hermes_cli/kanban.py` | CLI: kanban create/status/daemon |
+| `cli.py`(~15486) | goal_mode worker loop |
+| `agent/conversation_loop.py`(~4476) | kanban_complete 信号 |
 
 教学版简化了什么:
-- 生产版自主 agent 通过 heartbeat 机制 (每 30s) 检查待处理任务
-- 生产版 agent 可以给自己注册 cron 任务: "每 5 分钟检查一次队列"
-- 生产版支持 auto_claim: agent 根据 skill 自动匹配并认领任务
-- 生产版有心跳监控和超时自动释放任务机制
+- 生产版 Dispatcher 嵌入 gateway 进程（`dispatch_in_gateway: true`）
+- 生产版 Worker 是通过 `subprocess.Popen` 启动的真实独立进程
+- 生产版 claim 使用 SQLite 行锁实现原子操作
+- 生产版支持 goal_mode（Ralph 式 goal judge loop）和 classic 两种 worker 模式
+- 生产版有 Board/Tenant/Profile 三层隔离
 
 </details>
 
