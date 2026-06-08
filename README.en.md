@@ -24,19 +24,19 @@ An agent that perceives, reasons, and acts — that comes from model training. B
 
 ## 30-Second Demo
 
-Start with the final chapter to see the full loop:
+Start with the self-evolution loop chapter:
 
 ```sh
 python s12_comprehensive/comprehensive.py
 ```
 
-Try this input:
+Try: `Stop using camelCase in Python files — I always use snake_case.` Continue a few turns, run `/insights` and `/curator`.
 
-```text
-Stop using camelCase in Python files — I always use snake_case.
+For the full Hermes feature set (gateway, cron, profiles, teams, MCP):
+
+```sh
+python s18_full_hermes/full_hermes.py
 ```
-
-Continue for a few turns, then run `/insights` and `/curator`. You should see the correction distilled into memory/skills, relevant knowledge injected into later context, and the Curator previewing skill-library cleanup.
 
 ---
 
@@ -257,17 +257,17 @@ flowchart TD
 
 ## How to Read
 
-Each chapter is a folder containing:
+Each chapter is a self-contained folder:
 
 ```
 s04_memory_system/
-  README.md              # Chinese source (complete narrative)
-  README.en.md           # English translation
-  code.py                # standalone runnable implementation
-  images/                # SVG diagrams
+  README.md              # Complete narrative + inline code + Deep Dive
+  README.en.md           # English translation (select chapters)
+  memory_system.py       # Standalone runnable implementation
+  images/                # SVG architecture diagrams
 ```
 
-Read from s01 through s12 in order. Each chapter assumes previous chapters and ends with a hook to the next.
+Read from s01 through s24 in order. Each chapter assumes prior chapters and ends with a hook to the next. The `<details>` fold at the end of each README maps teaching code to production Hermes source files.
 
 ---
 
@@ -311,21 +311,40 @@ The two repositories are complementary. Together they cover the full harness eng
 
 ```
 learn-hermes-agent/
-  llm.py                        # Unified LLM provider (Anthropic/DeepSeek/OpenAI/etc.)
-  s01_agent_loop/               # Agent Loop + Basic Memory
-  s02_background_memory_review/ # Background Memory Review
-  s03_background_skill_review/  # Background Skill Review
-  s04_memory_system/            # Memory System Deep Dive
-  s05_skill_lifecycle/          # Skill Lifecycle Management
-  s06_skill_creation/           # Skill Auto-Creation Rules
-  s07_curator_state/            # Curator Auto State Transitions
-  s08_curator_llm/              # Curator LLM Review & Merge
-  s09_context_management/       # Context Management
-  s10_insights/                 # Insights Analytics Engine
-  s11_error_recovery/           # Error Recovery & Self-Healing
-  s12_comprehensive/            # Complete Self-Evolving Agent
-  skills/                       # Example skill files
-  tests/                        # Tests
+  llm.py                        # Unified LLM adapter (Anthropic/DeepSeek/OpenAI/...)
+  requirements.txt              # Python dependencies
+  .github/workflows/test.yml    # CI (168 tests)
+├── Self-Evolution Core (s01-s12)
+│   s01_agent_loop/             # Agent Loop + Basic Memory
+│   s02_background_memory_review/# Background Memory Review (Nudge)
+│   s03_background_skill_review/ # Background Skill Review (Signals)
+│   s04_memory_system/          # FTS5 + Pluggable Memory Providers
+│   s05_skill_lifecycle/        # active/stale/archived State Machine
+│   s06_skill_creation/         # Signal Priority + Forbidden Capture
+│   s07_curator_state/          # Curator P1: Pure-Rule Auto Transitions
+│   s08_curator_llm/            # Curator P2: LLM Review & Merge
+│   s09_context_management/     # Conversation Compression + Prefetch
+│   s10_insights/               # Token/Cost/Tool Analytics
+│   s11_error_recovery/         # Retry + Fallback + Self-Healing
+│   s12_comprehensive/          # Six-Layer Self-Evolution Integration
+├── Advanced Features (s13-s18)
+│   s13_cron_scheduler/         # Scheduled Tasks + Gateway Ticker
+│   s14_gateway/                # Multi-Platform Message Gateway
+│   s15_profiles/               # Multi-Profile Isolation + Inheritance
+│   s16_agent_teams/            # Sub-Agent Spawn + JSONL Mailbox
+│   s17_mcp_plugin/             # MCP External Tool Integration
+│   s18_full_hermes/            # Full Hermes Integration
+├── Harness Foundations (s19-s24)
+│   s19_permission/             # 4-Level Approval Pipeline
+│   s20_hooks/                  # 8 Hook Extension Points
+│   s21_worktree/               # Git Worktree Per-Task Isolation
+│   s22_planning/               # TodoWrite + Dependency DAG
+│   s23_autonomous/             # Idle Loop + Auto-Claim
+│   s24_system_prompt/          # Section-Based Composition
+├── assets/                     # Social Preview Image
+├── scripts/                    # Utility Scripts
+├── tests/                      # 168 Automated Tests
+└── web/                        # Next.js Learning Platform
 ```
 
 ---

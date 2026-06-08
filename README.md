@@ -24,7 +24,7 @@
 
 ## 30 秒 Demo
 
-建议先跑最终章，直接观察完整闭环：
+建议先跑自进化闭环章节，直接观察效果：
 
 ```sh
 python s12_comprehensive/comprehensive.py
@@ -36,7 +36,13 @@ python s12_comprehensive/comprehensive.py
 Stop using camelCase in Python files — I always use snake_case.
 ```
 
-然后继续交互几轮，运行 `/insights` 和 `/curator`。你会看到纠正被沉淀为记忆/技能，后续上下文会自动注入相关知识，Curator 会对技能库做整理预览。
+继续交互几轮，运行 `/insights` 和 `/curator`。你会看到纠正被沉淀为记忆/技能。
+
+想体验完整 Hermes 特性（gateway、cron、profiles、teams、MCP）：
+
+```sh
+python s18_full_hermes/full_hermes.py   # 完整集成 + 架构图 + 指标面板
+```
 
 ---
 
@@ -236,16 +242,17 @@ flowchart TD
 
 ## 如何阅读
 
-每章一个文件夹，包含：
+每章一个独立文件夹，包含完整叙事文档和可运行代码：
 
 ```
 s04_memory_system/
-  README.md              # 完整叙事 + 内联代码
-  code.py                # 独立可运行实现
-  images/                # SVG 图表
+  README.md              # 完整叙事 + 原理讲解 + 内联代码
+  README.en.md           # 英文翻译（部分章节）
+  memory_system.py       # 独立可运行实现
+  images/                # SVG 架构图
 ```
 
-从 s01 读到 s12，按顺序。每章假定你已读过前面章节，章末有通往下一章的钩子。
+按顺序从 s01 读到 s24。每章假定你已读过前面章节，章末有通往下一章的钩子。每个 README 末尾有 `<details>` 折叠区引用 Hermes 生产源码。
 
 ---
 
@@ -314,20 +321,40 @@ learn-claude-code                   learn-hermes-agent
 
 ```
 learn-hermes-agent/
-  s01_agent_loop/              # Agent Loop + 基础记忆
-  s02_background_memory_review/ # 背景记忆审查
-  s03_background_skill_review/  # 背景技能审查
-  s04_memory_system/            # 记忆系统深度
-  s05_skill_lifecycle/          # 技能生命周期管理
-  s06_skill_creation/           # 技能自动创建规则
-  s07_curator_state/            # Curator 自动状态转换
-  s08_curator_llm/              # Curator LLM 审查合并
-  s09_context_management/       # 上下文管理
-  s10_insights/                 # Insights 分析引擎
-  s11_error_recovery/           # 错误恢复与自愈
-  s12_comprehensive/            # 完整自进化 Agent
-  skills/                       # 示例技能文件
-  tests/                        # 测试
+  llm.py                        # 统一 LLM 适配 (Anthropic/DeepSeek/OpenAI/...)
+  requirements.txt              # Python 依赖
+  .github/workflows/test.yml    # CI (168 tests)
+├── 自进化核心 (s01-s12)
+│   s01_agent_loop/             # Agent Loop + 基础记忆
+│   s02_background_memory_review/# 背景记忆审查 (Nudge)
+│   s03_background_skill_review/ # 背景技能审查 (信号检测)
+│   s04_memory_system/          # FTS5 + 可插拔记忆提供者
+│   s05_skill_lifecycle/        # active/stale/archived 状态机
+│   s06_skill_creation/         # 信号优先级 + 禁止捕获
+│   s07_curator_state/          # Curator P1: 纯规则自动转换
+│   s08_curator_llm/            # Curator P2: LLM 审查合并
+│   s09_context_management/     # 对话压缩 + 记忆预取
+│   s10_insights/               # Token/成本/工具分析
+│   s11_error_recovery/         # 重试 + 降级 + 自愈
+│   s12_comprehensive/          # 六层自进化集成
+├── 高级特性 (s13-s18)
+│   s13_cron_scheduler/         # 定时任务 + gateway ticker
+│   s14_gateway/                # 多平台消息网关
+│   s15_profiles/               # 多 profile 隔离 + 继承
+│   s16_agent_teams/            # 子 agent + JSONL 邮箱
+│   s17_mcp_plugin/             # MCP 外部工具接入
+│   s18_full_hermes/            # 完整 Hermes 集成
+├── Harness 基础 (s19-s24)
+│   s19_permission/             # 四层审批管线
+│   s20_hooks/                  # 8 个 Hook 扩展点
+│   s21_worktree/               # git worktree 并行隔离
+│   s22_planning/               # TodoWrite + 依赖 DAG
+│   s23_autonomous/             # 空闲循环 + 自主认领
+│   s24_system_prompt/          # 分段拼接 + 条件注入
+├── assets/                     # 社交预览图
+├── scripts/                    # 工具脚本
+├── tests/                      # 168 个自动化测试
+└── web/                        # Next.js 教学平台
 ```
 
 ---
