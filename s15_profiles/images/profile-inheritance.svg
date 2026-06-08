@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" style="background:#f8f9fa;font-family:system-ui,sans-serif">
+  <defs><marker id="a" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#388E3C"/></marker></defs>
+  <text x="450" y="34" text-anchor="middle" font-size="20" font-weight="700" fill="#0D47A1">Multi-Profile System - One Hermes, Many Configs</text>
+  <rect x="340" y="75" width="220" height="100" rx="12" fill="#E3F2FD" stroke="#1976D2" stroke-width="2"/>
+  <text x="450" y="108" text-anchor="middle" font-size="16" font-weight="700" fill="#1565C0">default profile</text>
+  <text x="450" y="135" text-anchor="middle" font-size="12" fill="#1976D2">base model / tools / safety</text>
+  <text x="450" y="157" text-anchor="middle" font-size="12" fill="#1976D2">shared memory policy</text>
+  <rect x="100" y="255" width="210" height="130" rx="12" fill="#E8F5E9" stroke="#388E3C" stroke-width="2"/>
+  <text x="205" y="288" text-anchor="middle" font-size="16" font-weight="700" fill="#2E7D32">work</text>
+  <text x="205" y="315" text-anchor="middle" font-size="12" fill="#388E3C">model: opus</text>
+  <text x="205" y="338" text-anchor="middle" font-size="12" fill="#388E3C">skills: code-review</text>
+  <text x="205" y="361" text-anchor="middle" font-size="12" fill="#388E3C">platforms: slack/api</text>
+  <rect x="345" y="255" width="210" height="130" rx="12" fill="#FFF3E0" stroke="#F57C00" stroke-width="2"/>
+  <text x="450" y="288" text-anchor="middle" font-size="16" font-weight="700" fill="#E65100">personal</text>
+  <text x="450" y="315" text-anchor="middle" font-size="12" fill="#F57C00">parent: work</text>
+  <text x="450" y="338" text-anchor="middle" font-size="12" fill="#F57C00">model: deepseek</text>
+  <text x="450" y="361" text-anchor="middle" font-size="12" fill="#F57C00">platforms: telegram</text>
+  <rect x="590" y="255" width="210" height="130" rx="12" fill="#E3F2FD" stroke="#1976D2" stroke-width="2"/>
+  <text x="695" y="288" text-anchor="middle" font-size="16" font-weight="700" fill="#1565C0">cron-worker</text>
+  <text x="695" y="315" text-anchor="middle" font-size="12" fill="#1976D2">cheap aux model</text>
+  <text x="695" y="338" text-anchor="middle" font-size="12" fill="#1976D2">minimal toolsets</text>
+  <text x="695" y="361" text-anchor="middle" font-size="12" fill="#1976D2">gateway disabled</text>
+  <line x1="420" y1="175" x2="230" y2="250" stroke="#388E3C" stroke-width="2.5" marker-end="url(#a)"/>
+  <line x1="450" y1="175" x2="450" y2="250" stroke="#388E3C" stroke-width="2.5" marker-end="url(#a)"/>
+  <line x1="480" y1="175" x2="670" y2="250" stroke="#388E3C" stroke-width="2.5" marker-end="url(#a)"/>
+  <path d="M310 320 L340 320" stroke="#F57C00" stroke-width="2.5" marker-end="url(#a)"/>
+  <text x="325" y="307" text-anchor="middle" font-size="11" fill="#F57C00">inherits</text>
+  <rect x="110" y="430" width="680" height="50" rx="8" fill="#ECEFF1" stroke="#B0BEC5"/>
+  <text x="450" y="460" text-anchor="middle" font-size="13" fill="#455A64">Resolution order: default -> parent chain -> active profile overrides -> platform/session context.</text>
+</svg>

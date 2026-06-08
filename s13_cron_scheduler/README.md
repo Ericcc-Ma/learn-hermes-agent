@@ -21,6 +21,8 @@ s01-s12 的 agent 是被动的——用户发消息，agent 响应。关了 sess
 
 ## 解决方案
 
+![Cron Scheduler](images/cron-scheduler.svg)
+
 三层架构：
 
 ```

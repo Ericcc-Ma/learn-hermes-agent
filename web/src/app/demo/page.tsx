@@ -25,7 +25,7 @@ export default function DemoPage() {
           真实演示脚本：Agent 如何从一次纠正中学习
         </h1>
         <p className="text-lg text-[#a7b0bc] max-w-3xl leading-relaxed">
-          这个 demo 对应 `s12_comprehensive/code.py` 的完整闭环：用户纠正、后台审查、记忆/技能持久化、下一轮自动加载。
+          这个 demo 对应 `s12_comprehensive/comprehensive.py` 的完整闭环：用户纠正、后台审查、记忆/技能持久化、下一轮自动加载。
         </p>
       </div>
 
@@ -51,7 +51,7 @@ export default function DemoPage() {
             <span className="ml-3 text-xs text-[#8b949e]">terminal demo</span>
           </div>
           <pre className="m-0 rounded-none border-0 bg-[#0b0d10] text-sm">
-<code>{`$ python s12_comprehensive/code.py
+<code>{`$ python s12_comprehensive/comprehensive.py
 
 You: Stop using camelCase in Python files — I always use snake_case.
 
@@ -87,7 +87,7 @@ skill_loads: 1`}</code>
         <h2 className="text-xl font-bold text-white mb-4">在本地运行同款 Demo</h2>
         <pre className="text-sm">
 <code>{`cd D:\\study\\learn-hermes-agent
-python s12_comprehensive/code.py
+python s12_comprehensive/comprehensive.py
 
 # 输入：
 Stop using camelCase in Python files — I always use snake_case.

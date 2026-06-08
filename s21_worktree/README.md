@@ -1,6 +1,6 @@
 # s21: Worktree Isolation — 各干各的目录，互不干扰
 
-[中文](README.md)
+[中文](README.md) · [English](README.en.md)
 
 s01 → ... → s20 → `s21` → [s22](../s22_planning/) → s23 → s24
 > *"各干各的目录，互不干扰"* — git worktree 并行隔离，每个任务独立文件系统空间。
@@ -18,6 +18,8 @@ s01 → ... → s20 → `s21` → [s22](../s22_planning/) → s23 → s24
 ---
 
 ## 解决方案
+
+![Worktree Isolation](images/worktree-isolation.svg)
 
 Git worktree — 零拷贝创建独立工作目录，共享 `.git` 对象数据库：
 

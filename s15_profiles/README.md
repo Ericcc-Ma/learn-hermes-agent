@@ -22,6 +22,8 @@ s01 → ... → s14 → `s15` → [s16](../s16_agent_teams/) → ... → s18
 
 ## 解决方案
 
+![Profile Inheritance](images/profile-inheritance.svg)
+
 **Profile Manager** — 每个 profile 是一个独立的配置单元，支持继承。
 
 ### Profile 配置结构

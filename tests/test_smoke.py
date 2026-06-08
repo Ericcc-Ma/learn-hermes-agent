@@ -19,7 +19,7 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
-# Paths to all 18 chapter code.py files (relative to project root)
+# Paths to all 24 chapter implementation files (relative to project root)
 CHAPTER_FILES = [
     "s01_agent_loop/agent_loop.py",
     "s02_background_memory_review/background_memory_review.py",

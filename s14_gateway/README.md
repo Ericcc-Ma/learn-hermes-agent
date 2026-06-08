@@ -19,6 +19,8 @@ s13 的 cron 任务执行完了——结果发给谁？用户可能在 Telegram 
 
 ## 解决方案
 
+![Gateway Routing](images/gateway-routing.svg)
+
 **Gateway 架构**：三层设计，平台无关。
 
 ### 1. 平台适配层 (Platform Adapters)

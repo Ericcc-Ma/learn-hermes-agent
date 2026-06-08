@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" style="background:#f8f9fa;font-family:system-ui,sans-serif">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#1976D2"/></marker>
+    <marker id="arrow2" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#F57C00"/></marker>
+  </defs>
+  <text x="450" y="34" text-anchor="middle" font-size="20" font-weight="700" fill="#0D47A1">Cron Scheduler - Agent Wakes Up On Time</text>
+  <rect x="45" y="80" width="220" height="115" rx="10" fill="#E3F2FD" stroke="#1976D2" stroke-width="2"/>
+  <text x="155" y="112" text-anchor="middle" font-size="15" font-weight="700" fill="#1565C0">Session Layer</text>
+  <text x="155" y="138" text-anchor="middle" font-size="12" fill="#1976D2">cron_create tool</text>
+  <text x="155" y="160" text-anchor="middle" font-size="12" fill="#1976D2">validate schedule</text>
+  <text x="155" y="182" text-anchor="middle" font-size="12" fill="#1976D2">persist job metadata</text>
+  <rect x="340" y="80" width="220" height="115" rx="10" fill="#E8F5E9" stroke="#388E3C" stroke-width="2"/>
+  <text x="450" y="112" text-anchor="middle" font-size="15" font-weight="700" fill="#2E7D32">jobs.json</text>
+  <text x="450" y="138" text-anchor="middle" font-size="12" fill="#388E3C">id / prompt / schedule</text>
+  <text x="450" y="160" text-anchor="middle" font-size="12" fill="#388E3C">next_run_at</text>
+  <text x="450" y="182" text-anchor="middle" font-size="12" fill="#388E3C">enabled / run_count</text>
+  <rect x="635" y="80" width="220" height="115" rx="10" fill="#FFF3E0" stroke="#F57C00" stroke-width="2"/>
+  <text x="745" y="112" text-anchor="middle" font-size="15" font-weight="700" fill="#E65100">Gateway Ticker</text>
+  <text x="745" y="138" text-anchor="middle" font-size="12" fill="#F57C00">tick every 60s</text>
+  <text x="745" y="160" text-anchor="middle" font-size="12" fill="#F57C00">scan due jobs</text>
+  <text x="745" y="182" text-anchor="middle" font-size="12" fill="#F57C00">dispatch run_job</text>
+  <line x1="265" y1="138" x2="335" y2="138" stroke="#1976D2" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <line x1="560" y1="138" x2="630" y2="138" stroke="#1976D2" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <rect x="110" y="285" width="200" height="95" rx="10" fill="#E3F2FD" stroke="#1976D2" stroke-width="2"/>
+  <text x="210" y="318" text-anchor="middle" font-size="15" font-weight="700" fill="#1565C0">Fork Agent</text>
+  <text x="210" y="344" text-anchor="middle" font-size="12" fill="#1976D2">fresh context</text>
+  <text x="210" y="366" text-anchor="middle" font-size="12" fill="#1976D2">execute prompt</text>
+  <rect x="350" y="285" width="200" height="95" rx="10" fill="#E8F5E9" stroke="#388E3C" stroke-width="2"/>
+  <text x="450" y="318" text-anchor="middle" font-size="15" font-weight="700" fill="#2E7D32">Output Store</text>
+  <text x="450" y="344" text-anchor="middle" font-size="12" fill="#388E3C">save transcript</text>
+  <text x="450" y="366" text-anchor="middle" font-size="12" fill="#388E3C">update last_run_at</text>
+  <rect x="590" y="285" width="200" height="95" rx="10" fill="#FFF3E0" stroke="#F57C00" stroke-width="2"/>
+  <text x="690" y="318" text-anchor="middle" font-size="15" font-weight="700" fill="#E65100">Delivery Router</text>
+  <text x="690" y="344" text-anchor="middle" font-size="12" fill="#F57C00">send result</text>
+  <text x="690" y="366" text-anchor="middle" font-size="12" fill="#F57C00">platform/channel</text>
+  <path d="M745 195 C745 245 210 235 210 282" fill="none" stroke="#F57C00" stroke-width="2.5" marker-end="url(#arrow2)"/>
+  <line x1="310" y1="333" x2="345" y2="333" stroke="#1976D2" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <line x1="550" y1="333" x2="585" y2="333" stroke="#1976D2" stroke-width="2.5" marker-end="url(#arrow)"/>
+  <rect x="45" y="435" width="810" height="48" rx="8" fill="#ECEFF1" stroke="#B0BEC5"/>
+  <text x="450" y="464" text-anchor="middle" font-size="13" fill="#455A64">Core idea: cron is persisted state; gateway ticker wakes jobs; delivery routes results back to the right channel.</text>
+</svg>

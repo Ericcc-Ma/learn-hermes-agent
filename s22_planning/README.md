@@ -1,6 +1,6 @@
 # s22: Planning System — 没计划的 agent 走哪算哪
 
-[中文](README.md)
+[中文](README.md) · [English](README.en.md)
 
 s01 → ... → s21 → `s22` → [s23](../s23_autonomous/) → s24
 > *"没计划的 agent 走哪算哪"* — 先列计划再执行，任务依赖图 + 状态追踪，完成率翻倍。
@@ -18,6 +18,8 @@ Agent 收到"实现用户认证系统"这种复杂任务时，如果直接开始
 ---
 
 ## 解决方案
+
+![Planning DAG](images/planning-dag.svg)
 
 TodoWrite 工具 + 任务依赖图（DAG）：
 

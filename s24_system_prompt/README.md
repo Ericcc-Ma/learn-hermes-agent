@@ -1,6 +1,6 @@
 # s24: System Prompt Assembly — prompt 是拼出来的
 
-[中文](README.md)
+[中文](README.md) · [English](README.en.md)
 
 s01 → ... → s23 → `s24`
 > *"prompt 是拼出来的，不是写死的"* — 分段定义 + 按需注入 + 条件拼接 + 平台差异。
@@ -16,6 +16,8 @@ System prompt 通常是一大段硬编码字符串。加了新工具要手动加
 ---
 
 ## 解决方案
+
+![System Prompt Assembly](images/system-prompt-assembly.svg)
 
 **分段 + 条件注入**：
 

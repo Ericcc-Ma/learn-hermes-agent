@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" style="background:#f8f9fa;font-family:system-ui,sans-serif">
+  <defs><marker id="a" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#1976D2"/></marker></defs>
+  <text x="450" y="34" text-anchor="middle" font-size="20" font-weight="700" fill="#0D47A1">Worktree Isolation - Parallel Agents, Separate Files</text>
+  <rect x="330" y="70" width="240" height="80" rx="12" fill="#ECEFF1" stroke="#78909C" stroke-width="2"/>
+  <text x="450" y="104" text-anchor="middle" font-size="16" font-weight="700" fill="#455A64">Shared .git object database</text>
+  <text x="450" y="128" text-anchor="middle" font-size="12" fill="#546E7A">commits and history are shared</text>
+  <rect x="60" y="245" width="210" height="125" rx="12" fill="#E3F2FD" stroke="#1976D2" stroke-width="2"/>
+  <text x="165" y="280" text-anchor="middle" font-size="16" font-weight="700" fill="#1565C0">main worktree</text>
+  <text x="165" y="306" text-anchor="middle" font-size="12" fill="#1976D2">current user session</text>
+  <text x="165" y="330" text-anchor="middle" font-size="12" fill="#1976D2">branch: main</text>
+  <rect x="345" y="245" width="210" height="125" rx="12" fill="#E8F5E9" stroke="#388E3C" stroke-width="2"/>
+  <text x="450" y="280" text-anchor="middle" font-size="16" font-weight="700" fill="#2E7D32">wt_a1b2</text>
+  <text x="450" y="306" text-anchor="middle" font-size="12" fill="#388E3C">agent A isolated files</text>
+  <text x="450" y="330" text-anchor="middle" font-size="12" fill="#388E3C">branch: task/auth</text>
+  <rect x="630" y="245" width="210" height="125" rx="12" fill="#FFF3E0" stroke="#F57C00" stroke-width="2"/>
+  <text x="735" y="280" text-anchor="middle" font-size="16" font-weight="700" fill="#E65100">wt_c3d4</text>
+  <text x="735" y="306" text-anchor="middle" font-size="12" fill="#F57C00">agent B isolated files</text>
+  <text x="735" y="330" text-anchor="middle" font-size="12" fill="#F57C00">branch: task/ui</text>
+  <line x1="390" y1="150" x2="180" y2="240" stroke="#1976D2" stroke-width="2.5" marker-end="url(#a)"/>
+  <line x1="450" y1="150" x2="450" y2="240" stroke="#1976D2" stroke-width="2.5" marker-end="url(#a)"/>
+  <line x1="510" y1="150" x2="720" y2="240" stroke="#1976D2" stroke-width="2.5" marker-end="url(#a)"/>
+  <rect x="170" y="415" width="560" height="45" rx="8" fill="#ECEFF1" stroke="#B0BEC5"/>
+  <text x="450" y="443" text-anchor="middle" font-size="13" fill="#455A64">Merge, keep, or remove each worktree after the task. File conflicts stay isolated until integration time.</text>
+</svg>

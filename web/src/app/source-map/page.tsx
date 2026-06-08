@@ -7,7 +7,19 @@ const SOURCE_ROWS = [
   ["s09", "上下文管理", "agent/context_compressor.py", "压缩模板、剩余工作、辅助模型"],
   ["s10", "Insights", "agent/insights.py", "token、成本、工具模式、平台维度"],
   ["s11", "错误恢复", "agent/conversation_loop.py", "重试、降级、上下文溢出恢复"],
-  ["s12", "完整集成", "toolsets.py", "工具注册、工具集分发、生产入口"],
+  ["s12", "六层集成", "run_agent.py", "自进化机制接回主循环"],
+  ["s13", "定时任务", "cron/scheduler.py", "jobs.json、ticker、run_job"],
+  ["s14", "多平台网关", "gateway/run.py", "adapter、session、delivery router"],
+  ["s15", "多 Profile", "hermes_cli/profiles.py", "配置继承、模型/工具/平台隔离"],
+  ["s16", "Agent Teams", "agent spawn + mailbox", "独立上下文、JSONL 邮箱、任务板"],
+  ["s17", "MCP Plugin", "tools/mcp_tool.py", "stdio/SSE/HTTP transport、工具池合并"],
+  ["s18", "完整 Hermes", "cli.py / toolsets.py", "18 章机制完整集成"],
+  ["s19", "权限系统", "tools/approval.py", "deny、ask_user、sandbox、allow"],
+  ["s20", "Hook 系统", "agent/conversation_loop.py", "PreToolUse、PostToolUse、Session hooks"],
+  ["s21", "Worktree 隔离", "agent/agent_runtime_helpers.py", "git worktree 生命周期管理"],
+  ["s22", "规划系统", "agent/task_manager.py", "TodoWrite、依赖图、状态传播"],
+  ["s23", "自主 Agent", "agent/background_review.py", "idle loop、auto claim、heartbeat"],
+  ["s24", "System Prompt", "agent/system_prompt.py", "分段 prompt、条件注入、优先级排序"],
 ];
 
 export default function SourceMapPage() {
@@ -16,10 +28,10 @@ export default function SourceMapPage() {
       <div className="mb-10">
         <p className="text-sm font-semibold text-[#f6c177] mb-2">Hermes 源码地图</p>
         <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-5">
-          教学章节如何对应生产源码
+          24 个章节如何对应生产源码
         </h1>
         <p className="text-lg text-[#a7b0bc] max-w-3xl leading-relaxed">
-          这张表把 `learn-hermes-agent` 的 12 个章节，对齐到 `NousResearch/hermes-agent` 的核心源码入口。
+          这张表把 `learn-hermes-agent` 的 24 个章节，对齐到 Hermes Agent 的核心源码入口。
         </p>
       </div>
 
@@ -49,8 +61,8 @@ export default function SourceMapPage() {
       <section className="mt-8 p-6 rounded-lg bg-[#171b21] border border-[#2b3036]">
         <h2 className="text-xl font-bold text-white mb-3">推荐读法</h2>
         <p className="text-[#a7b0bc] leading-relaxed">
-          先跑 `s12_comprehensive/code.py` 看完整效果，再回到 `run_agent.py` 看集成点，随后读
-          `agent/background_review.py`、`agent/curator.py`、`agent/memory_manager.py`。
+          先跑 `s18_full_hermes/full_hermes.py` 看完整效果，再回到 `run_agent.py` 看集成点，
+          随后读 `agent/background_review.py`、`agent/curator.py`、`gateway/run.py`、`tools/mcp_tool.py` 和 `agent/system_prompt.py`。
         </p>
       </section>
     </main>

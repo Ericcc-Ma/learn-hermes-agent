@@ -1,6 +1,6 @@
 # s20: Hook System — 挂在循环上，不写进循环里
 
-[中文](README.md)
+[中文](README.md) · [English](README.en.md)
 
 s01 → ... → s19 → `s20` → [s21](../s21_worktree/) → ... → s24
 > *"挂在循环上，不写进循环里"* — PreToolUse/PostToolUse/SessionStart/Stop 等扩展点。
@@ -18,6 +18,8 @@ s19 的权限检查写在 `execute_tool` 里面。如果还要加审计日志、
 ---
 
 ## 解决方案
+
+![Hook System](images/hook-system.svg)
 
 **Hook 注册表** — 在关键节点（工具前后、会话起止等）设置 hook 点，任何函数注册到对应 hook 点即可自动触发。
 

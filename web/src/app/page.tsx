@@ -11,6 +11,18 @@ const CHAPTERS = [
   { id: "10", slug: "s10_insights", title: "Insights Engine", motto: "不知道用了多少 token，就无法优化", layer: "可观测" },
   { id: "11", slug: "s11_error_recovery", title: "Error Recovery", motto: "出错不是终点，是学习的起点", layer: "自愈" },
   { id: "12", slug: "s12_comprehensive", title: "Complete Agent", motto: "六层归位，一个会自己进化的 agent", layer: "集成" },
+  { id: "13", slug: "s13_cron_scheduler", title: "Cron Scheduler", motto: "定好时间，agent 自己醒来干活", layer: "调度" },
+  { id: "14", slug: "s14_gateway", title: "Gateway", motto: "一个 gateway，连接所有平台", layer: "多平台" },
+  { id: "15", slug: "s15_profiles", title: "Multi-Profile System", motto: "一套 Hermes，多个人设", layer: "配置" },
+  { id: "16", slug: "s16_agent_teams", title: "Agent Teams", motto: "一个搞不定，组队来", layer: "协作" },
+  { id: "17", slug: "s17_mcp_plugin", title: "MCP Plugin", motto: "能力不够？接上 MCP", layer: "扩展" },
+  { id: "18", slug: "s18_full_hermes", title: "Full Hermes", motto: "全部机制，一个完整 Hermes", layer: "集成" },
+  { id: "19", slug: "s19_permission", title: "Permission System", motto: "先划边界，再给自由", layer: "安全" },
+  { id: "20", slug: "s20_hooks", title: "Hook System", motto: "挂在循环上，不写进循环里", layer: "扩展点" },
+  { id: "21", slug: "s21_worktree", title: "Worktree Isolation", motto: "各干各的目录，互不干扰", layer: "隔离" },
+  { id: "22", slug: "s22_planning", title: "Planning System", motto: "没计划的 agent 走哪算哪", layer: "规划" },
+  { id: "23", slug: "s23_autonomous", title: "Autonomous Agents", motto: "自己看板，有活就认领", layer: "自治" },
+  { id: "24", slug: "s24_system_prompt", title: "System Prompt Assembly", motto: "prompt 是拼出来的，不是写死的", layer: "Prompt" },
 ];
 
 const SOURCE_MAP = [
@@ -27,7 +39,7 @@ export default function Home() {
         <div className="max-w-6xl mx-auto px-6 py-16 md:py-20 grid lg:grid-cols-[1.05fr_0.95fr] gap-10 items-center">
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[#193b3a] text-[#6ee7d8] text-xs font-medium mb-6">
-              12 个递进课程 · 6 层自进化架构 · 支持多模型
+              24 个递进课程 · 自进化 + 多平台 + Harness 基础 · 支持多模型
             </div>
             <h1 className="text-4xl md:text-6xl font-extrabold tracking-normal text-white mb-6 leading-tight">
               从零复刻 Hermes Agent 的自学习系统
@@ -50,7 +62,7 @@ export default function Home() {
                 开始学习
               </a>
               <a
-                href="https://github.com/hongye/learn-hermes-agent"
+                href="https://github.com/Ericcc-Ma/learn-hermes-agent"
                 className="inline-flex items-center gap-2 px-5 py-3 rounded-md border border-[#4b5563] text-white font-semibold text-sm hover:border-[#f6c177] transition-colors"
               >
                 GitHub
@@ -64,7 +76,7 @@ export default function Home() {
                 <span className="w-3 h-3 rounded-full bg-[#ef4444]" />
                 <span className="w-3 h-3 rounded-full bg-[#f59e0b]" />
                 <span className="w-3 h-3 rounded-full bg-[#10b981]" />
-                <span className="ml-3 text-xs text-[#8b949e]">s12_comprehensive/code.py</span>
+                <span className="ml-3 text-xs text-[#8b949e]">s12_comprehensive/comprehensive.py</span>
               </div>
               <pre className="m-0 rounded-none border-0 bg-[#0b0d10] text-sm max-w-full">
 <code>{`User:
@@ -112,7 +124,7 @@ Agent loads matching skill before coding.`}</code>
           </div>
         </div>
         <pre className="mt-8 text-sm">
-<code>{`python s12_comprehensive/code.py
+<code>{`python s12_comprehensive/comprehensive.py
 
 # 输入：
 Stop using camelCase in Python files — I always use snake_case.
@@ -127,10 +139,10 @@ Stop using camelCase in Python files — I always use snake_case.
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
           <div>
             <p className="text-sm font-semibold text-[#6ee7d8] mb-2">学习路径</p>
-            <h2 className="text-2xl md:text-3xl font-bold text-white">12 个递进课程</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-white">24 个递进课程</h2>
           </div>
           <p className="text-[#a7b0bc] max-w-xl">
-            每章只加一个机制，循环保持不变。读者可以从最小记忆 agent 一路推进到完整自进化系统。
+            每章只加一个机制，循环保持不变。读者可以从最小记忆 agent 一路推进到完整 Hermes harness。
           </p>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -198,11 +210,11 @@ Stop using camelCase in Python files — I always use snake_case.
           <div className="p-6 rounded-lg bg-[#171b21] border border-[#2b3036] min-w-0">
             <h2 className="text-xl font-bold text-white mb-4">快速开始</h2>
             <pre className="text-sm">
-<code>{`git clone https://github.com/hongye/learn-hermes-agent
+<code>{`git clone https://github.com/Ericcc-Ma/learn-hermes-agent
 cd learn-hermes-agent
 pip install -r requirements.txt
 cp .env.example .env
-python s01_agent_loop/code.py`}</code>
+python s01_agent_loop/agent_loop.py`}</code>
             </pre>
           </div>
           <div className="p-6 rounded-lg bg-[#171b21] border border-[#2b3036] min-w-0">

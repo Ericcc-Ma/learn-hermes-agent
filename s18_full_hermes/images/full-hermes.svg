@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 680" style="background:#f8f9fa;font-family:system-ui,sans-serif">
+  <defs><marker id="a" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#1976D2"/></marker></defs>
+  <text x="480" y="34" text-anchor="middle" font-size="21" font-weight="700" fill="#0D47A1">Full Hermes - 18 Mechanisms In One Agent</text>
+  <rect x="350" y="60" width="260" height="70" rx="12" fill="#1565C0" stroke="#0D47A1" stroke-width="3"/>
+  <text x="480" y="90" text-anchor="middle" font-size="17" font-weight="700" fill="white">Agent Loop</text>
+  <text x="480" y="113" text-anchor="middle" font-size="12" fill="#BBDEFB">LLM decides; harness executes and learns</text>
+  <g font-size="12" text-anchor="middle">
+    <rect x="50" y="170" width="190" height="90" rx="10" fill="#E3F2FD" stroke="#1976D2" stroke-width="2"/><text x="145" y="204" font-weight="700" fill="#1565C0">Gateway</text><text x="145" y="230" fill="#1976D2">CLI / Telegram / Discord</text>
+    <rect x="280" y="170" width="190" height="90" rx="10" fill="#E8F5E9" stroke="#388E3C" stroke-width="2"/><text x="375" y="204" font-weight="700" fill="#2E7D32">Profiles</text><text x="375" y="230" fill="#388E3C">model / skills / platforms</text>
+    <rect x="510" y="170" width="190" height="90" rx="10" fill="#FFF3E0" stroke="#F57C00" stroke-width="2"/><text x="605" y="204" font-weight="700" fill="#E65100">Cron</text><text x="605" y="230" fill="#F57C00">scheduled wakeups</text>
+    <rect x="740" y="170" width="170" height="90" rx="10" fill="#FFEBEE" stroke="#D32F2F" stroke-width="2"/><text x="825" y="204" font-weight="700" fill="#C62828">Permissions</text><text x="825" y="230" fill="#D32F2F">deny / ask / sandbox</text>
+    <rect x="50" y="330" width="190" height="90" rx="10" fill="#E8F5E9" stroke="#388E3C" stroke-width="2"/><text x="145" y="364" font-weight="700" fill="#2E7D32">Memory</text><text x="145" y="390" fill="#388E3C">FTS + providers</text>
+    <rect x="280" y="330" width="190" height="90" rx="10" fill="#E3F2FD" stroke="#1976D2" stroke-width="2"/><text x="375" y="364" font-weight="700" fill="#1565C0">Skills</text><text x="375" y="390" fill="#1976D2">lifecycle + review</text>
+    <rect x="510" y="330" width="190" height="90" rx="10" fill="#FFF3E0" stroke="#F57C00" stroke-width="2"/><text x="605" y="364" font-weight="700" fill="#E65100">Curator</text><text x="605" y="390" fill="#F57C00">merge + archive</text>
+    <rect x="740" y="330" width="170" height="90" rx="10" fill="#E3F2FD" stroke="#1976D2" stroke-width="2"/><text x="825" y="364" font-weight="700" fill="#1565C0">MCP</text><text x="825" y="390" fill="#1976D2">external tools</text>
+    <rect x="120" y="500" width="200" height="90" rx="10" fill="#E8F5E9" stroke="#388E3C" stroke-width="2"/><text x="220" y="534" font-weight="700" fill="#2E7D32">Context</text><text x="220" y="560" fill="#388E3C">compact + inject</text>
+    <rect x="380" y="500" width="200" height="90" rx="10" fill="#FFF3E0" stroke="#F57C00" stroke-width="2"/><text x="480" y="534" font-weight="700" fill="#E65100">Agent Teams</text><text x="480" y="560" fill="#F57C00">mailbox + board</text>
+    <rect x="640" y="500" width="200" height="90" rx="10" fill="#E3F2FD" stroke="#1976D2" stroke-width="2"/><text x="740" y="534" font-weight="700" fill="#1565C0">Insights</text><text x="740" y="560" fill="#1976D2">cost + usage + effect</text>
+  </g>
+  <path d="M450 130 L170 168" stroke="#1976D2" stroke-width="2" marker-end="url(#a)"/><path d="M465 130 L390 168" stroke="#1976D2" stroke-width="2" marker-end="url(#a)"/><path d="M500 130 L590 168" stroke="#1976D2" stroke-width="2" marker-end="url(#a)"/><path d="M520 130 L800 168" stroke="#1976D2" stroke-width="2" marker-end="url(#a)"/>
+  <path d="M420 130 L160 328" stroke="#1976D2" stroke-width="2" marker-end="url(#a)"/><path d="M455 130 L380 328" stroke="#1976D2" stroke-width="2" marker-end="url(#a)"/><path d="M505 130 L600 328" stroke="#1976D2" stroke-width="2" marker-end="url(#a)"/><path d="M540 130 L810 328" stroke="#1976D2" stroke-width="2" marker-end="url(#a)"/>
+  <path d="M430 130 L240 498" stroke="#1976D2" stroke-width="2" marker-end="url(#a)"/><path d="M480 130 L480 498" stroke="#1976D2" stroke-width="2" marker-end="url(#a)"/><path d="M530 130 L730 498" stroke="#1976D2" stroke-width="2" marker-end="url(#a)"/>
+  <rect x="55" y="625" width="850" height="36" rx="8" fill="#ECEFF1" stroke="#B0BEC5"/><text x="480" y="648" text-anchor="middle" font-size="13" fill="#455A64">The full system is not a bigger loop; it is many harness mechanisms attached around the same loop.</text>
+</svg>

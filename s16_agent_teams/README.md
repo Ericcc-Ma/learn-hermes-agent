@@ -21,6 +21,8 @@ s01 → ... → s15 → `s16` → [s17](../s17_mcp_plugin/) → s18
 
 ## 解决方案
 
+![Agent Teams](images/agent-teams.svg)
+
 三个核心机制：子 agent 派生 + JSONL 邮箱 + 任务板自组织。
 
 ### 1. 子 Agent 派生 (Fresh Context)

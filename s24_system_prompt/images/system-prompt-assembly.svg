@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 540" style="background:#f8f9fa;font-family:system-ui,sans-serif">
+  <defs><marker id="a" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#1976D2"/></marker></defs>
+  <text x="450" y="34" text-anchor="middle" font-size="20" font-weight="700" fill="#0D47A1">System Prompt Assembly - Built At Runtime</text>
+  <rect x="60" y="75" width="220" height="360" rx="12" fill="#ECEFF1" stroke="#78909C" stroke-width="2"/>
+  <text x="170" y="110" text-anchor="middle" font-size="16" font-weight="700" fill="#455A64">Prompt Sections</text>
+  <g font-size="12" text-anchor="middle">
+    <rect x="90" y="140" width="160" height="42" rx="7" fill="#E3F2FD" stroke="#1976D2"/><text x="170" y="166" fill="#1565C0">identity p=10</text>
+    <rect x="90" y="198" width="160" height="42" rx="7" fill="#FFEBEE" stroke="#D32F2F"/><text x="170" y="224" fill="#C62828">safety p=20</text>
+    <rect x="90" y="256" width="160" height="42" rx="7" fill="#E8F5E9" stroke="#388E3C"/><text x="170" y="282" fill="#2E7D32">memory if has_mem</text>
+    <rect x="90" y="314" width="160" height="42" rx="7" fill="#FFF3E0" stroke="#F57C00"/><text x="170" y="340" fill="#E65100">skills if matched</text>
+    <rect x="90" y="372" width="160" height="42" rx="7" fill="#E3F2FD" stroke="#1976D2"/><text x="170" y="398" fill="#1565C0">platform context</text>
+  </g>
+  <rect x="365" y="155" width="190" height="200" rx="12" fill="#E8F5E9" stroke="#388E3C" stroke-width="2"/>
+  <text x="460" y="190" text-anchor="middle" font-size="16" font-weight="700" fill="#2E7D32">Prompt Builder</text>
+  <text x="460" y="222" text-anchor="middle" font-size="12" fill="#388E3C">filter by condition</text>
+  <text x="460" y="250" text-anchor="middle" font-size="12" fill="#388E3C">sort by priority</text>
+  <text x="460" y="278" text-anchor="middle" font-size="12" fill="#388E3C">join with separators</text>
+  <text x="460" y="306" text-anchor="middle" font-size="12" fill="#388E3C">cache-aware injection</text>
+  <rect x="650" y="95" width="190" height="100" rx="12" fill="#E3F2FD" stroke="#1976D2" stroke-width="2"/>
+  <text x="745" y="130" text-anchor="middle" font-size="16" font-weight="700" fill="#1565C0">CLI Prompt</text>
+  <text x="745" y="157" text-anchor="middle" font-size="12" fill="#1976D2">terminal tools + cwd</text>
+  <rect x="650" y="220" width="190" height="100" rx="12" fill="#FFF3E0" stroke="#F57C00" stroke-width="2"/>
+  <text x="745" y="255" text-anchor="middle" font-size="16" font-weight="700" fill="#E65100">Cron Prompt</text>
+  <text x="745" y="282" text-anchor="middle" font-size="12" fill="#F57C00">no clarify + deliver result</text>
+  <rect x="650" y="345" width="190" height="100" rx="12" fill="#E8F5E9" stroke="#388E3C" stroke-width="2"/>
+  <text x="745" y="380" text-anchor="middle" font-size="16" font-weight="700" fill="#2E7D32">Gateway Prompt</text>
+  <text x="745" y="407" text-anchor="middle" font-size="12" fill="#388E3C">platform/user context</text>
+  <line x1="280" y1="255" x2="360" y2="255" stroke="#1976D2" stroke-width="2.5" marker-end="url(#a)"/>
+  <line x1="555" y1="230" x2="645" y2="145" stroke="#1976D2" stroke-width="2.5" marker-end="url(#a)"/>
+  <line x1="555" y1="255" x2="645" y2="270" stroke="#1976D2" stroke-width="2.5" marker-end="url(#a)"/>
+  <line x1="555" y1="290" x2="645" y2="395" stroke="#1976D2" stroke-width="2.5" marker-end="url(#a)"/>
+  <rect x="110" y="480" width="680" height="38" rx="8" fill="#ECEFF1" stroke="#B0BEC5"/>
+  <text x="450" y="504" text-anchor="middle" font-size="13" fill="#455A64">The prompt is not a monolith. It is assembled from ordered, conditional sections for each runtime context.</text>
+</svg>

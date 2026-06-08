@@ -5,7 +5,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Learn Hermes Agent - 自进化 Agent Harness 教程",
   description:
-    "从零复刻 Hermes Agent 的自学习系统，12 个递进课程教你构建会记忆、会学习、会整理技能的 Agent Harness。",
+    "从零复刻 Hermes Agent 的自学习系统，24 个递进课程教你构建会记忆、会学习、会调度、会组队的 Agent Harness。",
   openGraph: {
     title: "Learn Hermes Agent",
     description: "从零复刻 Hermes Agent 的自学习系统",
@@ -36,7 +36,7 @@ export default function RootLayout({
               <Link href="/source-map" className="text-[#a7b0bc] hover:text-white transition-colors whitespace-nowrap">
                 源码地图
               </Link>
-              <a href="https://github.com/hongye/learn-hermes-agent" className="text-[#8b949e] hover:text-white transition-colors whitespace-nowrap">
+              <a href="https://github.com/Ericcc-Ma/learn-hermes-agent" className="text-[#8b949e] hover:text-white transition-colors whitespace-nowrap">
                 GitHub
               </a>
             </div>
@@ -47,7 +47,7 @@ export default function RootLayout({
           <div className="max-w-6xl mx-auto px-6 text-center text-sm text-[#484f58]">
             <p>Learn Hermes Agent - Agency 来自模型，自进化来自 Harness。</p>
             <p className="mt-2">
-              <a href="https://github.com/hongye/learn-hermes-agent" className="hover:text-[#58a6ff] transition-colors">GitHub</a>
+              <a href="https://github.com/Ericcc-Ma/learn-hermes-agent" className="hover:text-[#58a6ff] transition-colors">GitHub</a>
               {" · "}MIT License
             </p>
           </div>

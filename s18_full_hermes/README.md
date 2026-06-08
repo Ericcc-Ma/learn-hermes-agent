@@ -36,6 +36,8 @@ s01 → s02 → ... → s17 → `s18`
 
 ## 完整架构图
 
+![Full Hermes](images/full-hermes.svg)
+
 ```
                         ┌──────────────┐
                         │   Users      │

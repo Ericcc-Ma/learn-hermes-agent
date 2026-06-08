@@ -7,8 +7,8 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/hongye/learn-hermes-agent/actions"><img src="https://img.shields.io/github/actions/workflow/status/hongye/learn-hermes-agent/test.yml?style=flat-square" alt="CI"></a>
-  <a href="https://github.com/hongye/learn-hermes-agent/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="License"></a>
+  <a href="https://github.com/Ericcc-Ma/learn-hermes-agent/actions"><img src="https://img.shields.io/github/actions/workflow/status/Ericcc-Ma/learn-hermes-agent/test.yml?style=flat-square" alt="CI"></a>
+  <a href="https://github.com/Ericcc-Ma/learn-hermes-agent/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="License"></a>
   <a href="#"><img src="https://img.shields.io/badge/chapters-24-brightgreen?style=flat-square" alt="Chapters"></a>
   <a href="#"><img src="https://img.shields.io/badge/llm-anthropic%20%7C%20deepseek%20%7C%20openai%20%7C%20qwen%20%7C%20glm-7C4DFF?style=flat-square" alt="LLM"></a>
   <a href="#"><img src="https://img.shields.io/badge/languages-中文%20%7C%20English-blue?style=flat-square" alt="Languages"></a>

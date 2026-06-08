@@ -2,13 +2,13 @@
 
 ## 这个项目和 Hermes Agent 是什么关系？
 
-`learn-hermes-agent` 是教学项目，不是 Hermes Agent 的源码镜像。它参考 `NousResearch/hermes-agent` 的自进化机制，把生产系统拆成 12 个能独立运行的小章节。
+`learn-hermes-agent` 是教学项目，不是 Hermes Agent 的源码镜像。它参考 `NousResearch/hermes-agent` 的核心机制，把生产系统拆成 24 个能独立运行的小章节。
 
 ## 和 learn-claude-code 有什么区别？
 
 `learn-claude-code` 讲 agent harness 的基础：循环、工具、权限、子 agent、任务系统、worktree 隔离等。
 
-`learn-hermes-agent` 讲自进化层：背景审查、记忆、技能生成、技能生命周期、Curator、上下文压缩、Insights 和错误恢复。
+`learn-hermes-agent` 讲自进化层和 Hermes harness 扩展：背景审查、记忆、技能生成、技能生命周期、Curator、上下文压缩、Insights、错误恢复、cron、gateway、profiles、agent teams、MCP、权限、hooks、worktree、planning、autonomous agents 和 system prompt 组装。
 
 简单说：
 
@@ -19,7 +19,7 @@ learn-hermes-agent 解决：Agent 怎么越用越聪明
 
 ## 学这个需要先读 Hermes Agent 源码吗？
 
-不需要。建议先按 `s01` 到 `s12` 跑完教学版，再用 `docs/hermes-source-map.md` 回到生产源码。
+不需要。建议先按 `s01` 到 `s24` 跑完教学版，再用 `docs/hermes-source-map.md` 回到生产源码。
 
 ## 每章都需要真实 API Key 吗？
 
@@ -43,7 +43,9 @@ learn-hermes-agent 解决：Agent 怎么越用越聪明
 ## 推荐阅读顺序是什么？
 
 1. 读根目录 `README.md`，理解自进化 agent 的六层架构。
-2. 跑 `s01_agent_loop/code.py`，确认最小循环能工作。
+2. 跑 `s01_agent_loop/agent_loop.py`，确认最小循环能工作。
 3. 跑 `s02` 到 `s06`，理解记忆和技能如何自动生成。
 4. 跑 `s07` 到 `s12`，理解长期维护、压缩、观测和恢复。
-5. 对照 `docs/hermes-source-map.md` 阅读 Hermes 生产源码。
+5. 跑 `s13` 到 `s18`，理解 cron、gateway、profiles、agent teams、MCP 和完整集成。
+6. 跑 `s19` 到 `s24`，理解权限、hooks、worktree、planning、autonomous agents 和 prompt 组装。
+7. 对照 `docs/hermes-source-map.md` 阅读 Hermes 生产源码。
