@@ -341,7 +341,7 @@ learn-hermes-agent/
 │   s13_cron_scheduler/         # 定时任务 + gateway ticker
 │   s14_gateway/                # 多平台消息网关
 │   s15_profiles/               # 多 profile 隔离 + 继承
-│   s16_agent_teams/            # 子 agent + JSONL 邮箱
+│   s16_agent_teams/            # delegate_task + leaf/orchestrator
 │   s17_mcp_plugin/             # MCP 外部工具接入
 │   s18_full_hermes/            # 完整 Hermes 集成
 ├── Harness 基础 (s19-s24)
@@ -349,7 +349,7 @@ learn-hermes-agent/
 │   s20_hooks/                  # 8 个 Hook 扩展点
 │   s21_worktree/               # git worktree 并行隔离
 │   s22_planning/               # TodoWrite + 依赖 DAG
-│   s23_autonomous/             # 空闲循环 + 自主认领
+│   s23_autonomous/             # Kanban Dispatcher + claim TTL
 │   s24_system_prompt/          # 分段拼接 + 条件注入
 ├── assets/                     # 社交预览图
 ├── scripts/                    # 工具脚本

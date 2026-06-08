@@ -23,14 +23,14 @@
 | `s13_cron_scheduler` | 定时任务与主动唤醒 | `cron/scheduler.py`, `cron/jobs.py`, `tools/cronjob_tools.py` | 持久化 cron、gateway ticker、delivery 路由、no-agent 模式 |
 | `s14_gateway` | 多平台消息网关 | `gateway/run.py`, `gateway/session.py`, `hermes_cli/webhook.py` | 平台 adapter、session key、delivery router、动态上下文注入 |
 | `s15_profiles` | 多 Profile 配置隔离 | `hermes_cli/profiles.py`, `cli-config.yaml.example` | 配置继承、平台绑定、工具集开关、profile-specific gateway |
-| `s16_agent_teams` | 多 agent 协作 | `agent` 派生逻辑, mailbox/task board 相关模块 | 独立上下文、JSONL 邮箱、任务板协作、结果汇总 |
+| `s16_agent_teams` | 即时任务委托 | `tools/delegate_tool.py`, `run_agent.py`, `agent/agent_init.py` | LLM 自主调用 `delegate_task`、leaf/orchestrator 角色、并发限制、summary 回注 |
 | `s17_mcp_plugin` | MCP 外部工具接入 | `tools/mcp_tool.py`, `mcp_serve.py`, `plugins/` | stdio/SSE/HTTP transport、OAuth、schema 规整、工具路由 |
 | `s18_full_hermes` | 18 章完整特性集成 | `run_agent.py`, `cli.py`, `toolsets.py` | Gateway/Profile/Cron/MCP 与自进化核心整合 |
 | `s19_permission` | 权限管线 | `tools/approval.py`, `tools/path_security.py`, `tools/tirith_security.py` | deny/ask/sandbox/allow、多层安全规则、审批记忆 |
 | `s20_hooks` | Hook 扩展点 | `agent/conversation_loop.py`, `agent/background_review.py`, `gateway/run.py` | PreToolUse/PostToolUse/Session hooks、conditional hooks、阻塞 hook |
 | `s21_worktree` | Git worktree 隔离 | `agent/agent_runtime_helpers.py`, `agent/conversation_loop.py` | worktree 生命周期、baseRef 策略、保留/清理模式 |
 | `s22_planning` | 结构化规划 | `agent/task_manager.py`, `tools/todo_tool.py` | 任务依赖图、状态传播、active form、跨 session 持久化 |
-| `s23_autonomous` | 自主认领任务 | `agent/background_review.py`, `cron/scheduler.py`, `gateway/run.py` | idle loop、auto-claim、heartbeat、超时释放 |
+| `s23_autonomous` | Kanban 中心调度 | `hermes_cli/kanban_db.py`, `hermes_cli/kanban.py`, `cli.py` | `dispatch_once`、claim TTL、worker spawn、失败保护、SQLite 持久化 |
 | `s24_system_prompt` | System Prompt 运行时组装 | `agent/system_prompt.py`, `agent/prompt_builder.py`, `gateway/session_context.py` | 分段 prompt、条件注入、优先级排序、平台差异 |
 
 ## 读源码顺序

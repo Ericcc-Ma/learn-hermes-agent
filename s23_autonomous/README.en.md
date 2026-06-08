@@ -1,51 +1,72 @@
-# s23: Autonomous Agents — Watch The Board, Claim Work
+# s23: Kanban Dispatcher — Central Dispatch + Worker Execution
 
 [中文](README.md) · [English](README.en.md)
 
+![Kanban Dispatcher](images/autonomous-agents.svg)
+
 s01 → ... → s22 → `s23` → [s24](../s24_system_prompt/)
-> *"Teammates watch the board and claim work themselves"* — idle loop + skill matching + autonomous claiming.
+> *"Workers do not scan the board themselves; the Dispatcher assigns work centrally"* — 60s ticks + claim TTL + failure protection.
 >
-> **Harness Foundation**: Autonomous Agents — self-organizing multi-agent execution.
+> **Hermes Feature**: Kanban Dispatcher — a persistent multi-agent work queue.
 
 ---
 
 ## Problem
 
-In s16, a leader assigns work to workers. The leader becomes a bottleneck: it must know each worker's skills, who is busy, and which task is ready.
-
-Can workers claim tasks themselves?
+s16 `delegate_task` is synchronous and non-persistent: when the parent agent's turn ends, the child agents are gone too. Multi-agent collaboration also needs an **asynchronous, persistent** execution model.
 
 ---
 
 ## Solution
 
-![Autonomous Agents](images/autonomous-agents.svg)
+**Kanban Dispatcher** — an event-loop-driven work queue:
 
-Each agent runs an idle loop:
+```text
+         Kanban Board (SQLite)
+        ┌──────────────────────┐
+        │  todo → ready → running → done
+        │              ↓
+        │          blocked (failure_limit)
+        └──────────────────────┘
+                ▲       │
+        reclaim │       │ claim + spawn
+                │       ▼
+        ┌──────────────────────────────┐
+        │  Dispatcher (dispatch_once)   │
+        │  - ticks every 60 seconds      │
+        │  - reclaims stale/crashed work │
+        │  - promotes ready tasks        │
+        │  - claims + spawns workers     │
+        └──────────┬───────────────────┘
+                   │ _default_spawn()
+                   ▼
+        ┌──────────────────────────┐
+        │  Worker Process           │
+        │  hermes -p <profile>      │
+        │  chat -q "work kanban    │
+        │  task <id>"              │
+        └──────────────────────────┘
+```
 
-1. Scan the shared task board.
-2. Check whether any open task matches its skills.
-3. Claim one task.
-4. Execute it.
-5. Update status and heartbeat.
+### Six-Step Dispatch Loop
 
-This creates a self-organizing team where workers pull work instead of waiting for assignment.
+Each tick (60s) performs:
 
----
+1. **Reclaim** — release running tasks whose claim TTL expired.
+2. **Stale detection** — release running tasks with missing heartbeats.
+3. **Crash detection** — detect host-local worker PIDs that have exited.
+4. **Promote** — move dependency-satisfied tasks from todo to ready.
+5. **Claim + Spawn** — atomically claim a ready task and fork a worker process.
+6. **Failure protection** — automatically block after `failure_limit` consecutive failures (default: 2).
 
-## Core Mechanisms
+### Three Modes Compared
 
-### Idle Loop
-
-Agents periodically inspect the board when they are not busy.
-
-### Skill Matching
-
-Agents claim only tasks they believe they can handle.
-
-### Heartbeats
-
-If an agent disappears, its task can be released back to the board.
+| | delegate_task (s16) | Cron (s13) | Kanban (s23) |
+|---|---|---|---|
+| Trigger | LLM decision | Scheduled time | Dispatcher event loop |
+| Lifecycle | Synchronous, tied to parent turn | Async persistent job | Async persistent task |
+| Persistence | None | `jobs.json` | SQLite board |
+| Nesting | `max_spawn_depth` | `delegate_task` disabled | `kanban_create` subtasks |
 
 ---
 
@@ -55,15 +76,28 @@ If an agent disappears, its task can be released back to the board.
 python s23_autonomous/autonomous.py
 ```
 
-Start multiple mock agents and watch them scan, claim, execute, and release work.
-
 ---
 
-## What The Teaching Version Simplifies
+<details>
+<summary>Hermes Source Deep Dive</summary>
 
-- Production autonomous agents can run as background processes.
-- Production heartbeats need robust timeout handling.
-- Production skill matching can use semantic descriptions and loaded skill context.
-- Production autonomous behavior must integrate with permissions and worktrees.
+The production Kanban system lives in these source files:
+
+| File | Responsibility |
+|------|----------------|
+| `hermes_cli/kanban_db.py` | Board CRUD, `dispatch_once`, claim/reclaim logic |
+| `hermes_cli/kanban.py` | CLI: `kanban create`, `status`, `daemon` |
+| `cli.py` (~15486) | `goal_mode` worker loop |
+| `agent/conversation_loop.py` (~4476) | `kanban_complete` signal |
+
+What the teaching version simplifies:
+
+- Production embeds the Dispatcher in the gateway process (`dispatch_in_gateway: true`).
+- Production workers are real independent processes started through `subprocess.Popen`.
+- Production claim logic uses SQLite row locks for atomicity.
+- Production supports both `goal_mode` (Ralph-style goal judge loop) and classic worker modes.
+- Production isolates work across Board, Tenant, and Profile layers.
+
+</details>
 
 <!-- translation-sync: en@v1 -->

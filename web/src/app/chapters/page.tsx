@@ -14,14 +14,14 @@ const CHAPTERS = [
   ["s13_cron_scheduler", "cron_scheduler.py", "Cron Scheduler", "定好时间，agent 自己醒来干活"],
   ["s14_gateway", "gateway.py", "Gateway", "一个 gateway，连接所有平台"],
   ["s15_profiles", "profiles.py", "Multi-Profile System", "一套 Hermes，多个人设"],
-  ["s16_agent_teams", "agent_teams.py", "Agent Teams", "一个搞不定，组队来"],
+  ["s16_agent_teams", "agent_teams.py", "Agent Teams", "一个搞不定，delegate 出去"],
   ["s17_mcp_plugin", "mcp_plugin.py", "MCP Plugin", "能力不够？接上 MCP"],
   ["s18_full_hermes", "full_hermes.py", "Full Hermes", "全部机制，一个完整 Hermes"],
   ["s19_permission", "permission.py", "Permission System", "先划边界，再给自由"],
   ["s20_hooks", "hooks.py", "Hook System", "挂在循环上，不写进循环里"],
   ["s21_worktree", "worktree.py", "Worktree Isolation", "各干各的目录，互不干扰"],
   ["s22_planning", "planning.py", "Planning System", "没计划的 agent 走哪算哪"],
-  ["s23_autonomous", "autonomous.py", "Autonomous Agents", "自己看板，有活就认领"],
+  ["s23_autonomous", "autonomous.py", "Kanban Dispatcher", "不是 worker 自己扫板，是 Dispatcher 中心分配"],
   ["s24_system_prompt", "system_prompt.py", "System Prompt Assembly", "prompt 是拼出来的，不是写死的"],
 ];
 

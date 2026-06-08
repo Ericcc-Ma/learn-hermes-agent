@@ -1,23 +1,74 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" style="background:#f8f9fa;font-family:system-ui,sans-serif">
-  <defs><marker id="a" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#1976D2"/></marker><marker id="g" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto"><polygon points="0 0,10 3.5,0 7" fill="#388E3C"/></marker></defs>
-  <text x="450" y="34" text-anchor="middle" font-size="20" font-weight="700" fill="#0D47A1">Autonomous Agents - Scan, Match, Claim, Execute</text>
-  <rect x="330" y="85" width="240" height="100" rx="12" fill="#ECEFF1" stroke="#78909C" stroke-width="2"/>
-  <text x="450" y="122" text-anchor="middle" font-size="16" font-weight="700" fill="#455A64">Shared Task Board</text>
-  <text x="450" y="150" text-anchor="middle" font-size="12" fill="#546E7A">open tasks + owner + heartbeat</text>
-  <g>
-    <rect x="65" y="275" width="190" height="105" rx="12" fill="#E3F2FD" stroke="#1976D2" stroke-width="2"/>
-    <rect x="355" y="275" width="190" height="105" rx="12" fill="#E8F5E9" stroke="#388E3C" stroke-width="2"/>
-    <rect x="645" y="275" width="190" height="105" rx="12" fill="#FFF3E0" stroke="#F57C00" stroke-width="2"/>
-  </g>
-  <text x="160" y="309" text-anchor="middle" font-size="15" font-weight="700" fill="#1565C0">Agent A</text><text x="160" y="334" text-anchor="middle" font-size="12" fill="#1976D2">skills: backend</text><text x="160" y="357" text-anchor="middle" font-size="12" fill="#1976D2">idle loop 30s</text>
-  <text x="450" y="309" text-anchor="middle" font-size="15" font-weight="700" fill="#2E7D32">Agent B</text><text x="450" y="334" text-anchor="middle" font-size="12" fill="#388E3C">skills: frontend</text><text x="450" y="357" text-anchor="middle" font-size="12" fill="#388E3C">claim if match</text>
-  <text x="740" y="309" text-anchor="middle" font-size="15" font-weight="700" fill="#E65100">Agent C</text><text x="740" y="334" text-anchor="middle" font-size="12" fill="#F57C00">skills: review</text><text x="740" y="357" text-anchor="middle" font-size="12" fill="#F57C00">heartbeat</text>
-  <path d="M160 275 C210 220 325 185 405 185" stroke="#1976D2" fill="none" stroke-width="2.5" marker-end="url(#a)"/>
-  <path d="M450 275 L450 190" stroke="#1976D2" fill="none" stroke-width="2.5" marker-end="url(#a)"/>
-  <path d="M740 275 C690 220 575 185 495 185" stroke="#1976D2" fill="none" stroke-width="2.5" marker-end="url(#a)"/>
-  <path d="M405 185 C285 215 200 245 160 275" stroke="#388E3C" fill="none" stroke-width="2" stroke-dasharray="5,4" marker-end="url(#g)"/>
-  <path d="M450 190 L450 270" stroke="#388E3C" fill="none" stroke-width="2" stroke-dasharray="5,4" marker-end="url(#g)"/>
-  <path d="M495 185 C615 215 700 245 740 275" stroke="#388E3C" fill="none" stroke-width="2" stroke-dasharray="5,4" marker-end="url(#g)"/>
-  <rect x="165" y="430" width="570" height="48" rx="8" fill="#ECEFF1" stroke="#B0BEC5"/>
-  <text x="450" y="459" text-anchor="middle" font-size="13" fill="#455A64">If an agent misses heartbeats, its claimed task is released back to the board for another agent.</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 620" style="background:#f8fafc;font-family:system-ui,-apple-system,Segoe UI,sans-serif">
+  <defs>
+    <marker id="blueArrow" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+      <polygon points="0 0,10 4,0 8" fill="#2563EB"/>
+    </marker>
+    <marker id="greenArrow" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+      <polygon points="0 0,10 4,0 8" fill="#16A34A"/>
+    </marker>
+    <marker id="redArrow" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto">
+      <polygon points="0 0,10 4,0 8" fill="#DC2626"/>
+    </marker>
+  </defs>
+
+  <text x="490" y="38" text-anchor="middle" font-size="22" font-weight="700" fill="#0F172A">Kanban Dispatcher - Central Dispatch + Worker Execution</text>
+  <text x="490" y="64" text-anchor="middle" font-size="13" fill="#475569">Workers do not scan the board; dispatch_once claims ready work and spawns worker processes.</text>
+
+  <rect x="78" y="112" width="282" height="238" rx="10" fill="#EFF6FF" stroke="#2563EB" stroke-width="2"/>
+  <text x="219" y="144" text-anchor="middle" font-size="17" font-weight="700" fill="#1E3A8A">Kanban Board</text>
+  <text x="219" y="167" text-anchor="middle" font-size="12" fill="#1D4ED8">SQLite persistent task queue</text>
+
+  <rect x="112" y="196" width="78" height="44" rx="6" fill="#FFFFFF" stroke="#93C5FD"/>
+  <text x="151" y="224" text-anchor="middle" font-size="12" font-weight="700" fill="#1D4ED8">todo</text>
+  <rect x="218" y="196" width="78" height="44" rx="6" fill="#DCFCE7" stroke="#86EFAC"/>
+  <text x="257" y="224" text-anchor="middle" font-size="12" font-weight="700" fill="#15803D">ready</text>
+  <rect x="112" y="270" width="78" height="44" rx="6" fill="#DBEAFE" stroke="#60A5FA"/>
+  <text x="151" y="298" text-anchor="middle" font-size="12" font-weight="700" fill="#1D4ED8">running</text>
+  <rect x="218" y="270" width="78" height="44" rx="6" fill="#FEE2E2" stroke="#FCA5A5"/>
+  <text x="257" y="298" text-anchor="middle" font-size="12" font-weight="700" fill="#B91C1C">blocked</text>
+
+  <line x1="190" y1="218" x2="214" y2="218" stroke="#16A34A" stroke-width="2" marker-end="url(#greenArrow)"/>
+  <line x1="257" y1="240" x2="168" y2="268" stroke="#2563EB" stroke-width="2" marker-end="url(#blueArrow)"/>
+  <line x1="190" y1="292" x2="214" y2="292" stroke="#DC2626" stroke-width="2" stroke-dasharray="5,4" marker-end="url(#redArrow)"/>
+  <text x="219" y="333" text-anchor="middle" font-size="12" fill="#475569">failure_limit sends repeated failures to blocked</text>
+
+  <rect x="418" y="116" width="304" height="244" rx="10" fill="#ECFDF5" stroke="#16A34A" stroke-width="2"/>
+  <text x="570" y="148" text-anchor="middle" font-size="17" font-weight="700" fill="#166534">Dispatcher</text>
+  <text x="570" y="171" text-anchor="middle" font-size="12" fill="#15803D">dispatch_once every 60 seconds</text>
+  <text x="458" y="211" font-size="13" fill="#166534">1. reclaim expired claims</text>
+  <text x="458" y="238" font-size="13" fill="#166534">2. detect stale heartbeats</text>
+  <text x="458" y="265" font-size="13" fill="#166534">3. detect crashed host PIDs</text>
+  <text x="458" y="292" font-size="13" fill="#166534">4. promote todo to ready</text>
+  <text x="458" y="319" font-size="13" fill="#166534">5. atomically claim + spawn</text>
+  <text x="458" y="346" font-size="13" fill="#166534">6. block repeated failures</text>
+
+  <line x1="360" y1="218" x2="414" y2="218" stroke="#2563EB" stroke-width="2.5" marker-end="url(#blueArrow)"/>
+  <text x="389" y="207" text-anchor="middle" font-size="12" fill="#2563EB">read ready</text>
+  <line x1="418" y1="292" x2="364" y2="292" stroke="#16A34A" stroke-width="2.5" marker-end="url(#greenArrow)"/>
+  <text x="389" y="315" text-anchor="middle" font-size="12" fill="#15803D">claim</text>
+
+  <rect x="792" y="136" width="150" height="92" rx="10" fill="#FFF7ED" stroke="#F97316" stroke-width="2"/>
+  <text x="867" y="168" text-anchor="middle" font-size="15" font-weight="700" fill="#9A3412">Worker Process</text>
+  <text x="867" y="193" text-anchor="middle" font-size="12" fill="#C2410C">hermes -p profile</text>
+  <text x="867" y="213" text-anchor="middle" font-size="12" fill="#C2410C">chat -q task id</text>
+
+  <rect x="792" y="286" width="150" height="92" rx="10" fill="#FFF7ED" stroke="#F97316" stroke-width="2"/>
+  <text x="867" y="318" text-anchor="middle" font-size="15" font-weight="700" fill="#9A3412">Worker Process</text>
+  <text x="867" y="343" text-anchor="middle" font-size="12" fill="#C2410C">heartbeat</text>
+  <text x="867" y="363" text-anchor="middle" font-size="12" fill="#C2410C">complete or fail</text>
+
+  <line x1="722" y1="218" x2="786" y2="182" stroke="#F97316" stroke-width="2.5" marker-end="url(#blueArrow)"/>
+  <line x1="722" y1="300" x2="786" y2="332" stroke="#F97316" stroke-width="2.5" marker-end="url(#blueArrow)"/>
+  <text x="756" y="196" font-size="12" fill="#C2410C">_default_spawn()</text>
+
+  <path d="M867 378 C834 438 662 456 314 336" fill="none" stroke="#16A34A" stroke-width="2" stroke-dasharray="6,5" marker-end="url(#greenArrow)"/>
+  <text x="682" y="444" font-size="12" fill="#15803D">kanban_complete</text>
+
+  <path d="M792 165 C705 84 386 82 258 196" fill="none" stroke="#DC2626" stroke-width="2" stroke-dasharray="7,5" marker-end="url(#redArrow)"/>
+  <text x="548" y="96" text-anchor="middle" font-size="12" fill="#B91C1C">claim TTL expires or worker crashes: reclaim to ready</text>
+
+  <rect x="112" y="432" width="766" height="96" rx="10" fill="#F1F5F9" stroke="#64748B" stroke-width="2"/>
+  <text x="495" y="462" text-anchor="middle" font-size="15" font-weight="700" fill="#334155">Why this differs from s16 delegate_task</text>
+  <text x="495" y="489" text-anchor="middle" font-size="13" fill="#475569">s16 is synchronous and bound to the parent turn. s23 is asynchronous and persists tasks in SQLite.</text>
+  <text x="495" y="513" text-anchor="middle" font-size="13" fill="#475569">The Dispatcher owns assignment, recovery, promotion, and failure protection.</text>
 </svg>

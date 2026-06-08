@@ -28,7 +28,7 @@ s01 → s02 → ... → s17 → `s18`
 | s13 | Cron Scheduler | `cron/scheduler.py`, `cron/jobs.py` |
 | s14 | Gateway | `gateway/run.py`, `gateway/session.py` |
 | s15 | Multi-Profile System | `hermes_cli/profiles.py` |
-| s16 | Agent Teams | agent spawn + mailbox protocol |
+| s16 | Agent Teams | `delegate_task` + leaf/orchestrator roles |
 | s17 | MCP Plugin | `tools/mcp_tool.py`, MCP transports |
 | s18 | Full Hermes | 全部集成 |
 
@@ -97,9 +97,9 @@ s01 → s02 → ... → s17 → `s18`
                             │
               ┌─────────────▼─────────────┐
               │     AGENT TEAMS (s16)     │
-              │   Spawn sub-agents        │
-              │   JSONL mailbox protocol  │
-              │   TaskBoard coordination  │
+              │   delegate_task tool      │
+              │   leaf/orchestrator roles │
+              │   synchronous summaries   │
               └───────────────────────────┘
 ```
 
@@ -108,7 +108,7 @@ s01 → s02 → ... → s17 → `s18`
 ## 试一下
 
 ```sh
-python s18_full_hermes/code.py
+python s18_full_hermes/full_hermes.py
 ```
 
 这个文件整合了前面 17 章所有机制的关键代码片段，展示了完整架构。

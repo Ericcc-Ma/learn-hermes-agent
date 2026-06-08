@@ -14,14 +14,14 @@ const CHAPTERS = [
   { id: "13", slug: "s13_cron_scheduler", title: "Cron Scheduler", motto: "定好时间，agent 自己醒来干活", layer: "调度" },
   { id: "14", slug: "s14_gateway", title: "Gateway", motto: "一个 gateway，连接所有平台", layer: "多平台" },
   { id: "15", slug: "s15_profiles", title: "Multi-Profile System", motto: "一套 Hermes，多个人设", layer: "配置" },
-  { id: "16", slug: "s16_agent_teams", title: "Agent Teams", motto: "一个搞不定，组队来", layer: "协作" },
+  { id: "16", slug: "s16_agent_teams", title: "Agent Teams", motto: "一个搞不定，delegate 出去", layer: "协作" },
   { id: "17", slug: "s17_mcp_plugin", title: "MCP Plugin", motto: "能力不够？接上 MCP", layer: "扩展" },
   { id: "18", slug: "s18_full_hermes", title: "Full Hermes", motto: "全部机制，一个完整 Hermes", layer: "集成" },
   { id: "19", slug: "s19_permission", title: "Permission System", motto: "先划边界，再给自由", layer: "安全" },
   { id: "20", slug: "s20_hooks", title: "Hook System", motto: "挂在循环上，不写进循环里", layer: "扩展点" },
   { id: "21", slug: "s21_worktree", title: "Worktree Isolation", motto: "各干各的目录，互不干扰", layer: "隔离" },
   { id: "22", slug: "s22_planning", title: "Planning System", motto: "没计划的 agent 走哪算哪", layer: "规划" },
-  { id: "23", slug: "s23_autonomous", title: "Autonomous Agents", motto: "自己看板，有活就认领", layer: "自治" },
+  { id: "23", slug: "s23_autonomous", title: "Kanban Dispatcher", motto: "不是 worker 自己扫板，是 Dispatcher 中心分配", layer: "调度" },
   { id: "24", slug: "s24_system_prompt", title: "System Prompt Assembly", motto: "prompt 是拼出来的，不是写死的", layer: "Prompt" },
 ];
 

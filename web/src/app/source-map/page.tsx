@@ -11,14 +11,14 @@ const SOURCE_ROWS = [
   ["s13", "定时任务", "cron/scheduler.py", "jobs.json、ticker、run_job"],
   ["s14", "多平台网关", "gateway/run.py", "adapter、session、delivery router"],
   ["s15", "多 Profile", "hermes_cli/profiles.py", "配置继承、模型/工具/平台隔离"],
-  ["s16", "Agent Teams", "agent spawn + mailbox", "独立上下文、JSONL 邮箱、任务板"],
+  ["s16", "Agent Teams", "tools/delegate_tool.py", "delegate_task、leaf/orchestrator、summary 回注"],
   ["s17", "MCP Plugin", "tools/mcp_tool.py", "stdio/SSE/HTTP transport、工具池合并"],
   ["s18", "完整 Hermes", "cli.py / toolsets.py", "18 章机制完整集成"],
   ["s19", "权限系统", "tools/approval.py", "deny、ask_user、sandbox、allow"],
   ["s20", "Hook 系统", "agent/conversation_loop.py", "PreToolUse、PostToolUse、Session hooks"],
   ["s21", "Worktree 隔离", "agent/agent_runtime_helpers.py", "git worktree 生命周期管理"],
   ["s22", "规划系统", "agent/task_manager.py", "TodoWrite、依赖图、状态传播"],
-  ["s23", "自主 Agent", "agent/background_review.py", "idle loop、auto claim、heartbeat"],
+  ["s23", "Kanban Dispatcher", "hermes_cli/kanban_db.py", "dispatch_once、claim TTL、worker spawn、失败保护"],
   ["s24", "System Prompt", "agent/system_prompt.py", "分段 prompt、条件注入、优先级排序"],
 ];
 

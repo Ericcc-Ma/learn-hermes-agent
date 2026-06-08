@@ -203,14 +203,14 @@ The loop never changes. Self-evolution mechanisms hang on before and after the l
 | [s13](./s13_cron_scheduler/) | Cron Scheduler | scheduled tasks + gateway ticker |
 | [s14](./s14_gateway/) | Gateway | multi-platform routing + delivery |
 | [s15](./s15_profiles/) | Multi-Profile | config isolation + inheritance |
-| [s16](./s16_agent_teams/) | Agent Teams | sub-agent spawn + JSONL mailbox |
+| [s16](./s16_agent_teams/) | Agent Teams | `delegate_task` tool + leaf/orchestrator roles |
 | [s17](./s17_mcp_plugin/) | MCP Plugin | multi-transport + tool pool |
 | [s18](./s18_full_hermes/) | Full Hermes | all features integrated |
 | [s19](./s19_permission/) | Permission System | 4-level approval pipeline |
 | [s20](./s20_hooks/) | Hook System | 8 extension points |
 | [s21](./s21_worktree/) | Worktree Isolation | git worktree per-task isolation |
 | [s22](./s22_planning/) | Planning System | TodoWrite + DAG dependencies |
-| [s23](./s23_autonomous/) | Autonomous Agents | idle loop + auto-claim |
+| [s23](./s23_autonomous/) | Kanban Dispatcher | central dispatch + claim TTL + failure protection |
 | [s24](./s24_system_prompt/) | System Prompt | section-based composition |
 
 ---
@@ -331,7 +331,7 @@ learn-hermes-agent/
 │   s13_cron_scheduler/         # Scheduled Tasks + Gateway Ticker
 │   s14_gateway/                # Multi-Platform Message Gateway
 │   s15_profiles/               # Multi-Profile Isolation + Inheritance
-│   s16_agent_teams/            # Sub-Agent Spawn + JSONL Mailbox
+│   s16_agent_teams/            # delegate_task + leaf/orchestrator
 │   s17_mcp_plugin/             # MCP External Tool Integration
 │   s18_full_hermes/            # Full Hermes Integration
 ├── Harness Foundations (s19-s24)
@@ -339,7 +339,7 @@ learn-hermes-agent/
 │   s20_hooks/                  # 8 Hook Extension Points
 │   s21_worktree/               # Git Worktree Per-Task Isolation
 │   s22_planning/               # TodoWrite + Dependency DAG
-│   s23_autonomous/             # Idle Loop + Auto-Claim
+│   s23_autonomous/             # Kanban Dispatcher + Claim TTL
 │   s24_system_prompt/          # Section-Based Composition
 ├── assets/                     # Social Preview Image
 ├── scripts/                    # Utility Scripts

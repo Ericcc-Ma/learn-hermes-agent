@@ -29,7 +29,7 @@ The core loop still does not become complicated. Instead, each mechanism attache
 - Memory and skills inject reusable knowledge.
 - Curator maintains long-term skill quality.
 - MCP expands the tool pool.
-- Agent teams split large tasks into isolated contexts.
+- Agent teams delegate large tasks through the `delegate_task` tool and return synchronous child summaries.
 - Insights measures usage and self-evolution.
 
 ---
