@@ -128,6 +128,30 @@ Any OpenAI-compatible endpoint works via `LLM_PROVIDER=openai_compat` + custom `
 > **s11** &nbsp; *"Errors aren't endpoints — they're learning starting points"* — Error detection, model fallback, self-healing
 >
 > **s12** &nbsp; *"Six layers in place, one self-evolving agent"* — All mechanisms integrated into one complete agent
+>
+> **s13** &nbsp; *"Set the time, agent wakes itself up"* — JSON file persistence + gateway ticker every 60s
+>
+> **s14** &nbsp; *"One gateway, all platforms"* — Multi-platform routing + delivery + session management
+>
+> **s15** &nbsp; *"One Hermes, many personas"* — Profile isolation + inheritance + per-profile gateway
+>
+> **s16** &nbsp; *"Too big for one? Team up"* — Sub-agent spawn + JSONL mailbox + TaskBoard
+>
+> **s17** &nbsp; *"Need more power? Plug in MCP"* — Multi-transport + unified tool pool + JSON-RPC
+>
+> **s18** &nbsp; *"All mechanisms, one Hermes"* — 18 features fully integrated
+>
+> **s19** &nbsp; *"Set boundaries first, then grant freedom"* — 4-level pipeline: DENY-ASK-SANDBOX-ALLOW
+>
+> **s20** &nbsp; *"Hook around the loop, never rewrite it"* — 8 extension points without touching the loop
+>
+> **s21** &nbsp; *"Each works in its own directory"* — git worktree isolation, zero-copy shared .git
+>
+> **s22** &nbsp; *"An agent without a plan drifts"* — Plan first, execute step by step, DAG dependencies
+>
+> **s23** &nbsp; *"Teammates check the board, claim work themselves"* — Idle loop + skill matching + auto-claim
+>
+> **s24** &nbsp; *"Prompts are assembled, not hardcoded"* — Section-based composition + conditional injection
 
 ---
 
@@ -176,6 +200,18 @@ The loop never changes. Self-evolution mechanisms hang on before and after the l
 | [s10](./s10_insights/) | Insights Engine | token stats / cost analysis / patterns |
 | [s11](./s11_error_recovery/) | Error Recovery | retry / fallback / self-healing |
 | [s12](./s12_comprehensive/) | Complete Self-Evolving Agent | all six layers integrated |
+| [s13](./s13_cron_scheduler/) | Cron Scheduler | scheduled tasks + gateway ticker |
+| [s14](./s14_gateway/) | Gateway | multi-platform routing + delivery |
+| [s15](./s15_profiles/) | Multi-Profile | config isolation + inheritance |
+| [s16](./s16_agent_teams/) | Agent Teams | sub-agent spawn + JSONL mailbox |
+| [s17](./s17_mcp_plugin/) | MCP Plugin | multi-transport + tool pool |
+| [s18](./s18_full_hermes/) | Full Hermes | all features integrated |
+| [s19](./s19_permission/) | Permission System | 4-level approval pipeline |
+| [s20](./s20_hooks/) | Hook System | 8 extension points |
+| [s21](./s21_worktree/) | Worktree Isolation | git worktree per-task isolation |
+| [s22](./s22_planning/) | Planning System | TodoWrite + DAG dependencies |
+| [s23](./s23_autonomous/) | Autonomous Agents | idle loop + auto-claim |
+| [s24](./s24_system_prompt/) | System Prompt | section-based composition |
 
 ---
 
@@ -183,10 +219,10 @@ The loop never changes. Self-evolution mechanisms hang on before and after the l
 
 If you want to read from the teaching code back into production Hermes, start here:
 
-- [Hermes Source Map](docs/hermes-source-map.md) — how the 12 lessons map to the core files in `NousResearch/hermes-agent`
+- [Hermes Source Map](docs/hermes-source-map.md) — how the 24 lessons map to the core files in Hermes Agent
 - [FAQ](docs/faq.md) — positioning, reading order, API keys, and why the teaching version simplifies production mechanisms
 
-Shortest path: run `s12_comprehensive/comprehensive.py` first, then use the source map to read `run_agent.py`, `agent/background_review.py`, `agent/curator.py`, and `agent/memory_manager.py`.
+Shortest path: run any chapter script, then use the source map to read the corresponding production file.
 
 ---
 

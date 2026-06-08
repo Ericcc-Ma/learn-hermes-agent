@@ -102,6 +102,30 @@ Hermes 是 Claude Code 的自进化子系统。它的架构分为六个层次：
 > **s11** &nbsp; *"出错了不是终点，是学习的起点"* — 错误检测、模型降级、自愈策略
 >
 > **s12** &nbsp; *"六层归位，一个会自己进化的 agent"* — 全部机制回到一个完整自进化 agent
+>
+> **s13** &nbsp; *"定好时间，agent 自己醒来干活"* — JSON 文件落盘 + gateway ticker 每 60s 调度
+>
+> **s14** &nbsp; *"一个 gateway，连接所有平台"* — 多平台消息路由 + delivery 分发 + session 管理
+>
+> **s15** &nbsp; *"一套 Hermes，多个人设"* — 独立 profile 隔离模型、技能、平台，支持继承
+>
+> **s16** &nbsp; *"一个搞不定，组队来"* — 子 agent 派生 + JSONL 邮箱 + 任务板自组织
+>
+> **s17** &nbsp; *"能力不够？接上 MCP"* — 多传输 + 工具池统一 + JSON-RPC
+>
+> **s18** &nbsp; *"全部机制，一个完整 Hermes"* — 18 章特性完整集成
+>
+> **s19** &nbsp; *"先划边界，再给自由"* — 四层权限管线：DENY → ASK → SANDBOX → ALLOW
+>
+> **s20** &nbsp; *"挂在循环上，不写进循环里"* — 8 个 hook 扩展点，不改循环代码即可扩展
+>
+> **s21** &nbsp; *"各干各的目录，互不干扰"* — git worktree 并行隔离，零拷贝共享 .git
+>
+> **s22** &nbsp; *"没计划的 agent 走哪算哪"* — 先列计划再执行，任务依赖 DAG + 状态追踪
+>
+> **s23** &nbsp; *"队友自己看板，有活就认领"* — 空闲循环 + 技能匹配 + 自主认领
+>
+> **s24** &nbsp; *"prompt 是拼出来的，不是写死的"* — 分段定义 + 条件注入 + 运行时组装
 
 ---
 
@@ -150,6 +174,18 @@ def agent_loop(messages):
 | [s10](./s10_insights/) | Insights 引擎 | Token 统计 / 成本分析 / 工具模式 / 趋势 |
 | [s11](./s11_error_recovery/) | 错误恢复 | 重试策略 / fallback 模型 / 自愈流程 |
 | [s12](./s12_comprehensive/) | 完整自进化 Agent | 六层架构完整集成 |
+| [s13](./s13_cron_scheduler/) | Cron Scheduler | 定时任务 + gateway ticker + 持久化 |
+| [s14](./s14_gateway/) | Gateway | 多平台消息路由 + delivery 分发 |
+| [s15](./s15_profiles/) | Multi-Profile | 配置隔离 + 继承链 + 独立 gateway |
+| [s16](./s16_agent_teams/) | Agent Teams | 子 agent 派生 + JSONL 邮箱 + 任务板 |
+| [s17](./s17_mcp_plugin/) | MCP Plugin | 多传输 + 工具池组装 + JSON-RPC |
+| [s18](./s18_full_hermes/) | Full Hermes | 全部特性集成 |
+| [s19](./s19_permission/) | Permission System | 四层审批管线 |
+| [s20](./s20_hooks/) | Hook System | 8 个扩展点 |
+| [s21](./s21_worktree/) | Worktree Isolation | git worktree 并行隔离 |
+| [s22](./s22_planning/) | Planning System | TodoWrite + 依赖 DAG |
+| [s23](./s23_autonomous/) | Autonomous Agents | 空闲循环 + 自主认领 |
+| [s24](./s24_system_prompt/) | System Prompt | 分段 + 条件拼接 |
 
 ---
 
@@ -157,7 +193,7 @@ def agent_loop(messages):
 
 如果你想从教学代码读回生产源码，看这份导航：
 
-- [Hermes 源码地图](docs/hermes-source-map.md) — 12 章教程与 `NousResearch/hermes-agent` 核心文件的对应关系
+- [Hermes 源码地图](docs/hermes-source-map.md) — 24 章教程与 Hermes Agent 核心文件的对应关系
 - [FAQ](docs/faq.md) — 项目定位、学习顺序、API Key、教学版简化原因
 
 最短路径：先跑 `s12_comprehensive/comprehensive.py` 看完整效果，再按源码地图读 `run_agent.py`、`agent/background_review.py`、`agent/curator.py`、`agent/memory_manager.py`。
