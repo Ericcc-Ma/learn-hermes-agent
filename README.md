@@ -27,7 +27,7 @@
 建议先跑最终章，直接观察完整闭环：
 
 ```sh
-python s12_comprehensive/code.py
+python s12_comprehensive/comprehensive.py
 ```
 
 试这条输入：
@@ -160,7 +160,7 @@ def agent_loop(messages):
 - [Hermes 源码地图](docs/hermes-source-map.md) — 12 章教程与 `NousResearch/hermes-agent` 核心文件的对应关系
 - [FAQ](docs/faq.md) — 项目定位、学习顺序、API Key、教学版简化原因
 
-最短路径：先跑 `s12_comprehensive/code.py` 看完整效果，再按源码地图读 `run_agent.py`、`agent/background_review.py`、`agent/curator.py`、`agent/memory_manager.py`。
+最短路径：先跑 `s12_comprehensive/comprehensive.py` 看完整效果，再按源码地图读 `run_agent.py`、`agent/background_review.py`、`agent/curator.py`、`agent/memory_manager.py`。
 
 ---
 
@@ -222,13 +222,13 @@ pip install -r requirements.txt
 cp .env.example .env   # 编辑 .env 选择 LLM_PROVIDER 并填入 API Key
 
 # 使用 Anthropic（默认）
-python s01_agent_loop/code.py
+python s01_agent_loop/agent_loop.py
 
 # 使用 DeepSeek
-LLM_PROVIDER=deepseek DEEPSEEK_API_KEY=sk-... MODEL_ID=deepseek-chat python s01_agent_loop/code.py
+LLM_PROVIDER=deepseek DEEPSEEK_API_KEY=sk-... MODEL_ID=deepseek-chat python s01_agent_loop/agent_loop.py
 
 # 使用通义千问
-LLM_PROVIDER=openai_compat LLM_BASE_URL=https://dashscope.aliyuncs.com/compatible-mode/v1 LLM_API_KEY=sk-... python s01_agent_loop/code.py
+LLM_PROVIDER=openai_compat LLM_BASE_URL=https://dashscope.aliyuncs.com/compatible-mode/v1 LLM_API_KEY=sk-... python s01_agent_loop/agent_loop.py
 ```
 
 ---
@@ -249,10 +249,10 @@ LLM_PROVIDER=openai_compat LLM_BASE_URL=https://dashscope.aliyuncs.com/compatibl
 
 ```bash
 # 使用 DeepSeek
-LLM_PROVIDER=deepseek DEEPSEEK_API_KEY=sk-... MODEL_ID=deepseek-chat python s01_agent_loop/code.py
+LLM_PROVIDER=deepseek DEEPSEEK_API_KEY=sk-... MODEL_ID=deepseek-chat python s01_agent_loop/agent_loop.py
 
 # 使用通义千问
-LLM_PROVIDER=openai_compat LLM_BASE_URL=https://dashscope.aliyuncs.com/compatible-mode/v1 LLM_API_KEY=sk-... MODEL_ID=qwen-plus python s01_agent_loop/code.py
+LLM_PROVIDER=openai_compat LLM_BASE_URL=https://dashscope.aliyuncs.com/compatible-mode/v1 LLM_API_KEY=sk-... MODEL_ID=qwen-plus python s01_agent_loop/agent_loop.py
 ```
 
 所有 provider 通过 `LLM_PROVIDER=openai_compat` + 自设 `LLM_BASE_URL` 即可接入任意 OpenAI 兼容接口。

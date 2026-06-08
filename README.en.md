@@ -27,7 +27,7 @@ An agent that perceives, reasons, and acts — that comes from model training. B
 Start with the final chapter to see the full loop:
 
 ```sh
-python s12_comprehensive/code.py
+python s12_comprehensive/comprehensive.py
 ```
 
 Try this input:
@@ -91,10 +91,10 @@ All chapters use a unified `llm.py` module. Switch providers by setting `LLM_PRO
 
 ```bash
 # Use DeepSeek
-LLM_PROVIDER=deepseek DEEPSEEK_API_KEY=sk-... MODEL_ID=deepseek-chat python s01_agent_loop/code.py
+LLM_PROVIDER=deepseek DEEPSEEK_API_KEY=sk-... MODEL_ID=deepseek-chat python s01_agent_loop/agent_loop.py
 
 # Use Qwen
-LLM_PROVIDER=openai_compat LLM_BASE_URL=https://dashscope.aliyuncs.com/compatible-mode/v1 LLM_API_KEY=sk-... python s01_agent_loop/code.py
+LLM_PROVIDER=openai_compat LLM_BASE_URL=https://dashscope.aliyuncs.com/compatible-mode/v1 LLM_API_KEY=sk-... python s01_agent_loop/agent_loop.py
 ```
 
 Any OpenAI-compatible endpoint works via `LLM_PROVIDER=openai_compat` + custom `LLM_BASE_URL`.
@@ -186,7 +186,7 @@ If you want to read from the teaching code back into production Hermes, start he
 - [Hermes Source Map](docs/hermes-source-map.md) — how the 12 lessons map to the core files in `NousResearch/hermes-agent`
 - [FAQ](docs/faq.md) — positioning, reading order, API keys, and why the teaching version simplifies production mechanisms
 
-Shortest path: run `s12_comprehensive/code.py` first, then use the source map to read `run_agent.py`, `agent/background_review.py`, `agent/curator.py`, and `agent/memory_manager.py`.
+Shortest path: run `s12_comprehensive/comprehensive.py` first, then use the source map to read `run_agent.py`, `agent/background_review.py`, `agent/curator.py`, and `agent/memory_manager.py`.
 
 ---
 
@@ -244,13 +244,13 @@ pip install -r requirements.txt
 cp .env.example .env   # Edit: choose LLM_PROVIDER and fill API key
 
 # Use Anthropic (default)
-python s01_agent_loop/code.py
+python s01_agent_loop/agent_loop.py
 
 # Use DeepSeek
-LLM_PROVIDER=deepseek DEEPSEEK_API_KEY=sk-... MODEL_ID=deepseek-chat python s01_agent_loop/code.py
+LLM_PROVIDER=deepseek DEEPSEEK_API_KEY=sk-... MODEL_ID=deepseek-chat python s01_agent_loop/agent_loop.py
 
 # Use Qwen
-LLM_PROVIDER=openai_compat LLM_BASE_URL=https://dashscope.aliyuncs.com/compatible-mode/v1 LLM_API_KEY=sk-... python s01_agent_loop/code.py
+LLM_PROVIDER=openai_compat LLM_BASE_URL=https://dashscope.aliyuncs.com/compatible-mode/v1 LLM_API_KEY=sk-... python s01_agent_loop/agent_loop.py
 ```
 
 ---
