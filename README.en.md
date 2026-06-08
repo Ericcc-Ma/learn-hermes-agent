@@ -101,7 +101,7 @@ Any OpenAI-compatible endpoint works via `LLM_PROVIDER=openai_compat` + custom `
 
 ---
 
-## 12 Progressive Lessons
+## 18 Progressive Lessons
 
 **Each lesson adds one self-evolution mechanism. Each mechanism has a motto.**
 
